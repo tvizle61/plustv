@@ -492,7 +492,7 @@ const categoryIcons = {
     'Yurt Disi': '🌍',
     'Yurt Dışı': '🌍',
     'Youtube': '▶️',
-    'Radyo': '📻',
+    'Youtube': '📻',
     'Diğer': '📺'
 };
 
