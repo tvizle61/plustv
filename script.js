@@ -444,13 +444,13 @@ async function loadChannelsFromM3U() {
                 id: channelId++,
                 name: radio.name,
                 url: radio.url,
-                category: 'Youtube',
+                category: 'Radyo Canlı',
                 tvgId: '',
                 tvgLogo: ''
             });
         });
         
-        allCategories.add('Youtube');
+        allCategories.add('Radyo Canlı');
         
         console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
         console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
