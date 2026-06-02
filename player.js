@@ -31,7 +31,7 @@ const categoryIcons = {
     'Ekonomi': '💰',
     'Yurt Disi': '🌍',
     'Yurt Dışı': '🌍',
-    'Radyo Canlı': '▶️',
+    'Youtube': '▶️',
     'Radyo': '📻',
     'Diğer': '📺'
 };
@@ -49,7 +49,7 @@ const STANDARD_CATEGORIES = [
     { id: 'Çocuk', name: 'Çocuk', icon: '👶' },
     { id: 'Ekonomi', name: 'Ekonomi', icon: '💰' },
     { id: 'Yurt Dışı', name: 'Yurt Dışı', icon: '🌍' },
-    { id: 'Radyo Canlı', name: 'Radyo Canlı', icon: '▶️' }
+    { id: 'Youtube', name: 'Youtube', icon: '▶️' }
 ];
 
 // Kategori eşleştirme (eski -> yeni)
@@ -874,13 +874,13 @@ async function loadChannelsFromM3U() {
                 id: channelId++,
                 name: radio.name,
                 url: radio.url,
-                category: 'Radyo Canlı',
+                category: 'Youtube',
                 tvgId: '',
                 tvgLogo: ''
             });
         });
         
-        allCategories.add('Radyo Canlı');
+        allCategories.add('Youtube');
         
         console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
         console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
@@ -1180,7 +1180,7 @@ function renderSidebarChannels() {
             'Çocuk': 'Çocuk Kanalları',
             'Ekonomi': 'Ekonomi Kanalları',
             'Yurt Dışı': 'Yurt Dışı Kanallar',
-            'Radyo Canlı': 'Radyo Canlı'
+            'Youtube': 'Youtube'
         };
         sidebarCategoryTitle.textContent = categoryNames[currentCategory] || 'Kanallar';
         // Update active category
@@ -1314,7 +1314,7 @@ function renderSidebarChannels() {
 function renderCategorySidebar() {
     if (!categorySidebarList) return;
     
-    const categories = ['all', 'Ulusal', 'Haber', 'Spor', 'Eğlence', 'Müzik', 'Belgesel', 'Dini', 'Çocuk', 'Ekonomi', 'Yurt Dışı', 'Radyo Canlı'];
+    const categories = ['all', 'Ulusal', 'Haber', 'Spor', 'Eğlence', 'Müzik', 'Belgesel', 'Dini', 'Çocuk', 'Ekonomi', 'Yurt Dışı', 'Youtube'];
     const categoryNames = {
         'all': 'Tümü',
         'Ulusal': 'Ulusal',
@@ -1327,7 +1327,7 @@ function renderCategorySidebar() {
         'Çocuk': 'Çocuk',
         'Ekonomi': 'Ekonomi',
         'Yurt Dışı': 'Yurt Dışı',
-        'Radyo Canlı': 'Radyo Canlı'
+        'Youtube': 'Youtube'
     };
     
     categorySidebarList.innerHTML = '';
