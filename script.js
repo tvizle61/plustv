@@ -824,7 +824,7 @@ function renderChannels() {
         'Çocuk': 'Çocuk Kanalları',
         'Ekonomi': 'Ekonomi Kanalları',
         'Yurt Dışı': 'Yurt Dışı Kanallar',
-        'Radyo Canlı': 'Radyo Canlı'
+        'Youtube': 'Youtube'
     };
     
     if (categoryTitle) {
