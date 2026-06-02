@@ -2581,11 +2581,11 @@ body {
     
     .channel-sidebar-logo,
     .channel-sidebar-logo-placeholder {
-        width: 40px;
-        height: 40px;
+        width: 20px;
+        height: 20px;
     }
     
     .channel-sidebar-name {
-        font-size: 0.8125rem;
+        font-size: 0.6125rem;
     }
 }
