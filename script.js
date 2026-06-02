@@ -444,7 +444,7 @@ async function loadChannelsFromM3U() {
                 id: channelId++,
                 name: radio.name,
                 url: radio.url,
-                category: 'Radyo Canli',
+                category: 'Youtube',
                 tvgId: '',
                 tvgLogo: ''
             });
