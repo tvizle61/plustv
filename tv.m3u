@@ -167,7 +167,7 @@ https://ciner.daioncdn.net/showtv/showtv.m3u8?app=4bc856ef-4c68-4a94-bc87-37dfaa
 #EXTM3U x-tvg-url="https://epg.tvcdn.net/guide/tr-guide.xml"
 #EXTINF:-1 tvg-id="TRT1.tr" tvg-logo="http://assets.tvcdn.net/1045ea2f-2453-451d-a55f-ba17539641dd.png" group-title="Ulusal",TRT 1
 https://trt.daioncdn.net/trt-1/master.m3u8?app=web
-#EXTINF:-1 tvg-id="ATV.tr" tvg-logo="http://assets.tvcdn.net/89a47b4b-5d20-4248-9f4c-a3d2756072dd.png" group-title="Ulusal",ATV
+#EXTINF:-1 tvg-id="ATV.tr" tvg-logo="https://i.hizliresim.com/sl35dyd.jpg" group-title="Ulusal",ATV
 http://116.202.238.88/ATV_TR/tracks-v1a1/index.m3u8
 #EXTINF:-1 tvg-id="ShowTV.tr" tvg-logo="http://assets.tvcdn.net/9d873881-bb5e-40f0-88db-8c47aa215e5a.png" group-title="Ulusal",Show TV
 https://ciner.daioncdn.net/showtv/showtv.m3u8?ce=3&app=4bc856ef-4c68-4a94-bc87-37dfaaa66558
