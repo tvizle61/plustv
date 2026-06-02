@@ -1180,7 +1180,7 @@ function renderSidebarChannels() {
             'Çocuk': 'Çocuk Kanalları',
             'Ekonomi': 'Ekonomi Kanalları',
             'Yurt Dışı': 'Yurt Dışı Kanallar',
-            'Radyo Canlı': 'Radyo Canlı'
+            'Youtube': 'Youtube'
         };
         sidebarCategoryTitle.textContent = categoryNames[currentCategory] || 'Kanallar';
         // Update active category
