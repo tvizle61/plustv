@@ -420,7 +420,7 @@ async function loadChannelsFromM3U() {
         
         // YouTube Radyo kanallarını ekle
         const radioChannels = [
-            { name: 'TRT 1', url: 'https://tv-trt1.medya.trt.com.tr/master.m3u8' },
+            { name: 'TRT 1', url: 'https://pz4qt7nw1mr9sh2vl5xk8jg3y.medya.trt.com.tr/master.m3u8' },
             { name: "Radyo 45'lik", url: 'http://google.com' },
             { name: 'Slow Türk', url: 'https://www.youtube.com/watch?v=tWTHF0r2oEw' },
             { name: 'Kral FM', url: 'https://www.youtube.com/watch?v=A49bKX8gb-8' },
