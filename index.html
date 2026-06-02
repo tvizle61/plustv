@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="screen-orientation" content="auto">
+    <title>PlusTV - Canlı TV İzle</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Arama Çubuğu - En Üstte -->
+        <header class="search-header">
+            <div class="search-container">
+                <button class="zoom-toggle-btn" id="zoomToggleBtn" title="Tam ekran">
+                    <svg class="fullscreen-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                    </svg>
+                    <svg class="fullscreen-exit-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                        <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
+                    </svg>
+                </button>
+                <div class="view-menu-container">
+                    <button class="view-menu-btn" id="viewMenuBtn" title="Görünüm Değiştir">
+                        <svg id="viewIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="8" y1="6" x2="21" y2="6"></line>
+                                <line x1="8" y1="12" x2="21" y2="12"></line>
+                                <line x1="8" y1="18" x2="21" y2="18"></line>
+                                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                <div class="color-picker-container">
+                    <button class="color-picker-btn" data-color="red" title="Kırmızı Tema" style="background: #ef4444;"></button>
+                    <button class="color-picker-btn" data-color="blue" title="Mavi Tema" style="background: #3b82f6;"></button>
+                    <button class="color-picker-btn" data-color="purple" title="Mor Tema" style="background: #6366f1;"></button>
+                    <button class="color-picker-btn" data-color="turquoise" title="Turkuaz Tema" style="background: #06b6d4;"></button>
+                    <button class="color-picker-btn" data-color="gray" title="Gri Tema" style="background: #6b7280;"></button>
+                    <button class="color-picker-btn" data-color="brown" title="Kahverengi Tema" style="background: #a16207;"></button>
+                </div>
+                <div class="search-box">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Kanal ara...">
+                    <button class="clear-search" id="clearSearch" style="display: none;">✕</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Kategori Kutucukları -->
+        <section class="categories-section">
+            <div class="categories-container">
+                <div class="category-card" data-category="all">
+                    <div class="category-icon">📺</div>
+                    <div class="category-name">Tümü</div>
+                </div>
+                <!-- Diğer kategoriler otomatik olarak M3U dosyalarından algılanacak -->
+            </div>
+        </section>
+
+        <!-- Kanallar Bölümü -->
+        <section class="channels-section" id="channelsSection">
+            <div class="channels-header">
+                <h2 id="categoryTitle">Tüm Kanallar</h2>
+                <span id="channelCount" class="channel-count"></span>
+            </div>
+            <div class="channels-grid" id="channelsGrid">
+                <!-- Kanallar buraya eklenecek -->
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

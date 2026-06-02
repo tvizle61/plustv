@@ -1,0 +1,2591 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --primary-light: #818cf8;
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --bg-hover: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --border: #334155;
+    --success: #10b981;
+    --danger: #ef4444;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --shadow-lg: rgba(0, 0, 0, 0.5);
+}
+
+/* Color Themes */
+:root[data-theme="red"] {
+    --primary: #ef4444;
+    --primary-dark: #dc2626;
+    --primary-light: #f87171;
+    --bg-dark: #1a0f0f;
+    --bg-card: #2a1515;
+    --bg-hover: #3a1f1f;
+    --border: #3a1f1f;
+    --bg-gradient: linear-gradient(135deg, #1a0f0f 0%, #2a1515 100%);
+}
+
+:root[data-theme="blue"] {
+    --primary: #3b82f6;
+    --primary-dark: #2563eb;
+    --primary-light: #60a5fa;
+    --bg-dark: #0f141a;
+    --bg-card: #1a2333;
+    --bg-hover: #2a3344;
+    --border: #2a3344;
+    --bg-gradient: linear-gradient(135deg, #0f141a 0%, #1a2333 100%);
+}
+
+:root[data-theme="purple"] {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --primary-light: #818cf8;
+    --bg-dark: #0f0f1a;
+    --bg-card: #1a1a2e;
+    --bg-hover: #2a2a3e;
+    --border: #2a2a3e;
+    --bg-gradient: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+}
+
+:root[data-theme="turquoise"] {
+    --primary: #06b6d4;
+    --primary-dark: #0891b2;
+    --primary-light: #22d3ee;
+    --bg-dark: #0a1416;
+    --bg-card: #152428;
+    --bg-hover: #253438;
+    --border: #253438;
+    --bg-gradient: linear-gradient(135deg, #0a1416 0%, #152428 100%);
+}
+
+:root[data-theme="gray"] {
+    --primary: #6b7280;
+    --primary-dark: #4b5563;
+    --primary-light: #9ca3af;
+    --bg-dark: #0f0f0f;
+    --bg-card: #1a1a1a;
+    --bg-hover: #2a2a2a;
+    --border: #2a2a2a;
+    --bg-gradient: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+}
+
+:root[data-theme="brown"] {
+    --primary: #a16207;
+    --primary-dark: #854d0e;
+    --primary-light: #ca8a04;
+    --bg-dark: #1a140f;
+    --bg-card: #2a1f15;
+    --bg-hover: #3a2f25;
+    --border: #3a2f25;
+    --bg-gradient: linear-gradient(135deg, #1a140f 0%, #2a1f15 100%);
+}
+
+html, body {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg-gradient, var(--bg-dark));
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    /* Optimize for responsive performance */
+    will-change: contents;
+    contain: layout style;
+}
+
+/* Arama Header - Araç Multimedya Optimizasyonu */
+.search-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg-card);
+    border-bottom: 2px solid var(--border);
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 4px 12px var(--shadow-lg);
+    /* Optimize for responsive performance */
+    will-change: transform;
+    contain: layout style paint;
+}
+
+.search-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    box-sizing: border-box;
+}
+
+.zoom-toggle-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: var(--bg-dark);
+    border: 3px solid var(--border);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    padding: 0;
+    min-width: 56px;
+    min-height: 56px;
+}
+
+.zoom-toggle-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+.zoom-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+.zoom-toggle-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.view-menu-container {
+    position: relative;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.color-picker-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.color-picker-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: 3px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    position: relative;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.color-picker-btn:hover {
+    transform: scale(1.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.color-picker-btn.active {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary);
+    transform: scale(1.15);
+}
+
+.color-picker-btn.active::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.search-box {
+    position: relative;
+    flex: 1;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    width: 24px;
+    height: 24px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 1rem 1.25rem 1rem 3.5rem;
+    background: var(--bg-dark);
+    border: 3px solid var(--border);
+    border-radius: 14px;
+    color: var(--text-primary);
+    font-size: 1.125rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    min-height: 56px;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: var(--bg-card);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
+
+.clear-search {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1.2rem;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    z-index: 2;
+}
+
+.clear-search:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+/* Kategoriler Bölümü - Araç Multimedya Optimizasyonu */
+.categories-section {
+    width: 100%;
+    padding: 1rem 1.5rem 0.75rem 1.5rem;
+    background: var(--bg-dark);
+    border-bottom: 2px solid var(--border);
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--bg-dark);
+    box-sizing: border-box;
+    /* Optimize for responsive performance */
+    will-change: scroll-position;
+    contain: layout style;
+}
+
+.categories-section::-webkit-scrollbar {
+    height: 8px;
+}
+
+.categories-section::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+.categories-section::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 3px;
+}
+
+.categories-section::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+.view-menu-btn {
+    background: var(--bg-card);
+    border: 3px solid var(--border);
+    border-radius: 14px;
+    padding: 0.875rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    min-height: 56px;
+}
+
+.view-menu-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+.view-menu-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    stroke-width: 2.5;
+}
+
+
+.categories-container {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: visible;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-bottom: 0.75rem;
+    width: max-content;
+    min-width: 100%;
+}
+
+.category-card {
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 1rem 0.875rem;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 90px;
+    min-width: 90px;
+    max-width: 90px;
+    justify-content: center;
+    flex-shrink: 0;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 16px;
+}
+
+.category-card:hover {
+    transform: translateY(-6px) scale(1.05);
+    border-color: var(--primary);
+    background: linear-gradient(135deg, var(--bg-hover) 0%, rgba(99, 102, 241, 0.1) 100%);
+    box-shadow: 0 12px 24px rgba(99, 102, 241, 0.25);
+}
+
+.category-card:hover::before {
+    opacity: 1;
+}
+
+.category-card.active {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-color: var(--primary);
+    box-shadow: 0 12px 28px rgba(99, 102, 241, 0.5);
+    transform: translateY(-6px) scale(1.05);
+}
+
+.category-card.active::before {
+    opacity: 0;
+}
+
+.category-icon {
+    font-size: 2rem;
+    margin-bottom: 0;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.category-card:hover .category-icon {
+    transform: scale(1.15) rotate(5deg);
+}
+
+.category-card.active .category-icon {
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+    transform: scale(1.1);
+}
+
+.category-name {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    line-height: 1.3;
+    letter-spacing: 0.03em;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.category-card.active .category-name {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Kanallar Bölümü - Araç Multimedya Optimizasyonu */
+.channels-section {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 1.25rem 1.5rem 2.5rem 1.5rem;
+    box-sizing: border-box;
+    /* Optimize for responsive performance */
+    contain: layout style;
+}
+
+.channels-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.channels-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
+}
+
+.channel-count {
+    background: var(--bg-card);
+    padding: 0.625rem 1.25rem;
+    border-radius: 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border: 2px solid var(--border);
+}
+
+.channels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+    contain: layout style paint;
+    will-change: contents;
+}
+
+/* Büyük Kart Görünümü - Araç Multimedya Optimizasyonu */
+.channels-grid.view-large {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25rem;
+}
+
+.channels-grid.view-large .channel-card {
+    min-height: 180px;
+    padding: 1rem;
+}
+
+.channels-grid.view-large .channel-logo,
+.channels-grid.view-large .channel-logo-placeholder {
+    width: 80px;
+    height: 80px;
+}
+
+.channels-grid.view-large .channel-name {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Küçük Kart Görünümü - Araç Multimedya Optimizasyonu */
+.channels-grid.view-small {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.875rem;
+}
+
+.channels-grid.view-small .channel-card {
+    min-height: 130px;
+    padding: 0.75rem;
+}
+
+.channels-grid.view-small .channel-logo,
+.channels-grid.view-small .channel-logo-placeholder {
+    width: 56px;
+    height: 56px;
+}
+
+.channels-grid.view-small .channel-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.channels-grid.view-small .channel-category {
+    font-size: 0.75rem;
+}
+
+/* Liste Görünümü */
+.channels-grid.view-list {
+    grid-template-columns: 1fr;
+    gap: 0.375rem;
+}
+
+.channels-grid.view-list .channel-card {
+    min-height: auto;
+    padding: 0.625rem 0.875rem;
+    flex-direction: row;
+    text-align: left;
+    justify-content: flex-start;
+    gap: 0.75rem;
+}
+
+.channels-grid.view-list .channel-logo,
+.channels-grid.view-list .channel-logo-placeholder {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
+.channels-grid.view-list .channel-name {
+    font-size: 0.8125rem;
+    margin-bottom: 0.125rem;
+    text-align: left;
+}
+
+.channels-grid.view-list .channel-category {
+    font-size: 0.6875rem;
+}
+
+.channels-grid.view-list .channel-info-list {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.channel-card {
+    background: var(--bg-card);
+    border: 3px solid var(--border);
+    border-radius: 14px;
+    padding: 0.875rem;
+    cursor: pointer;
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    will-change: transform;
+    contain: layout style paint;
+    transform: translateZ(0); /* GPU acceleration */
+}
+
+.channel-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(79, 70, 229, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.channel-card:hover {
+    transform: translate3d(0, -3px, 0); /* GPU acceleration - daha hafif hover */
+    border-color: var(--primary);
+    box-shadow: 0 6px 12px var(--shadow-lg);
+}
+
+.channel-card:hover::before {
+    opacity: 1;
+}
+
+.channel-logo {
+    width: 68px;
+    height: 68px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: var(--bg-dark);
+    will-change: opacity;
+    transform: translateZ(0); /* GPU acceleration */
+    padding: 0.25rem;
+    position: relative;
+    z-index: 1;
+}
+
+.channel-logo-placeholder {
+    width: 68px;
+    height: 68px;
+    background: var(--bg-dark);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.channel-name {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    line-height: 1.3;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+}
+
+.channel-category {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+/* Video Modal */
+.video-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.video-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.video-modal-content {
+    width: 95%;
+    max-width: 1400px;
+    position: relative;
+    background: var(--bg-card);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px var(--shadow-lg);
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.close-modal:hover {
+    background: var(--danger);
+    transform: rotate(90deg);
+}
+
+.close-modal:active {
+    transform: rotate(90deg) scale(0.95);
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 aspect ratio */
+    background: #000;
+}
+
+.video-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-dark);
+    z-index: 2;
+}
+
+.placeholder-content {
+    text-align: center;
+}
+
+.placeholder-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.placeholder-content h2 {
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+}
+
+.placeholder-content .telegram-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--primary);
+}
+
+.placeholder-content .telegram-link:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.placeholder-content .brand-name {
+    margin-top: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+.loading-overlay.active {
+    display: flex;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--border);
+    border-top: 4px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-overlay p {
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.video-player,
+.iframe-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    z-index: 1;
+}
+
+.video-info {
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border);
+}
+
+.video-info h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.video-info p {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+/* Tesla Ekranları için Özel Tasarım */
+/* Yatay Mod (Landscape) */
+.tesla-screen.tesla-landscape .app-container {
+    max-width: 100%;
+    padding: 1rem 1.5rem;
+}
+
+.tesla-screen.tesla-landscape .search-header {
+    padding: 1rem 0;
+}
+
+.tesla-screen.tesla-landscape .search-container {
+    max-width: 100%;
+    gap: 1rem;
+}
+
+.tesla-screen.tesla-landscape .categories-section {
+    padding: 0.75rem 0;
+}
+
+.tesla-screen.tesla-landscape .categories-container {
+    gap: 0.5rem;
+    padding-bottom: 0.75rem;
+}
+
+.tesla-screen.tesla-landscape .category-card {
+    min-width: 70px;
+    max-width: 70px;
+    min-height: 70px;
+    padding: 0.625rem;
+}
+
+.tesla-screen.tesla-landscape .category-icon {
+    font-size: 1.5rem;
+}
+
+.tesla-screen.tesla-landscape .category-name {
+    font-size: 0.75rem;
+}
+
+.tesla-screen.tesla-landscape .channels-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.75rem;
+}
+
+.tesla-screen.tesla-landscape .channels-grid.view-large {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.tesla-screen.tesla-landscape .channels-grid.view-small {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 0.5rem;
+}
+
+.tesla-screen.tesla-landscape .channel-card {
+    min-height: 130px;
+    padding: 0.75rem;
+    border-radius: 12px;
+}
+
+.tesla-screen.tesla-landscape .channel-logo,
+.tesla-screen.tesla-landscape .channel-logo-placeholder {
+    width: 60px;
+    height: 60px;
+}
+
+.tesla-screen.tesla-landscape .channel-name {
+    font-size: 0.8125rem;
+}
+
+.tesla-screen.tesla-landscape .channel-category {
+    font-size: 0.6875rem;
+}
+
+/* Dikey Mod (Portrait) */
+.tesla-screen.tesla-portrait .app-container {
+    max-width: 100%;
+    padding: 0.75rem 1rem;
+}
+
+.tesla-screen.tesla-portrait .search-header {
+    padding: 0.75rem 0;
+}
+
+.tesla-screen.tesla-portrait .categories-section {
+    padding: 0.5rem 0;
+}
+
+.tesla-screen.tesla-portrait .categories-container {
+    gap: 0.375rem;
+    padding-bottom: 0.5rem;
+}
+
+.tesla-screen.tesla-portrait .category-card {
+    min-width: 60px;
+    max-width: 60px;
+    min-height: 60px;
+    padding: 0.5rem;
+}
+
+.tesla-screen.tesla-portrait .category-icon {
+    font-size: 1.25rem;
+}
+
+.tesla-screen.tesla-portrait .category-name {
+    font-size: 0.6875rem;
+}
+
+.tesla-screen.tesla-portrait .channels-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.625rem;
+}
+
+.tesla-screen.tesla-portrait .channels-grid.view-large {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.75rem;
+}
+
+.tesla-screen.tesla-portrait .channels-grid.view-small {
+    grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+    gap: 0.5rem;
+}
+
+.tesla-screen.tesla-portrait .channel-card {
+    min-height: 115px;
+    padding: 0.625rem;
+}
+
+.tesla-screen.tesla-portrait .channel-logo,
+.tesla-screen.tesla-portrait .channel-logo-placeholder {
+    width: 54px;
+    height: 54px;
+}
+
+.tesla-screen.tesla-portrait .channel-name {
+    font-size: 0.75rem;
+}
+
+.tesla-screen.tesla-portrait .channel-category {
+    font-size: 0.625rem;
+}
+
+/* Tesla Player Sayfası - Yatay Mod */
+.tesla-screen.tesla-landscape .player-page {
+    height: 100vh;
+}
+
+.tesla-screen.tesla-landscape .player-categories-section {
+    padding: 0.875rem 1rem 0.625rem 1rem;
+}
+
+.tesla-screen.tesla-landscape .player-categories-container {
+    gap: 0.625rem;
+    justify-content: flex-end;
+}
+
+.tesla-screen.tesla-landscape .player-categories-section .category-card {
+    min-width: 65px;
+    max-width: 65px;
+    min-height: 65px;
+    padding: 0.625rem;
+}
+
+.tesla-screen.tesla-landscape .player-categories-section .category-icon {
+    font-size: 1.375rem;
+}
+
+.tesla-screen.tesla-landscape .player-categories-section .category-name {
+    font-size: 0.6875rem;
+}
+
+.tesla-screen.tesla-landscape .player-sidebar {
+    width: 320px;
+}
+
+.tesla-screen.tesla-landscape .player-main {
+    flex: 1;
+}
+
+/* Tesla Player Sayfası - Dikey Mod */
+.tesla-screen.tesla-portrait .player-page {
+    height: 100vh;
+    flex-direction: column;
+}
+
+.tesla-screen.tesla-portrait .player-content-wrapper {
+    flex-direction: column;
+    flex: 1;
+}
+
+.tesla-screen.tesla-portrait .player-categories-section {
+    padding: 0.625rem 0.75rem 0.5rem 0.75rem;
+}
+
+.tesla-screen.tesla-portrait .player-categories-container {
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.tesla-screen.tesla-portrait .player-categories-section .category-card {
+    min-width: 58px;
+    max-width: 58px;
+    min-height: 58px;
+    padding: 0.5rem;
+}
+
+.tesla-screen.tesla-portrait .player-categories-section .category-icon {
+    font-size: 1.125rem;
+}
+
+.tesla-screen.tesla-portrait .player-categories-section .category-name {
+    font-size: 0.625rem;
+}
+
+.tesla-screen.tesla-portrait .player-sidebar {
+    width: 100%;
+    max-height: 40vh;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.tesla-screen.tesla-portrait .channels-sidebar-list {
+    max-height: calc(40vh - 120px);
+}
+
+.tesla-screen.tesla-portrait .player-main {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.tesla-screen.tesla-portrait .video-container-player {
+    flex: 1;
+    min-height: 0;
+}
+
+/* Responsive */
+/* Araç Multimedya Ekranları için Optimizasyon - Büyük Ekranlar (1024px+) */
+/* Use min-width first for better performance */
+@media (orientation: landscape) and (min-width: 1024px) and (max-width: 1920px) and (min-height: 600px) and (max-height: 1200px) {
+    .search-header {
+        padding: 1.5rem 2rem;
+    }
+
+    .search-container {
+        gap: 1.5rem;
+        padding: 0 2rem;
+    }
+
+    .zoom-toggle-btn,
+    .view-menu-btn {
+        width: 64px;
+        height: 64px;
+        min-width: 64px;
+        min-height: 64px;
+    }
+
+    .zoom-toggle-btn svg,
+    .view-menu-btn svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .color-picker-btn {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        min-height: 48px;
+    }
+
+    .search-box input {
+        padding: 1.125rem 1.5rem 1.125rem 4rem;
+        font-size: 1.25rem;
+        min-height: 64px;
+    }
+
+    .search-icon {
+        width: 28px;
+        height: 28px;
+        left: 1.5rem;
+    }
+
+    .categories-section {
+        padding: 1.25rem 2rem 1rem 2rem;
+    }
+
+    .category-card {
+        min-height: 90px;
+        min-width: 90px;
+        max-width: 90px;
+        padding: 0.875rem 1rem;
+    }
+
+    .category-icon {
+        font-size: 2rem;
+    }
+
+    .category-name {
+        font-size: 0.875rem;
+    }
+
+    .channels-section {
+        padding: 1.5rem 2rem 3rem 2rem;
+    }
+
+    .channels-header h2 {
+        font-size: 2rem;
+    }
+
+    .channel-count {
+        padding: 0.75rem 1.5rem;
+        font-size: 1.125rem;
+    }
+
+    .channels-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1.25rem;
+    }
+
+    .channels-grid.view-large {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .channels-grid.view-large .channel-card {
+        min-height: 200px;
+        padding: 1.25rem;
+    }
+
+    .channels-grid.view-large .channel-logo,
+    .channels-grid.view-large .channel-logo-placeholder {
+        width: 90px;
+        height: 90px;
+    }
+
+    .channels-grid.view-small {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1rem;
+    }
+
+    .channel-card {
+        padding: 1rem;
+        min-height: 170px;
+        border-radius: 16px;
+    }
+
+    .channel-logo,
+    .channel-logo-placeholder {
+        width: 75px;
+        height: 75px;
+    }
+
+    .channel-name {
+        font-size: 1rem;
+    }
+
+    .channel-category {
+        font-size: 0.8125rem;
+    }
+
+    .categories-container {
+        gap: 0.375rem;
+        padding-bottom: 0.375rem;
+    }
+
+    .category-card {
+        padding: 0.5rem;
+        min-height: 50px;
+        min-width: 48px;
+        max-width: 48px;
+    }
+}
+
+/* Orta Boy Araç Multimedya Ekranları (768px - 1024px) */
+/* Use min-width first for better performance */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .search-header {
+        padding: 1.125rem 1.25rem;
+    }
+
+    .search-container {
+        padding: 0 1.25rem;
+    }
+
+    .zoom-toggle-btn,
+    .view-menu-btn {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+        min-height: 52px;
+    }
+
+    .color-picker-btn {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+    }
+
+    .search-box input {
+        padding: 0.9375rem 1.125rem 0.9375rem 3.25rem;
+        font-size: 1.0625rem;
+        min-height: 52px;
+    }
+
+    .category-card {
+        min-height: 75px;
+        min-width: 75px;
+        max-width: 75px;
+        padding: 0.75rem 0.875rem;
+    }
+
+    .category-icon {
+        font-size: 1.625rem;
+    }
+
+    .category-name {
+        font-size: 0.75rem;
+    }
+
+    .channels-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+
+    .channel-card {
+        min-height: 150px;
+        padding: 0.875rem;
+    }
+
+    .channel-logo,
+    .channel-logo-placeholder {
+        width: 68px;
+        height: 68px;
+    }
+
+    .channel-name {
+        font-size: 0.9375rem;
+    }
+}
+
+/* Tablet and smaller */
+@media (max-width: 1024px) {
+    .categories-container {
+        gap: 0.625rem;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+
+    .category-card {
+        min-width: 70px;
+        max-width: 70px;
+        padding: 0.625rem 0.75rem;
+        min-height: 70px;
+    }
+
+    .category-icon {
+        font-size: 1.5rem;
+    }
+
+    .category-name {
+        font-size: 0.6875rem;
+    }
+}
+
+/* Küçük Araç Multimedya Ekranları (480px - 768px) */
+/* Use min-width first for better performance */
+@media (min-width: 480px) and (max-width: 768px) {
+    .search-header {
+        padding: 1rem 1.125rem;
+    }
+
+    .search-container {
+        padding: 0 1.125rem;
+    }
+
+    .zoom-toggle-btn,
+    .view-menu-btn {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        min-height: 48px;
+    }
+
+    .color-picker-btn {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        min-height: 36px;
+    }
+
+    .search-box input {
+        padding: 0.875rem 1rem 0.875rem 3rem;
+        font-size: 1rem;
+        min-height: 48px;
+    }
+
+    .category-card {
+        min-height: 70px;
+        min-width: 70px;
+        max-width: 70px;
+    }
+
+    .category-icon {
+        font-size: 1.5rem;
+    }
+
+    .channels-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.875rem;
+    }
+
+    .channel-card {
+        min-height: 140px;
+        padding: 0.75rem;
+    }
+
+    .channel-logo,
+    .channel-logo-placeholder {
+        width: 60px;
+        height: 60px;
+    }
+
+    .channel-name {
+        font-size: 0.875rem;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .search-container {
+        gap: 0.75rem;
+        padding: 0 0.75rem;
+    }
+
+    .zoom-toggle-btn,
+    .view-menu-btn {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .view-menu-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .color-picker-container {
+        gap: 0.375rem;
+    }
+
+    .color-picker-btn {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+    }
+
+    .search-box {
+        max-width: 100%;
+    }
+
+    .categories-section {
+        padding: 0.625rem 0.75rem 0.5rem 0.75rem;
+    }
+
+    .categories-container {
+        gap: 0.375rem;
+        padding-bottom: 0.5rem;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+
+    .category-card {
+        padding: 0.5rem;
+        min-height: 55px;
+        min-width: 50px;
+        max-width: 50px;
+    }
+
+    .category-icon {
+        font-size: 1rem;
+    }
+
+    .category-name {
+        font-size: 0.5625rem;
+        line-height: 1.1;
+    }
+
+    .channels-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 0.5rem;
+    }
+
+    .channels-grid.view-large {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .channels-grid.view-small {
+        grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+    }
+
+    .channel-card {
+        padding: 0.5rem;
+        min-height: 105px;
+    }
+
+    .channel-logo,
+    .channel-logo-placeholder {
+        width: 48px;
+        height: 48px;
+    }
+
+    .channel-name {
+        font-size: 0.875rem;
+    }
+
+    .video-modal-content {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+
+    .close-modal {
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 36px;
+        height: 36px;
+        font-size: 0.875rem;
+    }
+
+
+    .channels-header h2 {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-container {
+        padding: 0 0.75rem;
+    }
+
+    .search-box input {
+        padding: 0.75rem 0.875rem 0.75rem 2.5rem;
+        font-size: 0.9375rem;
+    }
+
+    .color-picker-container {
+        gap: 0.25rem;
+    }
+
+    .color-picker-btn {
+        width: 24px;
+        height: 24px;
+    }
+
+    .color-picker-btn.active::after {
+        font-size: 12px;
+    }
+
+    .categories-section {
+        padding: 0.5rem 0.5rem 0.375rem 0.5rem;
+    }
+
+    .categories-container {
+        gap: 0.25rem;
+        padding-bottom: 0.5rem;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+
+    .category-card {
+        padding: 0.375rem;
+        min-height: 50px;
+        min-width: 48px;
+        max-width: 48px;
+    }
+
+    .category-icon {
+        font-size: 0.875rem;
+    }
+
+    .category-name {
+        font-size: 0.5rem;
+        line-height: 1;
+    }
+
+    .channels-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .channel-card {
+        min-height: 140px;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+    .search-container {
+        padding: 0 0.5rem;
+    }
+
+    .categories-section {
+        padding: 0.5rem 0.375rem 0.375rem 0.375rem;
+    }
+
+    .categories-container {
+        gap: 0.25rem;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+
+    .category-card {
+        padding: 0.375rem;
+        min-height: 48px;
+        min-width: 45px;
+        max-width: 45px;
+    }
+
+    .category-icon {
+        font-size: 0.8125rem;
+    }
+
+    .category-name {
+        font-size: 0.5rem;
+    }
+}
+
+/* Player Page Styles */
+.player-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: var(--bg-dark);
+    position: relative;
+    box-sizing: border-box;
+}
+
+.player-categories-section {
+    padding: 1rem 1.5rem 0.75rem 1.5rem;
+    background: var(--bg-dark);
+    border-bottom: 2px solid var(--border);
+    flex-shrink: 0;
+    /* Optimize for responsive performance */
+    will-change: scroll-position;
+    contain: layout style;
+    /* Touch scrolling için */
+    touch-action: pan-x;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.player-categories-container {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-bottom: 0.5rem;
+    width: 100%;
+    min-width: 0;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--bg-dark);
+    user-select: none;
+    -webkit-user-select: none;
+    /* Touch scrolling için gerekli özellikler */
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: none;
+    /* Momentum scrolling için iOS */
+    -webkit-overflow-scrolling: touch;
+    /* Smooth scrolling */
+    scroll-snap-type: none;
+    /* İçerik genişliğini koru - flex item'ların genişliği içeriğe göre ayarlanacak */
+    box-sizing: border-box;
+}
+
+.player-categories-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.player-categories-container::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+    border-radius: 4px;
+}
+
+.player-categories-container::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.player-categories-container::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* Player Page Category Cards - Base Styles */
+.player-categories-section .category-card {
+    background: var(--bg-card);
+    border: 3px solid var(--border);
+    border-radius: 14px;
+    padding: 0.75rem 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    width: 80px;
+    justify-content: center;
+    flex-shrink: 0;
+    flex-grow: 0;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    /* Touch scrolling için - kartların kendisi scroll'u engellememeli */
+    touch-action: pan-x pan-y;
+    pointer-events: auto;
+}
+
+.player-categories-section .category-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+    background: var(--bg-hover);
+    box-shadow: 0 8px 16px var(--shadow);
+}
+
+.player-categories-section .category-card.active {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-color: var(--primary);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+    transform: translateY(-4px);
+}
+
+.player-categories-section .category-icon {
+    font-size: 1.75rem;
+    margin-bottom: 0;
+    line-height: 1;
+}
+
+.player-categories-section .category-name {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+}
+
+.player-categories-section .category-card.active .category-name {
+    color: white;
+}
+
+/* Player Page Category Cards - Responsive */
+/* Büyük Ekranlar (1024px+) */
+@media (min-width: 1024px) {
+    .player-categories-section {
+        padding: 1.25rem 2rem 1rem 2rem;
+    }
+
+    .player-categories-container {
+        gap: 1rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .player-categories-section .category-card {
+        min-height: 90px;
+        min-width: 90px;
+        max-width: 90px;
+        padding: 0.875rem 1rem;
+    }
+
+    .player-categories-section .category-icon {
+        font-size: 2rem;
+    }
+
+    .player-categories-section .category-name {
+        font-size: 0.875rem;
+    }
+}
+
+/* Orta Ekranlar (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .player-categories-section {
+        padding: 1rem 1.25rem 0.75rem 1.25rem;
+    }
+
+    .player-categories-container {
+        gap: 0.75rem;
+        padding-bottom: 0.625rem;
+    }
+
+    .player-categories-section .category-card {
+        min-height: 75px;
+        min-width: 75px;
+        max-width: 75px;
+        padding: 0.75rem 0.875rem;
+    }
+
+    .player-categories-section .category-icon {
+        font-size: 1.625rem;
+    }
+
+    .player-categories-section .category-name {
+        font-size: 0.75rem;
+    }
+}
+
+/* Küçük Ekranlar (480px - 768px) */
+@media (min-width: 480px) and (max-width: 768px) {
+    .player-categories-section {
+        padding: 0.875rem 1rem 0.625rem 1rem;
+    }
+
+    .player-categories-container {
+        gap: 0.625rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .player-categories-section .category-card {
+        min-height: 70px;
+        min-width: 70px;
+        max-width: 70px;
+        padding: 0.625rem 0.75rem;
+    }
+
+    .player-categories-section .category-icon {
+        font-size: 1.5rem;
+    }
+
+    .player-categories-section .category-name {
+        font-size: 0.6875rem;
+    }
+}
+
+/* Çok Küçük Ekranlar (480px altı) */
+@media (max-width: 480px) {
+    .player-categories-section {
+        padding: 0.75rem 0.875rem 0.5rem 0.875rem;
+    }
+
+    .player-categories-container {
+        flex-wrap: nowrap;
+        gap: 0.5rem;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 0.5rem;
+    }
+    
+    .player-categories-section .category-card {
+        min-height: 65px;
+        min-width: 65px;
+        max-width: 65px;
+        padding: 0.5rem 0.625rem;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+    
+    .player-categories-section .category-icon {
+        font-size: 1.375rem;
+    }
+    
+    .player-categories-section .category-name {
+        font-size: 0.625rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .player-categories-container {
+        flex-wrap: nowrap;
+        gap: 0.2rem;
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
+    
+    .player-categories-section .category-card {
+        min-height: 42px;
+        min-width: 42px;
+        max-width: 42px;
+        padding: 0.3rem;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+    
+    .player-categories-section .category-icon {
+        font-size: 0.8125rem;
+    }
+    
+    .player-categories-section .category-name {
+        font-size: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .player-categories-container {
+        flex-wrap: nowrap;
+        gap: 0.15rem;
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
+    
+    .player-categories-section .category-card {
+        min-height: 38px;
+        min-width: 38px;
+        max-width: 38px;
+        padding: 0.25rem;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+    
+    .player-categories-section .category-icon {
+        font-size: 0.75rem;
+    }
+    
+    .player-categories-section .category-name {
+        font-size: 0.4375rem;
+    }
+}
+
+/* Çok Küçük Ekranlar (360px altı) */
+@media (max-width: 360px) {
+    .player-categories-section {
+        padding: 0.625rem 0.75rem 0.5rem 0.75rem;
+    }
+
+    .player-categories-container {
+        flex-wrap: nowrap;
+        gap: 0.5rem;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary) var(--bg-dark);
+        justify-content: flex-start;
+        padding-bottom: 0.5rem;
+    }
+    
+    .player-categories-section .category-card {
+        min-height: 60px;
+        min-width: 60px;
+        max-width: 60px;
+        padding: 0.5rem;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+    
+    .player-categories-section .category-icon {
+        font-size: 1.25rem;
+    }
+    
+    .player-categories-section .category-name {
+        font-size: 0.5625rem;
+    }
+}
+
+.player-content-wrapper {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    min-height: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.player-sidebar {
+    width: 280px;
+    background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-dark) 100%);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex-shrink: 0;
+    height: 100%;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.1);
+}
+
+
+.sidebar-header {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-dark) 100%);
+    backdrop-filter: blur(10px);
+    justify-content: space-between;
+}
+
+.sidebar-header .zoom-toggle-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--bg-dark);
+    border: 1.5px solid var(--border);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    padding: 0;
+    margin-left: auto;
+}
+
+.sidebar-header .zoom-toggle-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+.sidebar-header .zoom-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+.sidebar-header .zoom-toggle-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.back-btn {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-card) 100%);
+    border: 1.5px solid var(--border);
+    color: var(--text-primary);
+    padding: 0.5rem 0.75rem;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: inherit;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.back-btn:hover {
+    background: linear-gradient(135deg, var(--bg-hover) 0%, var(--bg-card) 100%);
+    border-color: var(--primary);
+    transform: translateX(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.back-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.sidebar-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.sidebar-tabs {
+    display: flex;
+    padding: 0.75rem;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 0.625rem;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-card) 100%);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: inherit;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tab-btn:hover {
+    background: linear-gradient(135deg, var(--bg-hover) 0%, var(--bg-card) 100%);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-color: var(--primary);
+    color: white;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 0 2px var(--primary-light);
+    transform: translateY(-2px);
+    font-weight: 600;
+}
+
+
+.channels-sidebar-list {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0.5rem;
+    min-height: 0;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    scroll-behavior: smooth;
+    contain: layout style paint;
+}
+
+.channel-sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-dark) 100%);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 0.5rem;
+    contain: layout style paint;
+    transform: translateZ(0); /* GPU acceleration */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.channel-sidebar-item:hover {
+    background: linear-gradient(135deg, var(--bg-hover) 0%, var(--bg-card) 100%);
+    border-color: var(--primary);
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.channel-sidebar-item.active {
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+    border-color: var(--primary);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 0 2px var(--primary-light);
+    transform: translateX(4px);
+}
+
+.channel-sidebar-item.active .channel-sidebar-name {
+    color: white;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.channel-sidebar-item.active .channel-sidebar-category {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.channel-sidebar-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.channel-sidebar-logo,
+.channel-sidebar-logo-placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    object-fit: contain;
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-dark) 100%);
+    border: 1.5px solid var(--border);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.channel-sidebar-item:hover .channel-sidebar-logo,
+.channel-sidebar-item:hover .channel-sidebar-logo-placeholder {
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+}
+
+.channel-sidebar-item.active .channel-sidebar-logo,
+.channel-sidebar-item.active .channel-sidebar-logo-placeholder {
+    border-color: var(--primary);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 0 2px var(--primary-light);
+    transform: scale(1.05);
+}
+
+.channel-sidebar-logo-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.channel-sidebar-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.channel-sidebar-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.channel-sidebar-category {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.favorite-sidebar-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+}
+
+.favorite-sidebar-btn:hover {
+    background: var(--bg-hover);
+    color: var(--primary);
+    transform: scale(1.1);
+}
+
+.category-sidebar-item {
+    padding: 0.75rem 1rem;
+    background: var(--bg-dark);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.category-sidebar-item:hover {
+    background: var(--bg-hover);
+    border-color: var(--border);
+}
+
+.category-sidebar-item.active {
+    background: rgba(99, 102, 241, 0.15);
+    border-color: var(--primary);
+}
+
+.category-sidebar-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.player-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+    width: 100%;
+}
+
+.video-container-player {
+    flex: 1;
+    position: relative;
+    background: #000;
+    min-height: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* Responsive için */
+    min-height: 300px;
+    /* Zoom uygulandığında düzgün görünmesi için */
+    box-sizing: border-box;
+    /* Zoom'dan etkilenmemesi için - JavaScript ile ters scale uygulanacak */
+    will-change: transform;
+    /* Ekrandan taşmaması için */
+    contain: layout style paint;
+}
+
+.video-placeholder-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-dark);
+    z-index: 2;
+}
+
+.video-container-player .video-player,
+.video-container-player .iframe-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border: none;
+    outline: none;
+    z-index: 1;
+    object-fit: contain; /* Video içeriğinin tam görünmesi için */
+    background: #000;
+    /* Zoom'dan etkilenmemesi için */
+    min-width: 0;
+    min-height: 0;
+    /* Video içeriğinin çerçeveyi en uygun şekilde doldurması için */
+    object-position: center;
+    /* Ekrandan taşmaması için */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Uygulama içinde video controls'u gizle */
+.video-player.no-controls::-webkit-media-controls,
+.video-player.no-controls::-webkit-media-controls-panel,
+.video-player.no-controls::-webkit-media-controls-play-button,
+.video-player.no-controls::-webkit-media-controls-timeline,
+.video-player.no-controls::-webkit-media-controls-current-time-display,
+.video-player.no-controls::-webkit-media-controls-time-remaining-display,
+.video-player.no-controls::-webkit-media-controls-mute-button,
+.video-player.no-controls::-webkit-media-controls-volume-slider,
+.video-player.no-controls::-webkit-media-controls-fullscreen-button,
+.video-player[data-in-app="true"]::-webkit-media-controls,
+.video-player[data-in-app="true"]::-webkit-media-controls-panel,
+.video-player[data-in-app="true"]::-webkit-media-controls-play-button,
+.video-player[data-in-app="true"]::-webkit-media-controls-timeline,
+.video-player[data-in-app="true"]::-webkit-media-controls-current-time-display,
+.video-player[data-in-app="true"]::-webkit-media-controls-time-remaining-display,
+.video-player[data-in-app="true"]::-webkit-media-controls-mute-button,
+.video-player[data-in-app="true"]::-webkit-media-controls-volume-slider,
+.video-player[data-in-app="true"]::-webkit-media-controls-fullscreen-button {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    width: 0 !important;
+}
+
+/* Video element'inin kendisinde de controls gizleme */
+.video-player.no-controls,
+.video-player[data-in-app="true"] {
+    -webkit-appearance: none;
+}
+
+/* Tüm media controls'u gizle */
+.video-player.no-controls video::-webkit-media-controls-enclosure,
+.video-player[data-in-app="true"] video::-webkit-media-controls-enclosure {
+    display: none !important;
+}
+
+/* Fullscreen modunda video responsive */
+:fullscreen .video-container-player,
+:-webkit-full-screen .video-container-player,
+:-moz-full-screen .video-container-player,
+:-ms-fullscreen .video-container-player {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    background: #000 !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Fullscreen modunda video ve iframe */
+:fullscreen .video-container-player .video-player,
+:-webkit-full-screen .video-container-player .video-player,
+:-moz-full-screen .video-container-player .video-player,
+:-ms-fullscreen .video-container-player .video-player {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    object-fit: contain !important;
+    background: #000 !important;
+    margin: 0 !important;
+    transform: none !important;
+}
+
+:fullscreen .video-container-player .iframe-player,
+:-webkit-full-screen .video-container-player .iframe-player,
+:-moz-full-screen .video-container-player .iframe-player,
+:-ms-fullscreen .video-container-player .iframe-player {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    background: #000 !important;
+    margin: 0 !important;
+    transform: none !important;
+}
+
+/* Fullscreen modunda diğer elementleri gizle */
+:fullscreen .player-sidebar,
+:fullscreen .player-categories-section,
+:-webkit-full-screen .player-sidebar,
+:-webkit-full-screen .player-categories-section,
+:-moz-full-screen .player-sidebar,
+:-moz-full-screen .player-categories-section,
+:-ms-fullscreen .player-sidebar,
+:-ms-fullscreen .player-categories-section {
+    display: none !important;
+}
+
+/* Küçük ekranlarda video player responsive */
+@media (max-width: 768px) {
+    .video-container-player {
+        min-height: 250px;
+        max-height: 70vh;
+    }
+    
+    .video-container-player .video-player,
+    .video-container-player .iframe-player {
+        object-fit: contain;
+        max-width: 100%;
+        max-height: 100%;
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-container-player {
+        min-height: 200px;
+        max-height: 60vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .video-container-player .video-player,
+    .video-container-player .iframe-player {
+        object-fit: contain;
+        width: 100%;
+        height: auto;
+        min-height: 200px;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+@media (max-width: 360px) {
+    .video-container-player {
+        min-height: 180px;
+        max-height: 50vh;
+    }
+    
+    .video-container-player .video-player,
+    .video-container-player .iframe-player {
+        min-height: 180px;
+    }
+}
+
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* Player Page Responsive */
+@media (max-width: 1024px) {
+    .player-sidebar {
+        width: 240px;
+    }
+
+    .player-categories-container {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .player-categories-section {
+        padding: 0.625rem 0.75rem 0.5rem 0.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .player-content-wrapper {
+        flex-direction: column;
+    }
+    
+    .player-sidebar {
+        width: 100%;
+        max-height: 40vh;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+    
+    .player-main {
+        min-height: 60vh;
+    }
+    
+    .video-container-player {
+        flex: 1;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .player-categories-section {
+        padding: 0.625rem 0.75rem 0.5rem 0.75rem;
+    }
+
+    .player-categories-container {
+        gap: 0.375rem;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+    }
+    
+    .player-main {
+        min-height: 50vh;
+        flex: 1;
+    }
+    
+    .channel-sidebar-logo,
+    .channel-sidebar-logo-placeholder {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .channel-sidebar-name {
+        font-size: 0.8125rem;
+    }
+}
