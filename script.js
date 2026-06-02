@@ -450,7 +450,7 @@ async function loadChannelsFromM3U() {
             });
         });
         
-        allCategories.add('Radyo Canlı');
+        allCategories.add('Youtube');
         
         console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
         console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
@@ -491,7 +491,7 @@ const categoryIcons = {
     'Ekonomi': '💰',
     'Yurt Disi': '🌍',
     'Yurt Dışı': '🌍',
-    'Radyo Canlı': '▶️',
+    'Youtube': '▶️',
     'Radyo': '📻',
     'Diğer': '📺'
 };
@@ -509,7 +509,7 @@ const STANDARD_CATEGORIES = [
     { id: 'Çocuk', name: 'Çocuk', icon: '👶' },
     { id: 'Ekonomi', name: 'Ekonomi', icon: '💰' },
     { id: 'Yurt Dışı', name: 'Yurt Dışı', icon: '🌍' },
-    { id: 'Radyo Canlı', name: 'Radyo Canlı', icon: '▶️' }
+    { id: 'Youtube', name: 'Youtube', icon: '▶️' }
 ];
 
 // Kategori eşleştirme (eski -> yeni)
@@ -824,7 +824,7 @@ function renderChannels() {
         'Çocuk': 'Çocuk Kanalları',
         'Ekonomi': 'Ekonomi Kanalları',
         'Yurt Dışı': 'Yurt Dışı Kanallar',
-        'Radyo Canlı': 'Radyo Canlı'
+        'Youtube': 'Youtube'
     };
     
     if (categoryTitle) {
