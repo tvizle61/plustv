@@ -1872,23 +1872,3 @@ function showError(message) {
 }
 
 
- /* --- PROFESYONEL TAM EKRAN BUTONU --- */
-    #fullscreenBtn { 
-        background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-color-darker) 100%);
-        border: 1px solid rgba(255,255,255,0.2); 
-        color: #fff; 
-        padding: 14px 40px;
-        font-size: 17px;
-        letter-spacing: 0.5px;
-        box-shadow: 0 0 15px rgba(0,0,0,0.3);
-        text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    }
-    #fullscreenBtn:hover { 
-        background: linear-gradient(135deg, var(--accent-color-darker) 0%, var(--accent-color) 100%);
-        box-shadow: 0 0 25px rgba(var(--accent-color), 0.6);
-        transform: scale(1.05) translateY(-2px);
-        color: #fff;
-    }
-    [data-theme='polar'] #fullscreenBtn {
-        color: #fff;
-    }
