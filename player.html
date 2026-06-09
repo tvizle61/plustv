@@ -12,9 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
-        /* --- ULTRA KOMPAKT SOL KANAL LİSTESİ STİLLERİ --- */
+        /* --- KANAL İSİMLERİNİN TAM GÖRÜNMESİ İÇİN KORUMALI KOMPAKT SİSTEM --- */
         .player-sidebar {
-            width: 220px !important; 
+            width: 250px !important; /* İsimlerin sığması için genişlik ideal noktaya çekildi */
             padding: 8px !important;
         }
 
@@ -46,11 +46,15 @@
         .channels-sidebar-list .channel-item, 
         #channelsSidebarList > div,
         #channelsSidebarList > button {
-            padding: 6px 8px !important;   
+            display: flex !important;
+            align-items: center !important;
+            padding: 5px 6px !important;   /* İçi kibar tutuldu */
             margin-bottom: 4px !important;  
             border-radius: 5px !important;
-            gap: 8px !important;            
+            gap: 6px !important;            /* Yazıya yer açmak için aralık daraltıldı */
             min-height: auto !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
         }
 
         /* Kanal logolarının boyutu */
@@ -60,30 +64,47 @@
             width: 26px !important;  
             height: 26px !important;
             border-radius: 4px !important;
+            flex-shrink: 0 !important; /* Logonun ezilmesini önler */
         }
 
-        /* Ana kanal ismi */
+        /* Kanal İsmi Kapsayıcı Alanı */
+        .channel-info-wrapper, 
+        .channels-sidebar-list .channel-info,
+        #channelsSidebarList div .info-area {
+            flex-grow: 1 !important;
+            white-space: normal !important; /* Yazının sığmadığında alt satıra geçebilmesini veya esnemesini sağlar */
+            overflow: visible !important;
+            text-overflow: clip !important;
+        }
+
+        /* Ana kanal ismi (Örn: Show Türk, Tabii Spor 1) */
         .channels-sidebar-list .channel-name,
         #channelsSidebarList div .channel-title,
         #channelsSidebarList div h4 {
-            font-size: 11.5px !important; 
+            font-size: 12.5px !important;   /* Okunabilirlik için çok hafif optimize edildi */
             font-weight: 500 !important;
             line-height: 1.2 !important;
+            white-space: nowrap !important; /* Tek satır kalmaya zorlar */
+            overflow: visible !important;   /* Taşmayı gizleyip üç nokta yapmayı engeller */
+            text-overflow: unset !important;/* Üç noktayı tamamen kaldırır */
         }
 
-        /* Altındaki kategori ismi */
+        /* Altındaki kategori ismi (Örn: Ulusal) */
         .channels-sidebar-list .channel-category,
         #channelsSidebarList div .channel-sub,
         #channelsSidebarList div p {
             font-size: 10px !important;  
             opacity: 0.5 !important;
             margin-top: 1px !important;
+            white-space: nowrap !important;
         }
 
         /* Favori Yıldız Butonu */
         .channels-sidebar-list .fav-btn,
         #channelsSidebarList div .star-icon {
             transform: scale(0.75) !important; 
+            flex-shrink: 0 !important; /* Yıldızın sıkışmasını önler */
+            margin-left: auto !important; /* En sağa yaslar */
         }
 
 
@@ -109,33 +130,32 @@
         }
 
 
-        /* --- MİNİMAL VE KÜÇÜLTÜLMÜŞ KONTROL BAR BUTONLARI --- */
+        /* --- MİNİMAL VE KÜÇÜLTÜLMÜŞ KONTROL BAR BUTONLARI (KORUNDU) --- */
         #videoControlsBar {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;                  /* Butonlar arası boşluk daraltıldı */
-            padding: 8px 0;             /* Alt barın yüksekliği azaltıldı */
+            gap: 10px;                  
+            padding: 8px 0;             
             background-color: #111; 
             border-top: 1px solid #222;
             width: 100%;
         }
 
-        /* Standart Geri ve İleri Butonları */
         .player-nav-btn {
             background: #222;
             border: 1px solid rgba(255,255,255,0.1);
             color: #fff;
-            padding: 6px 14px;          /* İçi bayağı bir küçültüldü */
-            font-size: 12px;            /* Yazı boyutu ufaltıldı */
-            border-radius: 4px;         /* Oval köşeler kibarlaştırıldı */
+            padding: 6px 14px;          
+            font-size: 12px;            
+            border-radius: 4px;         
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 6px;
             transition: all 0.2s ease;
             user-select: none;
-            height: 30px;               /* Buton yüksekliği sabitlendi */
+            height: 30px;               
         }
 
         .player-nav-btn:hover {
@@ -143,19 +163,18 @@
             transform: scale(1.02);
         }
 
-        /* Özel Olarak Küçültülmüş Tam Ekran Butonu */
         #fullscreenBtn { 
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); 
             border: 1px solid rgba(255,255,255,0.2); 
             color: #fff; 
-            padding: 6px 18px;          /* Devasa padding değerleri kırpıldı */
-            font-size: 12.5px;          /* Font boyutu diğerleriyle dengelendi */
+            padding: 6px 18px;          
+            font-size: 12.5px;          
             letter-spacing: 0.3px;
             font-weight: 500;
             border-radius: 4px;
             box-shadow: 0 0 10px rgba(0,0,0,0.3);
             text-shadow: 0 1px 1px rgba(0,0,0,0.3);
-            height: 30px;               /* Diğer butonlarla aynı çizgiye getirildi */
+            height: 30px;               
         }
 
         #fullscreenBtn:hover { 
@@ -273,7 +292,6 @@
     <script src="player.js"></script>
 
     <script>
-        // 1. GERÇEK ÇİFT YÖNLÜ TAM EKRAN SİSTEMİ (NATIVE FULLSCREEN)
         function toggleFullscreen() {
             const playerElement = document.getElementById("wholePlayerPage");
             if (!playerElement) return;
@@ -307,7 +325,6 @@
             }
         }
 
-        // 2. KANAL DEĞİŞTİRME FONKSİYONU (İLERİ / GERİ)
         function changeChannel(direction) {
             const listContainer = document.getElementById('channelsSidebarList');
             if (!listContainer) return;
