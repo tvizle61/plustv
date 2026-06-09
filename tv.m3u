@@ -2,40 +2,24 @@
 #EXTINF:-1 tvg-id="bein_sport" tvg-name="BeIN Sport 1" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://seeklogo.com/images/B/bein-sports-1-logo-4E5E4AE6B8-seeklogo.com.png" group-title="BeINSports",BeIN Sport 1
 https://zeus324232.cfd/b1/index.m3u8
 
-#EXTINF:-1 tvg-id="bein_sport" tvg-name="BeIN Sport 1" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://seeklogo.com/images/B/bein-sports-1-logo-4E5E4AE6B8-seeklogo.com.png" group-title="BeINSports",BeIN Sport 1
-https://andro.1286503.xyz/checklist/receptestt.m3u8
 
 #EXTINF:-1 tvg-id="bein_sport" tvg-name="BeIN Sport 2" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://seeklogo.com/images/B/bein-sports-2-logo-56F85DDE25-seeklogo.com.png" group-title="BeINSports",BeIN Sport 2
 https://zeus324232.cfd/b2/index.m3u8
 
-#EXTINF:-1 tvg-id="bein_sport" tvg-name="BeIN Sport 2 Yedek" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://seeklogo.com/images/B/bein-sports-2-logo-56F85DDE25-seeklogo.com.png" group-title="BeINSports",BeIN Sport 2 Yedek
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)
-#EXTVLCOPT:http-referrer=https://justintv.co/
-https://andro.1286503.xyz/checklist/androstreamlivebs2.m3u8
-
 #EXTINF:-1 tvg-id="bein_sport" tvg-name="BeIN Sport 3" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://seeklogo.com/images/B/bein-sports-3-logo-42227D7D66-seeklogo.com.png" group-title="BeINSports",BeIN Sport 3
 https://zeus324232.cfd/b3/index.m3u8
 
-#EXTINF:-1 tvg-id="bein_sport" tvg-name="BeIN Sport 3 Yedek" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://seeklogo.com/images/B/bein-sports-3-logo-42227D7D66-seeklogo.com.png" group-title="BeINSports",BeIN Sport 3 Yedek
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)
-#EXTVLCOPT:http-referrer=https://justintv.co/
-https://andro.1286503.xyz/checklist/androstreamlivebs3.m3u8
+
 
 #EXTINF:-1 tvg-id="bein_sport" tvg-name="BeIN Sport 4" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://i.hizliresim.com/nmb701u.jpg" group-title="BeINSports",BeIN Sport 4
 https://zeus324232.cfd/b4/index.m3u8
 
-#EXTINF:-1 tvg-id="bein_sport" tvg-name="BeIN Sport 4 Yedek" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://i.hizliresim.com/nmb701u.jpg" group-title="BeINSports",BeIN Sport 4 Yedek
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)
-#EXTVLCOPT:http-referrer=https://justintv.co/
-https://andro.1286503.xyz/checklist/androstreamlivebs4.m3u8
+
 
 #EXTINF:-1 tvg-id="bein_sport" tvg-name="BeIN Sport 5" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://i.hizliresim.com/p1vnt5w.jpg" group-title="BeINSports",BeIN Sport 5
 https://zeus324232.cfd/b5/index.m3u8
 
-#EXTINF:-1 tvg-id="bein_sport" tvg-name="BeIN Sport 5 Yedek" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://i.hizliresim.com/p1vnt5w.jpg" group-title="BeINSports",BeIN Sport 5 Yedek
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)
-#EXTVLCOPT:http-referrer=https://justintv.co/
-https://andro.1286503.xyz/checklist/androstreamlivebs5.m3u8
+
 
 #EXTINF:-1 tvg-id="bein_sport" tvg-name="BeIN Sport MAX 1" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://i.hizliresim.com/k6ic0s7.jpg" group-title="BeINSports",BeIN Sport MAX 1
 https://zeus324232.cfd/b1max/index.m3u8
@@ -75,51 +59,6 @@ https://zeus324232.cfd/s1/index.m3u8
 
 #EXTINF:-1 tvg-id="ssport" tvg-name="S Sport 2" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://i.hizliresim.com/bcnszq0.png" group-title="SSports",S Sport 2
 https://zeus324232.cfd/s2/index.m3u8
-
-#EXTINF:-1 tvg-id="ssport" tvg-name="S Sport Plus" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://i.hizliresim.com/qioouyh.png" group-title="SSports",S Sport Plus
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)
-#EXTVLCOPT:http-referrer=https://justintv.co/
-https://andro.1286503.xyz/checklist/androstreamlivessplus1.m3u8
-
-#EXTINF:-1 tvg-id="exxenspor" tvg-name="Exxen Spor 1" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://i.hizliresim.com/ioxh9th.png" group-title="ExxenSpor",Exxen Spor 1
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)
-#EXTVLCOPT:http-referrer=https://justintv.co/
-https://andro.1286503.xyz/checklist/androstreamliveexn1.m3u8
-
-#EXTINF:-1 tvg-id="exxenspor" tvg-name="Exxen Spor 2" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://i.hizliresim.com/ioxh9th.png" group-title="ExxenSpor",Exxen Spor 2
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)
-#EXTVLCOPT:http-referrer=https://justintv.co/
-https://andro.1286503.xyz/checklist/androstreamliveexn2.m3u8
-
-#EXTINF:-1 tvg-id="exxenspor" tvg-name="Exxen Spor 3" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://i.hizliresim.com/ioxh9th.png" group-title="ExxenSpor",Exxen Spor 3
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)
-#EXTVLCOPT:http-referrer=https://justintv.co/
-https://andro.1286503.xyz/checklist/androstreamliveexn3.m3u8
-
-#EXTINF:-1 tvg-id="exxenspor" tvg-name="Exxen Spor 4" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://i.hizliresim.com/ioxh9th.png" group-title="ExxenSpor",Exxen Spor 4
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)
-#EXTVLCOPT:http-referrer=https://justintv.co/
-https://andro.1286503.xyz/checklist/androstreamliveexn4.m3u8
-
-#EXTINF:-1 tvg-id="exxenspor" tvg-name="Exxen Spor 5" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://i.hizliresim.com/ioxh9th.png" group-title="ExxenSpor",Exxen Spor 5
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)
-#EXTVLCOPT:http-referrer=https://justintv.co/
-https://andro.1286503.xyz/checklist/androstreamliveexn5.m3u8
-
-#EXTINF:-1 tvg-id="exxenspor" tvg-name="Exxen Spor 6" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://i.hizliresim.com/ioxh9th.png" group-title="ExxenSpor",Exxen Spor 6
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)
-#EXTVLCOPT:http-referrer=https://justintv.co/
-https://andro.1286503.xyz/checklist/androstreamliveexn6.m3u8
-
-#EXTINF:-1 tvg-id="exxenspor" tvg-name="Exxen Spor 7" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://i.hizliresim.com/ioxh9th.png" group-title="ExxenSpor",Exxen Spor 7
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)
-#EXTVLCOPT:http-referrer=https://justintv.co/
-https://andro.1286503.xyz/checklist/androstreamliveexn7.m3u8
-
-#EXTINF:-1 tvg-id="exxenspor" tvg-name="Exxen Spor 8" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://i.hizliresim.com/ioxh9th.png" group-title="ExxenSpor",Exxen Spor 8
-#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)
-#EXTVLCOPT:http-referrer=https://justintv.co/
-https://andro.1286503.xyz/checklist/androstreamliveexn8.m3u8
 
 #EXTINF:-1 tvg-id="spor_smart" tvg-name="Spor Smart 1" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://i.hizliresim.com/a8c6ywb.jpg" group-title="SporSmart",Spor Smart 1
 https://zeus324232.cfd/smart1/index.m3u8
