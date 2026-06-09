@@ -10,12 +10,67 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <style>
+        /* --- PROFESYONEL TAM EKRAN VE KONTROL BAR STİLLERİ --- */
+        #videoControlsBar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            background-color: #111; /* Resimdeki alt siyah bar rengi */
+            border-top: 1px solid #222;
+            width: 100%;
+        }
+
+        .player-nav-btn {
+            background: #222;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            padding: 10px 25px;
+            font-size: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .player-nav-btn:hover {
+            background: #333;
+            transform: scale(1.02);
+        }
+
+        #fullscreenBtn { 
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); /* Resimdeki mavi buton rengi */
+            border: 1px solid rgba(255,255,255,0.2); 
+            color: #fff; 
+            padding: 14px 40px;
+            font-size: 17px;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+            border-radius: 6px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        #fullscreenBtn:hover { 
+            background: linear-gradient(135deg, #0056b3 0%, #007bff 100%);
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.6);
+            transform: scale(1.05) translateY(-2px);
+            color: #fff;
+        }
+
+        [data-theme='polar'] #fullscreenBtn {
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
     <div class="player-page">
-        <!-- Alt Bar: Sidebar + Player -->
         <div class="player-content-wrapper">
-            <!-- Sol Sidebar - Kanallar Listesi (Kategori Yüksekliği Kadar) -->
             <aside class="player-sidebar">
                 <div class="sidebar-header">
                     <button class="back-btn" id="backBtn" title="Ana Sayfaya Dön">
@@ -41,39 +96,51 @@
                 </div>
                 
                 <div class="channels-sidebar-list" id="channelsSidebarList">
-                    <!-- Kanallar buraya eklenecek -->
-                </div>
+                    </div>
             </aside>
 
-            <!-- Ana Video Player Alanı -->
             <main class="player-main">
-            <!-- Kategoriler Bölümü -->
-            <section class="player-categories-section">
-                <div class="player-categories-container">
-                    <div class="category-card" data-category="all">
-                        <div class="category-icon">📺</div>
-                        <div class="category-name">Tümü</div>
+                <section class="player-categories-section">
+                    <div class="player-categories-container">
+                        <div class="category-card" data-category="all">
+                            <div class="category-icon">📺</div>
+                            <div class="category-name">Tümü</div>
+                        </div>
                     </div>
-                    <!-- Diğer kategoriler JavaScript ile dinamik olarak eklenecek -->
-                </div>
-            </section>
-            <div class="video-container-player" id="videoContainerPlayer">
-                <div class="video-placeholder-player" id="videoPlaceholderPlayer">
-                    <div class="placeholder-content">
-                        <div class="placeholder-icon">📺</div>
-                        <h2>Bir Kanal Seçin</h2>
-                        <p>Sol taraftaki listeden bir kanal seçin</p>
-                        <a href="https://t.me/carautoplus" target="_blank" rel="noopener noreferrer" class="telegram-link">t.me/carautoplus</a>
-                        <p class="brand-name">Auto Car Plus</p>
+                </section>
+
+                <div class="video-container-player" id="videoContainerPlayer">
+                    <div class="video-placeholder-player" id="videoPlaceholderPlayer">
+                        <div class="placeholder-content">
+                            <div class="placeholder-icon">📺</div>
+                            <h2>Bir Kanal Seçin</h2>
+                            <p>Sol taraftaki listeden bir kanal seçin</p>
+                            <a href="https://t.me/carautoplus" target="_blank" rel="noopener noreferrer" class="telegram-link">t.me/carautoplus</a>
+                            <p class="brand-name">Auto Car Plus</p>
+                        </div>
                     </div>
+                    <div class="loading-overlay" id="loadingPlayer">
+                        <div class="spinner"></div>
+                        <p>Yükleniyor...</p>
+                    </div>
+                    <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
+                    <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
                 </div>
-                <div class="loading-overlay" id="loadingPlayer">
-                    <div class="spinner"></div>
-                    <p>Yükleniyor...</p>
+
+                <div id="videoControlsBar">
+                    <button class="player-nav-btn" onclick="changeChannel(-1)">
+                        <span>⏮</span> Geri
+                    </button>
+                    
+                    <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
+                        <span>⛶</span> Tam Ekran
+                    </button>
+                    
+                    <button class="player-nav-btn" onclick="changeChannel(1)">
+                        İleri <span>⏭</span>
+                    </button>
                 </div>
-                <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
-                <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
-            </div>
+
             </main>
         </div>
     </div>
@@ -81,5 +148,3 @@
     <script src="player.js"></script>
 </body>
 </html>
-
-  
