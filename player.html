@@ -12,6 +12,28 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
+        /* --- KATEGORİLERİ SOLA YANAŞTIRMA VE KAYDIRILABİLİR YAPMA --- */
+        .player-categories-section {
+            width: 100%;
+            padding: 10px 0;
+            background-color: transparent;
+            overflow: hidden;
+        }
+
+        .player-categories-container {
+            display: flex;
+            justify-content: flex-start !important; /* Kategorileri kesin olarak SOLA yaslar */
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            overflow-x: auto; /* Sağ tarafa taşan kategorilerin kaydırılabilmesini sağlar */
+            white-space: nowrap;
+            padding-bottom: 5px;
+            /* Mobil tarayıcılar için kaydırma çubuğunu gizler/güzelleştirir */
+            scrollbar-width: thin; 
+            -webkit-overflow-scrolling: touch;
+        }
+
         /* --- PROFESYONEL TAM EKRAN VE KONTROL BAR STİLLERİ --- */
         #videoControlsBar {
             display: flex;
@@ -93,7 +115,8 @@
     </style>
 </head>
 <body>
-    <div class="player-page" id="wholePlayerPage"> <div class="player-content-wrapper">
+    <div class="player-page" id="wholePlayerPage"> 
+        <div class="player-content-wrapper">
             <aside class="player-sidebar">
                 <div class="sidebar-header">
                     <button class="back-btn" id="backBtn" title="Ana Sayfaya Dön">
@@ -126,7 +149,7 @@
                             <div class="category-icon">📺</div>
                             <div class="category-name">Tümü</div>
                         </div>
-                    </div>
+                        </div>
                 </section>
 
                 <div class="video-container-player" id="videoContainerPlayer">
@@ -170,7 +193,6 @@
     <script>
         // 1. GERÇEK ÇİFT YÖNLÜ TAM EKRAN SİSTEMİ (NATIVE FULLSCREEN)
         function toggleFullscreen() {
-            // Tüm sayfayı kaplamak için ana kapsayıcıyı seçiyoruz
             const playerElement = document.getElementById("wholePlayerPage");
             if (!playerElement) return;
 
