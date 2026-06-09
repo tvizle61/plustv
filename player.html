@@ -12,6 +12,62 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
+        /* --- SOL KANAL LİSTESİNİ KÜÇÜLTME VE MODERNLEŞTİRME STİLLERİ --- */
+        .player-sidebar {
+            width: 260px !important; /* Sol menü genişliğini ideal boyuta çektik */
+        }
+
+        /* Kanallar / Favoriler Sekme Butonları */
+        .sidebar-tabs .tab-btn {
+            padding: 8px 12px !important;
+            font-size: 13px !important;
+            border-radius: 6px !important;
+        }
+
+        /* Her bir kanal kartının genel kutusu */
+        .channels-sidebar-list .channel-item, 
+        #channelsSidebarList > div,
+        #channelsSidebarList > button {
+            padding: 8px 10px !important; /* İç boşlukları daralttık */
+            margin-bottom: 6px !important; /* Aralarındaki boşluğu azalttık */
+            border-radius: 8px !important;
+            min-height: auto !important;
+        }
+
+        /* Kanal logolarının boyutu */
+        .channels-sidebar-list .channel-item img,
+        #channelsSidebarList div img,
+        .channels-sidebar-list .channel-logo {
+            width: 32px !important; /* Logolar devasa durmasın diye küçülttük */
+            height: 32px !important;
+            border-radius: 6px !important;
+        }
+
+        /* Ana kanal ismi (Örn: TRT Avaz) */
+        .channels-sidebar-list .channel-name,
+        #channelsSidebarList div .channel-title,
+        #channelsSidebarList div h4 {
+            font-size: 13px !important; /* Yazı boyutunu kibarlaştırdık */
+            font-weight: 500 !important;
+            line-height: 1.2 !important;
+        }
+
+        /* Altındaki kategori ismi (Örn: Ulusal) */
+        .channels-sidebar-list .channel-category,
+        #channelsSidebarList div .channel-sub,
+        #channelsSidebarList div p {
+            font-size: 11px !important; /* Alt yazıyı iyice küçülttük */
+            opacity: 0.6 !important;
+            margin-top: 2px !important;
+        }
+
+        /* Favori Yıldız Butonu */
+        .channels-sidebar-list .fav-btn,
+        #channelsSidebarList div .star-icon {
+            transform: scale(0.85) !important; /* Yıldız ikonunu da kutuya oranla ufattık */
+        }
+
+
         /* --- KATEGORİLERİ SOLA YANAŞTIRMA VE KAYDIRILABİLİR YAPMA --- */
         .player-categories-section {
             width: 100%;
@@ -29,10 +85,10 @@
             overflow-x: auto; /* Sağ tarafa taşan kategorilerin kaydırılabilmesini sağlar */
             white-space: nowrap;
             padding-bottom: 5px;
-            /* Mobil tarayıcılar için kaydırma çubuğunu gizler/güzelleştirir */
             scrollbar-width: thin; 
             -webkit-overflow-scrolling: touch;
         }
+
 
         /* --- PROFESYONEL TAM EKRAN VE KONTROL BAR STİLLERİ --- */
         #videoControlsBar {
@@ -41,7 +97,7 @@
             align-items: center;
             gap: 15px;
             padding: 15px 0;
-            background-color: #111; /* Resimdeki alt siyah bar rengi */
+            background-color: #111; 
             border-top: 1px solid #222;
             width: 100%;
         }
@@ -67,7 +123,7 @@
         }
 
         #fullscreenBtn { 
-            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); /* Resimdeki mavi buton rengi */
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); 
             border: 1px solid rgba(255,255,255,0.2); 
             color: #fff; 
             padding: 14px 40px;
@@ -86,7 +142,7 @@
             color: #fff;
         }
 
-        /* GERÇEK TAM EKRAN MODUNDA ALT BARIN VE BUTONLARIN GÖRÜNMEYE DEVAM ETMESİ İÇİN CSS GÜVENLİĞİ */
+        /* GERÇEK TAM EKRAN MODUNDA ALT BARIN GÜVENLİĞİ */
         :-webkit-full-screen #videoControlsBar {
             position: absolute;
             bottom: 0;
@@ -149,7 +205,7 @@
                             <div class="category-icon">📺</div>
                             <div class="category-name">Tümü</div>
                         </div>
-                        </div>
+                    </div>
                 </section>
 
                 <div class="video-container-player" id="videoContainerPlayer">
@@ -196,7 +252,6 @@
             const playerElement = document.getElementById("wholePlayerPage");
             if (!playerElement) return;
 
-            // Eğer tarayıcı zaten tam ekrandaysa -> TAM EKRANDAN ÇIK
             if (
                 document.fullscreenElement ||
                 document.webkitFullscreenElement ||
@@ -213,7 +268,6 @@
                     document.msExitFullscreen();
                 }
             } 
-            // Eğer tam ekranda değilse -> GERÇEK TAM EKRANA GİR
             else {
                 if (playerElement.requestFullscreen) {
                     playerElement.requestFullscreen();
