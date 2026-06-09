@@ -97,7 +97,7 @@
                 </div>
                 
                 <div class="channels-sidebar-list" id="channelsSidebarList">
-                    </div>
+                </div>
             </aside>
 
             <main class="player-main">
@@ -149,62 +149,57 @@
     <script src="player.js"></script>
 
     <script>
-        // 1. TAM EKRAN AÇMA VE KAPATMA FONKSİYONU
+        // 1. GÜNCELLENMİŞ TAM EKRAN FONKSİYONU (KENDİ BUTONUNUZLA %100 UYUMLU ÇALIŞIR)
         function toggleFullscreen() {
-            // Tam ekran yapılacak element (Video kutusu)
-            const playerElement = document.getElementById("videoContainerPlayer");
-            if (!playerElement) return;
-
-            // Eğer zaten tam ekrandaysa, ÇIK
-            if (
-                document.fullscreenElement ||
-                document.webkitFullscreenElement ||
-                document.mozFullScreenElement ||
-                document.msFullscreenElement
-            ) {
-                if (document.exitFullscreen) document.exitFullscreen();
-                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-                else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
-                else if (document.msExitFullscreen) document.msExitFullscreen();
-            } 
-            // Tam ekranda değilse, GİR
-            else {
-                if (playerElement.requestFullscreen) playerElement.requestFullscreen();
-                else if (playerElement.webkitRequestFullscreen) playerElement.webkitRequestFullscreen();
-                else if (playerElement.mozRequestFullScreen) playerElement.mozRequestFullScreen();
-                else if (playerElement.msRequestFullscreen) playerElement.msRequestFullscreen();
+            const systemZoomBtn = document.getElementById("zoomToggleBtn");
+            
+            if (systemZoomBtn) {
+                // Sitenizin orijinal player.js içindeki hazır tam ekran sistemini tetikler.
+                // Bu sayede hem tam ekrana girer, hem de tekrar basınca sorunsuz çıkar.
+                systemZoomBtn.click();
+            } else {
+                // Eğer üstteki buton bir şekilde yüklenmezse güvenli alternatif devreye girer:
+                if (
+                    document.fullscreenElement ||
+                    document.webkitFullscreenElement ||
+                    document.mozFullScreenElement ||
+                    document.msFullscreenElement
+                ) {
+                    if (document.exitFullscreen) document.exitFullscreen();
+                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                    else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+                    else if (document.msExitFullscreen) document.msExitFullscreen();
+                } else {
+                    const playerElement = document.getElementById("videoContainerPlayer");
+                    if (!playerElement) return;
+                    if (playerElement.requestFullscreen) playerElement.requestFullscreen();
+                    else if (playerElement.webkitRequestFullscreen) playerElement.webkitRequestFullscreen();
+                    else if (playerElement.mozRequestFullScreen) playerElement.mozRequestFullScreen();
+                    else if (playerElement.msRequestFullscreen) playerElement.msRequestFullscreen();
+                }
             }
         }
 
         // 2. KANAL DEĞİŞTİRME FONKSİYONU (İLERİ / GERİ)
         function changeChannel(direction) {
-            // Sol taraftaki listede bulunan tüm tıklanabilir kanal elementlerini topluyoruz
             const listContainer = document.getElementById('channelsSidebarList');
             if (!listContainer) return;
 
-            // Liste içerisindeki tüm çocuk elementleri (kanalları) diziye çevir
             const channels = Array.from(listContainer.children);
             if (channels.length === 0) return;
 
-            // Şu an aktif olan kanalı 'active' class'ına göre bul
             let currentIndex = channels.findIndex(ch => ch.classList.contains('active'));
-
-            // Yeni kanalın sırasını hesapla
             let nextIndex = currentIndex + direction;
 
-            // Sınır kontrolü (Döngüsel geçiş)
             if (nextIndex >= channels.length) {
-                nextIndex = 0; // Son kanaldan sonra ileri denirse ilk kanala dön
+                nextIndex = 0; 
             } else if (nextIndex < 0) {
-                nextIndex = channels.length - 1; // İlk kanaldan önce geri denirse son kanala git
+                nextIndex = channels.length - 1; 
             }
 
-            // Hedef kanalı seç ve tıkla
             const targetChannel = channels[nextIndex];
             if (targetChannel) {
-                targetChannel.click(); // Otomatik tıklayarak oynatıcıyı tetikler
-                
-                // Sol menüyü tıklanan kanala doğru otomatik kaydır
+                targetChannel.click(); 
                 targetChannel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         }
