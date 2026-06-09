@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="screen-orientation" content="auto">
+    <title>PlusTV - Video Player</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+    <div class="player-page">
+        <!-- Alt Bar: Sidebar + Player -->
+        <div class="player-content-wrapper">
+            <!-- Sol Sidebar - Kanallar Listesi (Kategori Yüksekliği Kadar) -->
+            <aside class="player-sidebar">
+                <div class="sidebar-header">
+                    <button class="back-btn" id="backBtn" title="Ana Sayfaya Dön">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        <span>Geri</span>
+                    </button>
+                    <h3 id="sidebarCategoryTitle">Kanallar</h3>
+                    <button class="zoom-toggle-btn" id="zoomToggleBtn" title="Tam ekran">
+                        <svg class="fullscreen-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                        </svg>
+                        <svg class="fullscreen-exit-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                            <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="sidebar-tabs">
+                    <button class="tab-btn active" data-tab="channels">Kanallar</button>
+                    <button class="tab-btn" data-tab="favorites">⭐ Favoriler</button>
+                </div>
+                
+                <div class="channels-sidebar-list" id="channelsSidebarList">
+                    <!-- Kanallar buraya eklenecek -->
+                </div>
+            </aside>
+
+            <!-- Ana Video Player Alanı -->
+            <main class="player-main">
+            <!-- Kategoriler Bölümü -->
+            <section class="player-categories-section">
+                <div class="player-categories-container">
+                    <div class="category-card" data-category="all">
+                        <div class="category-icon">📺</div>
+                        <div class="category-name">Tümü</div>
+                    </div>
+                    <!-- Diğer kategoriler JavaScript ile dinamik olarak eklenecek -->
+                </div>
+            </section>
+            <div class="video-container-player" id="videoContainerPlayer">
+                <div class="video-placeholder-player" id="videoPlaceholderPlayer">
+                    <div class="placeholder-content">
+                        <div class="placeholder-icon">📺</div>
+                        <h2>Bir Kanal Seçin</h2>
+                        <p>Sol taraftaki listeden bir kanal seçin</p>
+                        <a href="https://t.me/carautoplus" target="_blank" rel="noopener noreferrer" class="telegram-link">t.me/carautoplus</a>
+                        <p class="brand-name">Auto Car Plus</p>
+                    </div>
+                </div>
+                <div class="loading-overlay" id="loadingPlayer">
+                    <div class="spinner"></div>
+                    <p>Yükleniyor...</p>
+                </div>
+                <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
+                <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
+            </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="player.js"></script>
+</body>
+</html>
+
+  
