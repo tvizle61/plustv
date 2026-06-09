@@ -12,44 +12,25 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
-        /* --- ULTRA KOMPAKT SOL KANAL LİSTESİ STİLLERİ --- */
+        /* --- SOL KANAL LİSTESİNİ KÜÇÜLTME VE MODERNLEŞTİRME STİLLERİ --- */
         .player-sidebar {
-            width: 180px !important; /* Genişlik 260px'den 220px'e düşürüldü */
-            padding: 6px !important;
-        }
-
-        /* Sidebar Üst Başlık Alanı */
-        .sidebar-header {
-            margin-bottom: 8px !important;
-            gap: 5px !important;
-        }
-        .sidebar-header h3 {
-            font-size: 13px !important;
-        }
-        .back-btn, .zoom-toggle-btn {
-            padding: 5px !important;
-            font-size: 11px !important;
+            width: 260px !important; /* Sol menü genişliğini ideal boyuta çektik */
         }
 
         /* Kanallar / Favoriler Sekme Butonları */
-        .sidebar-tabs {
-            gap: 4px !important;
-            margin-bottom: 8px !important;
-        }
         .sidebar-tabs .tab-btn {
-            padding: 6px 10px !important; /* Buton içi daraltıldı */
-            font-size: 12px !important;    /* Yazı ufaltıldı */
-            border-radius: 4px !important;
+            padding: 8px 12px !important;
+            font-size: 13px !important;
+            border-radius: 6px !important;
         }
 
-        /* Her bir kanal kutusu (Kartı) */
+        /* Her bir kanal kartının genel kutusu */
         .channels-sidebar-list .channel-item, 
         #channelsSidebarList > div,
         #channelsSidebarList > button {
-            padding: 6px 8px !important;   /* İçi iyice daraltıldı */
-            margin-bottom: 4px !important;  /* Kanallar arası boşluk minimuma indirildi */
-            border-radius: 5px !important;
-            gap: 8px !important;            /* Logo ile yazı arası sıkılaştırıldı */
+            padding: 8px 10px !important; /* İç boşlukları daralttık */
+            margin-bottom: 6px !important; /* Aralarındaki boşluğu azalttık */
+            border-radius: 8px !important;
             min-height: auto !important;
         }
 
@@ -57,16 +38,16 @@
         .channels-sidebar-list .channel-item img,
         #channelsSidebarList div img,
         .channels-sidebar-list .channel-logo {
-            width: 26px !important;  /* Logolar 32px'den 26px'e düşürüldü */
-            height: 26px !important;
-            border-radius: 4px !important;
+            width: 32px !important; /* Logolar devasa durmasın diye küçülttük */
+            height: 32px !important;
+            border-radius: 6px !important;
         }
 
         /* Ana kanal ismi (Örn: TRT Avaz) */
         .channels-sidebar-list .channel-name,
         #channelsSidebarList div .channel-title,
         #channelsSidebarList div h4 {
-            font-size: 11.5px !important; /* Yazı boyutu tam kıvama getirildi */
+            font-size: 13px !important; /* Yazı boyutunu kibarlaştırdık */
             font-weight: 500 !important;
             line-height: 1.2 !important;
         }
@@ -75,15 +56,15 @@
         .channels-sidebar-list .channel-category,
         #channelsSidebarList div .channel-sub,
         #channelsSidebarList div p {
-            font-size: 10px !important;  /* Alt kategori bilgisi küçültüldü */
-            opacity: 0.5 !important;
-            margin-top: 1px !important;
+            font-size: 11px !important; /* Alt yazıyı iyice küçülttük */
+            opacity: 0.6 !important;
+            margin-top: 2px !important;
         }
 
         /* Favori Yıldız Butonu */
         .channels-sidebar-list .fav-btn,
         #channelsSidebarList div .star-icon {
-            transform: scale(0.75) !important; /* Yıldız boyutu kutuya göre dengelendi */
+            transform: scale(0.85) !important; /* Yıldız ikonunu da kutuya oranla ufattık */
         }
 
 
@@ -97,11 +78,11 @@
 
         .player-categories-container {
             display: flex;
-            justify-content: flex-start !important; 
+            justify-content: flex-start !important; /* Kategorileri kesin olarak SOLA yaslar */
             align-items: center;
             gap: 10px;
             width: 100%;
-            overflow-x: auto; 
+            overflow-x: auto; /* Sağ tarafa taşan kategorilerin kaydırılabilmesini sağlar */
             white-space: nowrap;
             padding-bottom: 5px;
             scrollbar-width: thin; 
@@ -161,7 +142,7 @@
             color: #fff;
         }
 
-        /* GERÇEK TAM EKRAN KONTROLLERİ */
+        /* GERÇEK TAM EKRAN MODUNDA ALT BARIN GÜVENLİĞİ */
         :-webkit-full-screen #videoControlsBar {
             position: absolute;
             bottom: 0;
@@ -195,14 +176,14 @@
             <aside class="player-sidebar">
                 <div class="sidebar-header">
                     <button class="back-btn" id="backBtn" title="Ana Sayfaya Dön">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M19 12H5M12 19l-7-7 7-7"/>
                         </svg>
                         <span>Geri</span>
                     </button>
                     <h3 id="sidebarCategoryTitle">Kanallar</h3>
                     <button class="zoom-toggle-btn" id="zoomToggleBtn" title="Genişlet">
-                        <svg class="fullscreen-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg class="fullscreen-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
                         </svg>
                     </button>
@@ -214,7 +195,7 @@
                 </div>
                 
                 <div class="channels-sidebar-list" id="channelsSidebarList">
-                    </div>
+                </div>
             </aside>
 
             <main class="player-main">
