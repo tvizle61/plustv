@@ -64,14 +64,36 @@
             color: #fff;
         }
 
+        /* GERÇEK TAM EKRAN MODUNDA ALT BARIN VE BUTONLARIN GÖRÜNMEYE DEVAM ETMESİ İÇİN CSS GÜVENLİĞİ */
+        :-webkit-full-screen #videoControlsBar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 2147483647;
+            background: rgba(17, 17, 17, 0.9);
+        }
+        :-ms-fullscreen #videoControlsBar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 2147483647;
+            background: rgba(17, 17, 17, 0.9);
+        }
+        :fullscreen #videoControlsBar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 2147483647;
+            background: rgba(17, 17, 17, 0.9);
+        }
+
         [data-theme='polar'] #fullscreenBtn {
             color: #fff;
         }
     </style>
 </head>
 <body>
-    <div class="player-page">
-        <div class="player-content-wrapper">
+    <div class="player-page" id="wholePlayerPage"> <div class="player-content-wrapper">
             <aside class="player-sidebar">
                 <div class="sidebar-header">
                     <button class="back-btn" id="backBtn" title="Ana Sayfaya Dön">
@@ -81,12 +103,9 @@
                         <span>Geri</span>
                     </button>
                     <h3 id="sidebarCategoryTitle">Kanallar</h3>
-                    <button class="zoom-toggle-btn" id="zoomToggleBtn" title="Tam ekran">
+                    <button class="zoom-toggle-btn" id="zoomToggleBtn" title="Genişlet">
                         <svg class="fullscreen-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-                        </svg>
-                        <svg class="fullscreen-exit-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
-                            <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
                         </svg>
                     </button>
                 </div>
@@ -97,7 +116,7 @@
                 </div>
                 
                 <div class="channels-sidebar-list" id="channelsSidebarList">
-                    </div>
+                </div>
             </aside>
 
             <main class="player-main">
@@ -149,62 +168,63 @@
     <script src="player.js"></script>
 
     <script>
-        // 1. TAM EKRAN AÇMA VE KAPATMA FONKSİYONU
+        // 1. GERÇEK ÇİFT YÖNLÜ TAM EKRAN SİSTEMİ (NATIVE FULLSCREEN)
         function toggleFullscreen() {
-            // Tam ekran yapılacak element (Video kutusu)
-            const playerElement = document.getElementById("videoContainerPlayer");
+            // Tüm sayfayı kaplamak için ana kapsayıcıyı seçiyoruz
+            const playerElement = document.getElementById("wholePlayerPage");
             if (!playerElement) return;
 
-            // Eğer zaten tam ekrandaysa, ÇIK
+            // Eğer tarayıcı zaten tam ekrandaysa -> TAM EKRANDAN ÇIK
             if (
                 document.fullscreenElement ||
                 document.webkitFullscreenElement ||
                 document.mozFullScreenElement ||
                 document.msFullscreenElement
             ) {
-                if (document.exitFullscreen) document.exitFullscreen();
-                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-                else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
-                else if (document.msExitFullscreen) document.msExitFullscreen();
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
             } 
-            // Tam ekranda değilse, GİR
+            // Eğer tam ekranda değilse -> GERÇEK TAM EKRANA GİR
             else {
-                if (playerElement.requestFullscreen) playerElement.requestFullscreen();
-                else if (playerElement.webkitRequestFullscreen) playerElement.webkitRequestFullscreen();
-                else if (playerElement.mozRequestFullScreen) playerElement.mozRequestFullScreen();
-                else if (playerElement.msRequestFullscreen) playerElement.msRequestFullscreen();
+                if (playerElement.requestFullscreen) {
+                    playerElement.requestFullscreen();
+                } else if (playerElement.webkitRequestFullscreen) {
+                    playerElement.webkitRequestFullscreen();
+                } else if (playerElement.mozRequestFullScreen) {
+                    playerElement.mozRequestFullScreen();
+                } else if (playerElement.msRequestFullscreen) {
+                    playerElement.msRequestFullscreen();
+                }
             }
         }
 
         // 2. KANAL DEĞİŞTİRME FONKSİYONU (İLERİ / GERİ)
         function changeChannel(direction) {
-            // Sol taraftaki listede bulunan tüm tıklanabilir kanal elementlerini topluyoruz
             const listContainer = document.getElementById('channelsSidebarList');
             if (!listContainer) return;
 
-            // Liste içerisindeki tüm çocuk elementleri (kanalları) diziye çevir
             const channels = Array.from(listContainer.children);
             if (channels.length === 0) return;
 
-            // Şu an aktif olan kanalı 'active' class'ına göre bul
             let currentIndex = channels.findIndex(ch => ch.classList.contains('active'));
-
-            // Yeni kanalın sırasını hesapla
             let nextIndex = currentIndex + direction;
 
-            // Sınır kontrolü (Döngüsel geçiş)
             if (nextIndex >= channels.length) {
-                nextIndex = 0; // Son kanaldan sonra ileri denirse ilk kanala dön
+                nextIndex = 0; 
             } else if (nextIndex < 0) {
-                nextIndex = channels.length - 1; // İlk kanaldan önce geri denirse son kanala git
+                nextIndex = channels.length - 1; 
             }
 
-            // Hedef kanalı seç ve tıkla
             const targetChannel = channels[nextIndex];
             if (targetChannel) {
-                targetChannel.click(); // Otomatik tıklayarak oynatıcıyı tetikler
-                
-                // Sol menüyü tıklanan kanala doğru otomatik kaydır
+                targetChannel.click(); 
                 targetChannel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         }
