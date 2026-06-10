@@ -92,39 +92,46 @@
             overflow-x: auto;                
         }
 
-        /* --- ORANTILI KATEGORİ BUTONLARI (YENİLENEN KISIM) --- */
         /* --- ORANTILI KATEGORİ BUTONLARI --- */
 .category-card {
-    padding: 2px 2px !important;     /* İç boşlukları minimuma indirdik, buton büyümez */
-    width: 55px !important;          /* Sabit genişlik korundu */
-    height: 38px !important;         /* Sabit yükseklik korundu */
-    box-sizing: border-box !important;/* Boyutun dışarı taşmasını kesin olarak engeller */
+    padding: 2px !important;         /* İç boşluğu minimuma indirdik, buton kesinlikle büyümez */
+    width: 55px !important;          /* Sabit genişlik */
+    height: 38px !important;         /* Sabit yükseklik */
+    box-sizing: border-box !important;/* Taşmaları önler */
     border-radius: 5px !important;    
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: center !important;
-    gap: 0px !important;             /* İkon ile yazı arasındaki boşluğu sıfırlayarak ikona yer açtık */
+    justify-content: space-between !important; /* İkonu yukarı, yazıyı aşağı yaslar (maksimum alan açar) */
+    gap: 0px !important;             
     flex-shrink: 0 !important;
-    overflow: hidden !important;     /* Her ihtimale karşı taşmaları gizler */
+    overflow: hidden !important;     
 }
 
-/* --- BÜYÜTÜLEN İKON / RESİM ALANI --- */
+/* --- BÜYÜTÜLEN İKON / RESİM ALANI (TÜM ELEMENTLER İÇİN) --- */
 .category-icon {
-    font-size: 21px !important;       /* Emojiler için boyutu 16px'den 21px'e çıkardık */
+    font-size: 24px !important;       /* Eğer düz metin/emoji ise boyutu 24px yapar */
     line-height: 1 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    height: 22px !important;         /* İkon alanına net bir dikey sınır çizdik */
+    flex: 1 !important;              /* Butonun üst kısmındaki tüm boş alanı kaplar */
+    width: 100% !important;
+    height: 24px !important;
 }
 
-/* Eğer emoji yerine gerçek bir RESİM (img) veya SVG logosu koyarsan onun da butona göre büyümesi için: */
+/* js ile sonradan yüklenen img, svg, i (font-awesome) veya span etiketleri varsa hepsini büyütür: */
 .category-icon img,
-.category-icon svg {
-    width: 22px !important;
-    height: 22px !important;
-    object-fit: contain !important;
+.category-icon svg,
+.category-icon i,
+.category-icon span {
+    width: 24px !important;          /* Genişlik 24px */
+    height: 24px !important;         /* Yükseklik 24px */
+    font-size: 24px !important;       /* İkon fontu ise boyutu */
+    object-fit: contain !important;  /* Orantılı sığdır */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 /* --- YAZI ALANI --- */
@@ -132,9 +139,9 @@
     font-size: 9px !important;        
     font-weight: 500 !important;
     white-space: nowrap !important;   
-    line-height: 1 !important;       /* Yazının satır yüksekliğini daraltıp alt sınra yaklaştırdık */
+    line-height: 1 !important;       
+    margin-bottom: 2px !important;   /* Alt sınıra hafifçe yaklaştırır */
 }
-
         /* --- VİDEO ALANI ANA AYARLARI --- */
         .player-main {
             flex-grow: 1;
