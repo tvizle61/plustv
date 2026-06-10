@@ -93,29 +93,33 @@
         }
 
         /* --- ORANTILI KATEGORİ BUTONLARI (YENİLENEN KISIM) --- */
-        .category-card {
-            padding: 3px 8px !important;     /* İç boşluklar yazıyla tam orantılı olacak şekilde küçültüldü */
-            min-width: 24px !important;      /* Yazıların taşmamasını sağlayan kibar bir taban genişlik */
-            height: auto !important;
-            border-radius: 5px !important;    
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 2px !important;              
-            flex-shrink: 0 !important;
-        }
+        /* --- ORANTILI KATEGORİ BUTONLARI --- */
+.category-card {
+    padding: 3px 8px !important;     
+    width: 55px !important;          /* Buton boyutunun büyümesini engellemek için SABİT GENİŞLİK */
+    height: 38px !important;         /* Buton boyutunun büyümesini engellemek için SABİT YÜKSEKLİK */
+    box-sizing: border-box !important;/* Padding değerlerinin boyutu patlatmasını engeller */
+    border-radius: 5px !important;    
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1px !important;              /* Resim ile yazı arasındaki boşluğu biraz daralttık */
+    flex-shrink: 0 !important;
+}
 
-        .category-icon {
-            font-size: 11px !important;       
-            line-height: 1 !important;
-        }
+/* --- BÜYÜTÜLEN İKON / RESİM ALANI --- */
+.category-icon {
+    font-size: 16px !important;       /* İkon boyutunu 11px'den 16px'e yükselttik */
+    line-height: 1 !important;
+}
 
-        .category-name {
-            font-size: 9px !important;        /* Yazı boyutu */
-            font-weight: 500 !important;
-            white-space: nowrap !important;   /* Yazının buton içinde kırılmasını önler */
-        }
+/* --- YAZI ALANI --- */
+.category-name {
+    font-size: 9px !important;        
+    font-weight: 500 !important;
+    white-space: nowrap !important;   
+}
 
         /* --- VİDEO ALANI ANA AYARLARI --- */
         .player-main {
