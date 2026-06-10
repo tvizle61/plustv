@@ -28,52 +28,56 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            padding: 6px;
+            padding: 6px; /* Kenar boşluğu hafif daraltıldı */
         }
 
         /* --- KANAL LİSTESİ ELEMANLARINI YARI YARIYA KÜÇÜLTME --- */
         #channelsSidebarList > * {
-            padding: 4px 8px !important;
-            margin-bottom: 4px !important;
-            min-height: 40px !important;
+            padding: 4px 8px !important;       /* Dikey ve yatay boşluklar yarıya indirildi */
+            margin-bottom: 4px !important;     /* Kartlar arası mesafe azaltıldı */
+            min-height: 40px !important;       /* Kart yüksekliği yarı yarıya düşürüldü */
             border-radius: 6px !important;
             display: flex !important;
             align-items: center !important;
             gap: 8px !important;
         }
 
+        /* Kanal Logolarını Küçültme */
         #channelsSidebarList > * img,
         #channelsSidebarList > * .channel-logo,
         #channelsSidebarList > * [class*="logo"] {
-            width: 26px !important;
+            width: 26px !important;            /* Logo boyutu küçültüldü */
             height: 26px !important;
             min-width: 26px !important;
             border-radius: 4px !important;
             object-fit: contain !important;
         }
 
+        /* Kanal İsimleri Yazı Boyutu ve ÜÇ NOKTA (...) ENGELLEME */
         #channelsSidebarList > * .channel-name,
         #channelsSidebarList > * h4,
         #channelsSidebarList > * span,
         #channelsSidebarList > * div {
-            font-size: 11px !important;
+            font-size: 11px !important;        /* Yazı boyutu küçültüldü */
             line-height: 1.3 !important;
-            white-space: normal !important;
-            text-overflow: clip !important;
-            word-break: break-word !important;
+            white-space: normal !important;    /* Satırın taşmasını ve ... olmasını engeller, alta kaydırır */
+            text-overflow: clip !important;    /* Üç nokta özelliğini tamamen kapatır */
+            word-break: break-word !important; /* Uzun kelimeleri güvenli böler */
         }
 
+        /* "Ulusal" vb. Alt Kategoriler */
         #channelsSidebarList > * p,
         #channelsSidebarList > * small,
         #channelsSidebarList > * .channel-category {
-            font-size: 9px !important;
+            font-size: 9px !important;         /* Alt yazılar daha minimal yapıldı */
             opacity: 0.7;
         }
 
+        /* Favori Yıldız İkonu */
         #channelsSidebarList > * .fav-btn,
         #channelsSidebarList > * .star-icon,
         #channelsSidebarList > * svg {
-            transform: scale(0.85) !important;
+            transform: scale(0.85) !important; /* Yıldız butonu kart boyutuna göre ölçeklendi */
         }
 
         /* --- KATEGORİLERİ SOLA YASLAMA --- */
@@ -85,66 +89,13 @@
             flex-wrap: wrap;
         }
 
-        /* --- VİDEO ALANI VE SİYAH BOŞLUKLARI AZALTMA AYARI --- */
-        .player-main {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            background: #000;
-            height: 100vh;
-        }
-
+        /* --- VİDEO KAPSAYICI AYARI --- */
         #videoContainerPlayer {
             position: relative !important;
             overflow: hidden;
-            flex-grow: 1;
-            background: #000;
         }
 
-        /* Videonun kenarlardan daralması için yeni daraltıcı div */
-        .video-daraltici {
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: calc(100% - 30px) !important; /* Kontrol barının yüksekliği düşüldü */
-            padding: 15px !important; /* Kenarlardan daraltma için padding ekledik */
-            box-sizing: border-box !important;
-            overflow: hidden !important;
-            z-index: 1 !important;
-        }
-
-        /* Video ve placeholder katmanları daraltıcı içinde tam alanı kaplar */
-        #videoPlaceholderPlayer,
-        #loadingPlayer,
-        .video-player, 
-        .iframe-player,
-        #videoPlayer,
-        #iframePlayer {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: contain !important; /* Videoyu daralmış alana sığdırır ve en boy oranını korur */
-        }
-
-        /* Placeholder ve loading overlay konumlandırması daraltıcı içinde */
-        #videoPlaceholderPlayer,
-        #loadingPlayer {
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            z-index: 2 !important;
-        }
-        
-        .video-placeholder-player,
-        .loading-overlay {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #fff;
-        }
-
-        /* --- MİNİMAL KONTROL BAR --- */
+        /* --- MİNİBAL KONTROL BAR --- */
         #videoControlsBar {
             position: absolute !important;
             bottom: 0 !important;
@@ -158,7 +109,6 @@
             background: rgba(17, 17, 17, 0.75) !important;
             border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
             z-index: 999999 !important;
-            height: 30px !important; /* Sabit yükseklik */
         }
 
         /* --- MİNİ BUTONLAR --- */
@@ -241,26 +191,24 @@
                 </section>
 
                 <div class="video-container-player" id="videoContainerPlayer">
-                    <div class="video-daraltici">
-                        <div class="video-placeholder-player" id="videoPlaceholderPlayer">
-                            <div class="placeholder-content">
-                                <div class="placeholder-icon">📺</div>
-                                <h2>Bir Kanal Seçin</h2>
-                                <p>Sol taraftaki listeden bir kanal seçin</p>
-                                <a href="https://t.me/carautoplus" target="_blank" rel="noopener noreferrer" class="telegram-link">t.me/carautoplus</a>
-                                <p class="brand-name">Auto Car Plus</p>
-                            </div>
+                    <div class="video-placeholder-player" id="videoPlaceholderPlayer">
+                        <div class="placeholder-content">
+                            <div class="placeholder-icon">📺</div>
+                            <h2>Bir Kanal Seçin</h2>
+                            <p>Sol taraftaki listeden bir kanal seçin</p>
+                            <a href="https://t.me/carautoplus" target="_blank" rel="noopener noreferrer" class="telegram-link">t.me/carautoplus</a>
+                            <p class="brand-name">Auto Car Plus</p>
                         </div>
-                        
-                        <div class="loading-overlay" id="loadingPlayer">
-                            <div class="spinner"></div>
-                            <p>Yükleniyor...</p>
-                        </div>
-                        
-                        <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
-                        <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
                     </div>
                     
+                    <div class="loading-overlay" id="loadingPlayer">
+                        <div class="spinner"></div>
+                        <p>Yükleniyor...</p>
+                    </div>
+                    
+                    <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
+                    <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
+                
                     <div id="videoControlsBar">
                         <button class="player-nav-btn" onclick="changeChannel(-1)">
                             <span>I⏮</span> Geri
