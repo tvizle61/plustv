@@ -77,34 +77,44 @@
         }
 
         /* --- ÜST KATEGORİ BUTONLARINI YARI YARIYA KÜÇÜLTME --- */
-        .player-categories-container {
-            display: flex;
-            justify-content: flex-start !important; 
-            gap: 6px !important;             /* Butonlar arası boşluk daraltıldı */
-            padding: 10px 15px !important;    /* Üst bar yüksekliği azaltıldı */
-            flex-wrap: wrap;
-        }
+        /* --- ÜST KATEGORİ SECTİON VE CONTAINER AYARLARI --- */
+.player-categories-section {
+    background: #111; /* İsteğe bağlı: Sidebar ile bütünlük sağlaması için arka plan rengi */
+    border-bottom: 1px solid #222;
+    width: 100%;
+}
 
-        .category-card {
-            padding: 4px 10px !important;     /* İç boşluklar küçültüldü */
-            min-width: auto !important;
-            height: auto !important;
-            border-radius: 8px !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            gap: 2px !important;              
-        }
+.player-categories-container {
+    display: flex;
+    justify-content: flex-start !important; 
+    gap: 6px !important;             /* Butonlar arası boşluk daraltıldı */
+    padding: 8px 12px !important;    /* Üst ve alt iç boşluklar biraz daha daraltıldı */
+    flex-wrap: nowrap !important;    /* Yan yana düzgün sıralanması için taşmayı engeller */
+    overflow-x: auto;                /* Çok fazla kategori gelirse sağa doğru kaydırılabilir */
+}
 
-        .category-icon {
-            font-size: 12px !important;       /* İkonlar küçültüldü */
-            line-height: 1 !important;
-        }
+/* --- KATEGORİ KARTLARINI SIKIŞTIRMA VE HİZALAMA --- */
+.category-card {
+    padding: 4px 10px !important;     /* İç boşluklar küçültüldü */
+    min-width: 60px !important;       /* Butonların çok küçülüp bozulmasını önlemek için ideal taban genişlik */
+    height: auto !important;
+    border-radius: 6px !important;    /* Kenar yumuşatma sidebar ile eşitlendi */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 2px !important;              
+    flex-shrink: 0 !important;        /* Kartların genişliğinin ezilmesini önler */
+}
 
-        .category-name {
-            font-size: 9px !important;        /* Yazı boyutu küçültüldü */
-            font-weight: 500 !important;
-        }
+.category-icon {
+    font-size: 11px !important;       /* İkonlar biraz daha kibarlaştırıldı */
+    line-height: 1 !important;
+}
+
+.category-name {
+    font-size: 9px !important;        /* Yazı boyutu küçültüldü */
+    font-weight: 500 !important;
+}
 
         /* --- VİDEO ALANI ANA AYARLARI --- */
         .player-main {
