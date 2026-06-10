@@ -49,7 +49,7 @@ const STANDARD_CATEGORIES = [
     { id: 'Çocuk', name: 'Çocuk', icon: '👶' },
     { id: 'Ekonomi', name: 'Ekonomi', icon: '💰' },
     { id: 'Yurt Dışı', name: 'Yurt Dışı', icon: '🌍' },
-    { id: 'Radyo-Canlı', name: 'Youtube', icon: '▶️' }
+    { id: 'Youtube', name: 'Youtube', icon: '▶️' }
 ];
 
 // Kategori eşleştirme (eski -> yeni)
@@ -880,7 +880,7 @@ async function loadChannelsFromM3U() {
             });
         });
         
-        allCategories.add('Radyo Canlı');
+        allCategories.add('Youtube');
         
         console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
         console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
