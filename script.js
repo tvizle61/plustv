@@ -491,7 +491,7 @@ const categoryIcons = {
     'Ekonomi': '💰',
     'Yurt Disi': '🌍',
     'Yurt Dışı': '🌍',
-    'Radyo Canlı': '▶️',
+    'Youtube': '▶️',
     'Radyo': '📻',
     'Diğer': '📺'
 };
@@ -509,7 +509,7 @@ const STANDARD_CATEGORIES = [
     { id: 'Çocuk', name: 'Çocuk', icon: '👶' },
     { id: 'Ekonomi', name: 'Ekonomi', icon: '💰' },
     { id: 'Yurt Dışı', name: 'Yurt Dışı', icon: '🌍' },
-    { id: 'Radyo Canlı', name: 'Radyo Canlı', icon: '▶️' }
+    { id: 'Radyo Canlı', name: 'Youtube', icon: '▶️' }
 ];
 
 // Kategori eşleştirme (eski -> yeni)
