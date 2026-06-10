@@ -42,11 +42,11 @@
 
         /* --- VİDEO KAPSAYICI AYARI --- */
         #videoContainerPlayer {
-            position: relative !important; /* Altındaki mutlak elemanlara referans olması için */
+            position: relative !important;
             overflow: hidden;
         }
 
-        /* --- KONTROL BARINI EN ÜST KATMANA SABİTLEME --- */
+        /* --- MİNİMAL KONTROL BAR (Yarı Yarıya Küçültüldü) --- */
         #videoControlsBar {
             position: absolute !important;
             bottom: 0 !important;
@@ -55,25 +55,25 @@
             display: flex !important;
             justify-content: center !important;
             align-items: center !important;
-            gap: 12px !important;
-            padding: 12px 0 !important;
-            background: rgba(17, 17, 17, 0.9) !important; /* Premium ve hafif şeffaf arka plan */
-            border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-            z-index: 999999 !important; /* Video ve yükleme ekranının kesinlikle üstünde kalır */
+            gap: 8px !important;            /* Boşluklar daraltıldı */
+            padding: 6px 0 !important;       /* Yükseklik yarıya indirildi */
+            background: rgba(17, 17, 17, 0.75) !important; /* Videoyu kapatmaması için daha şeffaf yapıldı */
+            border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+            z-index: 999999 !important;
         }
 
-        /* --- DENGELİ BUTON BOYUTLARI --- */
+        /* --- MİNİ BUTONLAR --- */
         .player-nav-btn {
             background: #222;
             border: 1px solid rgba(255,255,255,0.1);
             color: #fff;
-            padding: 8px 20px;
-            font-size: 13px;
-            border-radius: 6px;
+            padding: 4px 10px;  /* Buton boyutu yarı yarıya küçültüldü */
+            font-size: 11px;    /* Yazı boyutu küçültüldü */
+            border-radius: 4px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             transition: all 0.3s ease;
             user-select: none;
         }
@@ -83,16 +83,17 @@
             transform: scale(1.02);
         }
 
+        /* --- MİNİ TAM EKRAN BUTONU --- */
         #fullscreenBtn { 
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
             border: 1px solid rgba(255,255,255,0.2); 
             color: #fff; 
-            padding: 10px 30px;
-            font-size: 14px;
-            letter-spacing: 0.5px;
+            padding: 5px 16px;  /* Genişlik ve yükseklik yarıya indirildi */
+            font-size: 11px;    /* Yazı boyutu küçültüldü */
+            letter-spacing: 0.3px;
             font-weight: 500;
-            border-radius: 6px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.4);
         }
 
         .player-content-wrapper {
