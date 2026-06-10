@@ -3,158 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="screen-orientation" content="auto">
     <title>PlusTV - Video Player</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
     <style>
-        /* --- SIDEBAR GÜNCELLEMESİ (220px) --- */
+        /* CSS RESET VE ANA YAPI */
+        * { box-sizing: border-box; }
+        body, html { margin: 0; padding: 0; height: 100%; background: #000; font-family: 'Inter', sans-serif; overflow: hidden; }
+        
+        .player-page { display: flex; height: 100vh; width: 100vw; }
+        
+        /* SIDEBAR (Sabit 220px) */
         .player-sidebar {
             width: 220px;
             flex-shrink: 0;
+            background: #111;
             display: flex;
             flex-direction: column;
-            background: #111;
             border-right: 1px solid #222;
             height: 100vh;
         }
 
-        .channels-sidebar-list {
-            flex-grow: 1;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            padding: 8px;
-        }
+        .channels-sidebar-list { flex-grow: 1; overflow-y: auto; padding: 10px; }
 
-        .player-content-wrapper {
-            display: flex;
-            flex-direction: row;
-            height: 100vh;
-        }
-
+        /* MAIN ALAN */
         .player-main {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            background: #000;
+            position: relative;
         }
 
-        /* --- VİDEO VE KONTROL KAPSAYICISI (Tam ekranı destekler) --- */
+        /* VİDEO KAPSAYICISI */
         .video-container-player {
-            position: relative;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            background: #000;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            position: relative;
         }
 
-        .video-player { flex-grow: 1; width: 100%; object-fit: contain; }
+        .video-player { width: 100%; height: 100%; object-fit: contain; }
 
-        /* --- KÜÇÜLTÜLMÜŞ KONTROL BAR --- */
+        /* KONTROL ÇUBUĞU (Videonun altında sabit) */
         #videoControlsBar {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
-            padding: 8px;
-            background-color: #111;
-            border-top: 1px solid #222;
-            width: 100%;
-        }
-
-        .player-nav-btn {
-            background: #222;
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
-            padding: 5px 15px; /* Küçültüldü */
-            font-size: 12px;   /* Küçültüldü */
-            border-radius: 4px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.3s ease;
-        }
-
-        #fullscreenBtn { 
-            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-            padding: 5px 20px; /* Küçültüldü */
-            font-size: 12px;   /* Küçültüldü */
-            border-radius: 4px;
-        }
-
-        /* --- DİĞER --- */
-        .player-categories-container {
-            display: flex;
-            justify-content: flex-start !important; 
             gap: 10px;
             padding: 10px;
-            flex-wrap: wrap;
+            background: #111;
+            border-top: 1px solid #222;
+        }
+
+        /* KÜÇÜK BUTONLAR */
+        .player-nav-btn {
+            background: #222;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 6px 15px;
+            font-size: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #fullscreenBtn {
+            background: #007bff;
+            border: none;
         }
     </style>
 </head>
 <body>
     <div class="player-page">
-        <div class="player-content-wrapper">
-            <aside class="player-sidebar">
-                <div class="sidebar-header">
-                    <button class="back-btn" id="backBtn">Geri</button>
-                    <h3>Kanallar</h3>
+        <aside class="player-sidebar">
+            <div class="channels-sidebar-list" id="channelsSidebarList">
                 </div>
-                <div class="channels-sidebar-list" id="channelsSidebarList"></div>
-            </aside>
+        </aside>
 
-            <main class="player-main">
-                <section class="player-categories-section">
-                    <div class="player-categories-container">
-                        <div class="category-card" data-category="all">📺 Tümü</div>
-                    </div>
-                </section>
-
-                <div class="video-container-player" id="videoContainerPlayer">
-                    <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
-                    
-                    <div id="videoControlsBar">
-                        <button class="player-nav-btn" onclick="changeChannel(-1)"><span>I⏮</span> Geri</button>
-                        <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()"><span>⛶</span> Tam Ekran</button>
-                        <button class="player-nav-btn" onclick="changeChannel(1)">İleri <span>⏭I</span></button>
-                    </div>
+        <main class="player-main">
+            <div class="video-container-player" id="videoContainerPlayer">
+                <video id="videoPlayer" class="video-player" autoplay playsinline></video>
+                
+                <div id="videoControlsBar">
+                    <button class="player-nav-btn" onclick="changeChannel(-1)">⏮ Geri</button>
+                    <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">⛶ Tam Ekran</button>
+                    <button class="player-nav-btn" onclick="changeChannel(1)">İleri ⏭</button>
                 </div>
-            </main>
-        </div>
+            </div>
+        </main>
     </div>
 
-    <script src="player.js"></script>
     <script>
         function toggleFullscreen() {
-            const playerElement = document.getElementById("videoContainerPlayer");
-            if (!playerElement) return;
+            const el = document.getElementById("videoContainerPlayer");
             if (!document.fullscreenElement) {
-                playerElement.requestFullscreen();
+                el.requestFullscreen().catch(err => console.log(err));
             } else {
                 document.exitFullscreen();
             }
         }
 
         function changeChannel(direction) {
-            const listContainer = document.getElementById('channelsSidebarList');
-            if (!listContainer) return;
-            const channels = Array.from(listContainer.children);
-            if (channels.length === 0) return;
-            let currentIndex = channels.findIndex(ch => ch.classList.contains('active'));
-            let nextIndex = currentIndex + direction;
-            if (nextIndex >= channels.length) nextIndex = 0;
-            else if (nextIndex < 0) nextIndex = channels.length - 1;
-            const targetChannel = channels[nextIndex];
-            if (targetChannel) {
-                targetChannel.click();
-                targetChannel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
+            const list = document.getElementById('channelsSidebarList');
+            const items = Array.from(list.children);
+            if (items.length === 0) return;
+            let idx = items.findIndex(i => i.classList.contains('active'));
+            if (idx === -1) idx = 0;
+            let next = (idx + direction + items.length) % items.length;
+            items[next].click();
         }
     </script>
 </body>
