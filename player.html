@@ -130,7 +130,7 @@
         }
 
 
-        /* --- MİNİMAL VE KÜÇÜLTÜLMÜŞ KONTROL BAR BUTONLARI (KORUNDU) --- */
+        /* --- MİNİMAL VE KÜÇÜLTÜLMÜŞ KONTROL BAR BUTONLARI --- */
         #videoControlsBar {
             display: flex;
             justify-content: center;
@@ -192,6 +192,7 @@
             z-index: 2147483647;
             background: rgba(17, 17, 17, 0.9);
             padding: 8px 0;
+            width: 100%;
         }
         :-ms-fullscreen #videoControlsBar {
             position: absolute;
@@ -200,6 +201,7 @@
             z-index: 2147483647;
             background: rgba(17, 17, 17, 0.9);
             padding: 8px 0;
+            width: 100%;
         }
         :fullscreen #videoControlsBar {
             position: absolute;
@@ -208,6 +210,17 @@
             z-index: 2147483647;
             background: rgba(17, 17, 17, 0.9);
             padding: 8px 0;
+            width: 100%;
+        }
+
+        /* Tam ekrandayken oynatıcının tüm ekranı kaplaması için */
+        :fullscreen .video-container-player {
+            height: calc(100vh - 46px) !important;
+            width: 100% !important;
+        }
+        :-webkit-full-screen .video-container-player {
+            height: calc(100vh - 46px) !important;
+            width: 100% !important;
         }
 
         [data-theme='polar'] #fullscreenBtn {
@@ -293,7 +306,9 @@
 
     <script>
         function toggleFullscreen() {
-            const playerElement = document.getElementById("wholePlayerPage");
+            // Sadece video container ve butonların olduğu ana bölümü tam ekran yapıyoruz.
+            // Böylece sol menü ve üst kategoriler tam ekranda kendiliğinden kaybolur.
+            const playerElement = document.getElementById("videoContainerPlayer").parentElement;
             if (!playerElement) return;
 
             if (
