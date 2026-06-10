@@ -1,29 +1,29 @@
 #EXTM3U
-#EXTINF:-1 tvg-name="7. ATV" tvg-id="" tvg-logo="https://gitlatte.github.io/m3ueditor/images/kanal-gorselleri/turkiye/atv-tr.png" group-title="Ulusal", 9. ATV
+#EXTINF:-1 tvg-name="7. ATV" tvg-id="" tvg-logo="https://gitlatte.github.io/m3ueditor/images/kanal-gorselleri/turkiye/atv-tr.png" group-title="Ulusal", 9.ATV
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
 https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/atv/atv_1080p.m3u8
-#EXTINF:0 CUID="2" tvg-name="ATV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Atv_logo_2010.svg/3840px-Atv_logo_2010.svg.png" group-title="Ulusal",9. ATV
+#EXTINF:0 CUID="2" tvg-name="ATV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Atv_logo_2010.svg/3840px-Atv_logo_2010.svg.png" group-title="Ulusal",9.ATV
 https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/atv/atv.m3u8
-#EXTINF:-1 tvg-name="TRT 1" tvg-language="Turkish" tvg-country="TR" tvg-id="Trt1" tvg-logo="https://raw.githubusercontent.com/GitLatte/m3ueditor/refs/heads/site/images/kanal-gorselleri/turkiye/trt-1-tr.png" group-title="Ulusal", 1. TRT 1
+#EXTINF:-1 tvg-name="TRT 1" tvg-language="Turkish" tvg-country="TR" tvg-id="Trt1" tvg-logo="https://raw.githubusercontent.com/GitLatte/m3ueditor/refs/heads/site/images/kanal-gorselleri/turkiye/trt-1-tr.png" group-title="Ulusal", 1.TRT 1
 https://tv-trt1.medya.trt.com.tr/master.m3u8
-#EXTINF:0 CUID="1" tvg-name="TRT 1" tvg-logo="https://raw.githubusercontent.com/GitLatte/m3ueditor/refs/heads/site/images/kanal-gorselleri/turkiye/trt-1-tr.png" group-title="Ulusal",TRT 1
+#EXTINF:0 CUID="1" tvg-name="TRT 1" tvg-logo="https://raw.githubusercontent.com/GitLatte/m3ueditor/refs/heads/site/images/kanal-gorselleri/turkiye/trt-1-tr.png" group-title="Ulusal",1.TRT 1
 https://tv-trt1.medya.trt.com.tr/master_1080.m3u8
-#EXTINF:-1 tvg-name="9. Kanal D" tvg-id="" tvg-logo="https://image.kanald.com.tr/i/kanald/100/0x0/654b42b5ebc830246465c497.jpg" group-title="Ulusal", 2. Kanal D
+#EXTINF:-1 tvg-name="9. Kanal D" tvg-id="" tvg-logo="https://image.kanald.com.tr/i/kanald/100/0x0/654b42b5ebc830246465c497.jpg" group-title="Ulusal", 2.Kanal D
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
 https://ackaxsqacw.turknet.ercdn.net/ozfkfbbjba/kanald/kanald_1080p.m3u8
-#EXTINF:0 CUID="9" tvg-name="Star TV" tvg-logo="https://images.seeklogo.com/logo-png/30/2/star-tv-logo-png_seeklogo-309642.png" group-title="Ulusal", 4. Star TV
+#EXTINF:0 CUID="9" tvg-name="Star TV" tvg-logo="https://images.seeklogo.com/logo-png/30/2/star-tv-logo-png_seeklogo-309642.png" group-title="Ulusal", 4.Star TV
 https://raw.githubusercontent.com/ipstreet312/freeiptv/refs/heads/master/ressources/tur/star.m3u8
-#EXTINF:0 CUID="5" tvg-name="Show TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Show_TV_logo.svg/250px-Show_TV_logo.svg.png" group-title="Ulusal", 5. Show TV
+#EXTINF:0 CUID="5" tvg-name="Show TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Show_TV_logo.svg/250px-Show_TV_logo.svg.png" group-title="Ulusal", 5.Show TV
 https://rmtftbjlne.turknet.ercdn.net/bpeytmnqyp/showtv/showtv.m3u8
-#EXTINF:-1 tvg-name="15. Beyaz Tv" tvg-id="" tvg-logo="https://gitlatte.github.io/m3ueditor/images/kanal-gorselleri/turkiye/beyaz-tv-tr.png" group-title="Ulusal", 6. Beyaz Tv
+#EXTINF:-1 tvg-name="15. Beyaz Tv" tvg-id="" tvg-logo="https://gitlatte.github.io/m3ueditor/images/kanal-gorselleri/turkiye/beyaz-tv-tr.png" group-title="Ulusal", 6.Beyaz Tv
 https://beyaztv-live.daioncdn.net/beyaztv/beyaztv_1080p.m3u8
-#EXTINF:-1 tvg-name="13. Kanal 7" tvg-id="" tvg-logo="https://play-lh.googleusercontent.com/s029TvwR-pU-SIoJh2GcGIScm4LzsmuTTbwPSCtwIK_6aOOXjQwC6mcHeMrPDst2KYM" group-title="Ulusal", 7. Kanal 7
+#EXTINF:-1 tvg-name="13. Kanal 7" tvg-id="" tvg-logo="https://play-lh.googleusercontent.com/s029TvwR-pU-SIoJh2GcGIScm4LzsmuTTbwPSCtwIK_6aOOXjQwC6mcHeMrPDst2KYM" group-title="Ulusal", 7.Kanal 7
 https://kanal7-live.daioncdn.net/kanal7/kanal7_1080p.m3u8
-#EXTINF:0 CUID="7" tvg-name="Kanal 7" tvg-logo="https://feo.kablowebtv.com/resize/168A635D265A4328C2883FB4CD8FF/500/500/channels/logos/c1414195-4807-4bbc-95b5-5f7c4c639b02.png" group-title="Ulusal", 7. Kanal 7
+#EXTINF:0 CUID="7" tvg-name="Kanal 7" tvg-logo="https://feo.kablowebtv.com/resize/168A635D265A4328C2883FB4CD8FF/500/500/channels/logos/c1414195-4807-4bbc-95b5-5f7c4c639b02.png" group-title="Ulusal", 7.Kanal 7
 https://yurhnwtpys.turknet.ercdn.net/cvmbjbpmdx/kanal7/kanal7_1080p.m3u8
 #EXTINF:-1 tvg-name="11. TV 8" tvg-id="" tvg-logo="https://upload.wikimedia.org/wikipedia/tr/6/68/Tv8_Yeni_Logo.png" group-title="Ulusal", 8. TV 8
 https://rkhubpaomb.turknet.ercdn.net/fwjkgpasof/tv8/tv8_1080p.m3u8
-#EXTINF:0 CUID="4" tvg-name="NOW TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/NOW_TV_%28Turkey%29_wordmark-red.svg/960px-NOW_TV_%28Turkey%29_wordmark-red.png" group-title="Ulusal", 10. NOW TV
+#EXTINF:0 CUID="4" tvg-name="NOW TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/NOW_TV_%28Turkey%29_wordmark-red.svg/960px-NOW_TV_%28Turkey%29_wordmark-red.png" group-title="Ulusal", 10.NOW TV
 https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8
 
 #EXTINF:-1 tvg-id="bein_sport" tvg-name="BeIN Sport 1" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://seeklogo.com/images/B/bein-sports-1-logo-4E5E4AE6B8-seeklogo.com.png" group-title="BeINSports",BeIN Sport 1
