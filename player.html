@@ -95,23 +95,36 @@
         /* --- ORANTILI KATEGORİ BUTONLARI (YENİLENEN KISIM) --- */
         /* --- ORANTILI KATEGORİ BUTONLARI --- */
 .category-card {
-    padding: 3px 8px !important;     
-    width: 55px !important;          /* Buton boyutunun büyümesini engellemek için SABİT GENİŞLİK */
-    height: 38px !important;         /* Buton boyutunun büyümesini engellemek için SABİT YÜKSEKLİK */
-    box-sizing: border-box !important;/* Padding değerlerinin boyutu patlatmasını engeller */
+    padding: 2px 2px !important;     /* İç boşlukları minimuma indirdik, buton büyümez */
+    width: 55px !important;          /* Sabit genişlik korundu */
+    height: 38px !important;         /* Sabit yükseklik korundu */
+    box-sizing: border-box !important;/* Boyutun dışarı taşmasını kesin olarak engeller */
     border-radius: 5px !important;    
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 1px !important;              /* Resim ile yazı arasındaki boşluğu biraz daralttık */
+    gap: 0px !important;             /* İkon ile yazı arasındaki boşluğu sıfırlayarak ikona yer açtık */
     flex-shrink: 0 !important;
+    overflow: hidden !important;     /* Her ihtimale karşı taşmaları gizler */
 }
 
 /* --- BÜYÜTÜLEN İKON / RESİM ALANI --- */
 .category-icon {
-    font-size: 16px !important;       /* İkon boyutunu 11px'den 16px'e yükselttik */
+    font-size: 21px !important;       /* Emojiler için boyutu 16px'den 21px'e çıkardık */
     line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 22px !important;         /* İkon alanına net bir dikey sınır çizdik */
+}
+
+/* Eğer emoji yerine gerçek bir RESİM (img) veya SVG logosu koyarsan onun da butona göre büyümesi için: */
+.category-icon img,
+.category-icon svg {
+    width: 22px !important;
+    height: 22px !important;
+    object-fit: contain !important;
 }
 
 /* --- YAZI ALANI --- */
@@ -119,6 +132,7 @@
     font-size: 9px !important;        
     font-weight: 500 !important;
     white-space: nowrap !important;   
+    line-height: 1 !important;       /* Yazının satır yüksekliğini daraltıp alt sınra yaklaştırdık */
 }
 
         /* --- VİDEO ALANI ANA AYARLARI --- */
