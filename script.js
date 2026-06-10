@@ -420,7 +420,7 @@ async function loadChannelsFromM3U() {
         
         // YouTube Radyo kanallarını ekle
         const radioChannels = [
-            { name: 'Kral POP Radyo', url: 'https://www.youtube.com/watch?v=5J-w9AHKHsc' },
+            { name: 'pop sc', url: 'https://www.youtube.com/watch?v=5J-w9AHKHsc' },
             { name: "Radyo 45'lik", url: 'https://www.youtube.com/watch?v=dk_uf4o2atY' },
             { name: 'Slow Türk', url: 'https://www.youtube.com/watch?v=tWTHF0r2oEw' },
             { name: 'Kral FM', url: 'https://www.youtube.com/watch?v=A49bKX8gb-8' },
