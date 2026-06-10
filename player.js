@@ -874,7 +874,7 @@ async function loadChannelsFromM3U() {
                 id: channelId++,
                 name: radio.name,
                 url: radio.url,
-                category: 'You tube',
+                category: 'Youtube',
                 tvgId: '',
                 tvgLogo: ''
             });
