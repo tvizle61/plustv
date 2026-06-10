@@ -31,7 +31,7 @@ const categoryIcons = {
     'Ekonomi': '💰',
     'Yurt Disi': '🌍',
     'Yurt Dışı': '🌍',
-    'Youtube': '▶️',
+    'You tube': '▶️',
     'Radyo': '📻',
     'Diğer': '📺'
 };
