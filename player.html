@@ -14,13 +14,13 @@
     <style>
         /* --- SIDEBAR GÜNCELLEMESİ (220px) --- */
         .player-sidebar {
-            width: 220px; /* Genişlik 220px olarak ayarlandı */
+            width: 220px;
+            flex-shrink: 0;
             display: flex;
             flex-direction: column;
             background: #111;
             border-right: 1px solid #222;
             height: 100vh;
-            flex-shrink: 0; /* İçeriğin sıkışmasını engeller */
         }
 
         .channels-sidebar-list {
@@ -28,25 +28,40 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            padding: 8px; /* Listeyi biraz daha daralttık */
+            padding: 8px;
         }
 
-        /* --- KATEGORİLERİ SOLA YASLAMA --- */
-        .player-categories-container {
+        .player-content-wrapper {
             display: flex;
-            justify-content: flex-start !important; 
-            gap: 15px;
-            padding: 15px;
-            flex-wrap: wrap;
+            flex-direction: row;
+            height: 100vh;
         }
 
-        /* --- DİĞER STİLLER --- */
+        .player-main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* --- VİDEO VE KONTROL KAPSAYICISI (Tam ekranı destekler) --- */
+        .video-container-player {
+            position: relative;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background: #000;
+        }
+
+        .video-player { flex-grow: 1; width: 100%; object-fit: contain; }
+
+        /* --- KÜÇÜLTÜLMÜŞ KONTROL BAR --- */
         #videoControlsBar {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
-            padding: 15px 0;
+            gap: 8px;
+            padding: 8px;
             background-color: #111;
             border-top: 1px solid #222;
             width: 100%;
@@ -56,38 +71,30 @@
             background: #222;
             border: 1px solid rgba(255,255,255,0.1);
             color: #fff;
-            padding: 10px 25px;
-            font-size: 15px;
-            border-radius: 6px;
+            padding: 5px 15px; /* Küçültüldü */
+            font-size: 12px;   /* Küçültüldü */
+            border-radius: 4px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
             transition: all 0.3s ease;
-            user-select: none;
-        }
-
-        .player-nav-btn:hover {
-            background: #333;
-            transform: scale(1.02);
         }
 
         #fullscreenBtn { 
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-            border: 1px solid rgba(255,255,255,0.2); 
-            color: #fff; 
-            padding: 14px 40px;
-            font-size: 17px;
-            letter-spacing: 0.5px;
-            font-weight: 500;
-            border-radius: 6px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            padding: 5px 20px; /* Küçültüldü */
+            font-size: 12px;   /* Küçültüldü */
+            border-radius: 4px;
         }
 
-        .player-content-wrapper {
+        /* --- DİĞER --- */
+        .player-categories-container {
             display: flex;
-            flex-direction: row;
-            height: 100vh;
+            justify-content: flex-start !important; 
+            gap: 10px;
+            padding: 10px;
+            flex-wrap: wrap;
         }
     </style>
 </head>
@@ -96,69 +103,27 @@
         <div class="player-content-wrapper">
             <aside class="player-sidebar">
                 <div class="sidebar-header">
-                    <button class="back-btn" id="backBtn" title="Ana Sayfaya Dön">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 12H5M12 19l-7-7 7-7"/>
-                        </svg>
-                        <span>Geri</span>
-                    </button>
-                    <h3 id="sidebarCategoryTitle">Kanallar</h3>
-                    <button class="zoom-toggle-btn" id="zoomToggleBtn" title="Tam ekran">
-                        <svg class="fullscreen-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-                        </svg>
-                    </button>
+                    <button class="back-btn" id="backBtn">Geri</button>
+                    <h3>Kanallar</h3>
                 </div>
-                
-                <div class="sidebar-tabs">
-                    <button class="tab-btn active" data-tab="channels">Kanallar</button>
-                    <button class="tab-btn" data-tab="favorites">⭐ Favoriler</button>
-                </div>
-                
-                <div class="channels-sidebar-list" id="channelsSidebarList">
-                </div>
+                <div class="channels-sidebar-list" id="channelsSidebarList"></div>
             </aside>
 
             <main class="player-main">
                 <section class="player-categories-section">
                     <div class="player-categories-container">
-                        <div class="category-card" data-category="all">
-                            <div class="category-icon">📺</div>
-                            <div class="category-name">Tümü</div>
-                        </div>
+                        <div class="category-card" data-category="all">📺 Tümü</div>
                     </div>
                 </section>
 
                 <div class="video-container-player" id="videoContainerPlayer">
-                    <div class="video-placeholder-player" id="videoPlaceholderPlayer">
-                        <div class="placeholder-content">
-                            <div class="placeholder-icon">📺</div>
-                            <h2>Bir Kanal Seçin</h2>
-                            <p>Sol taraftaki listeden bir kanal seçin</p>
-                            <a href="https://t.me/carautoplus" target="_blank" rel="noopener noreferrer" class="telegram-link">t.me/carautoplus</a>
-                            <p class="brand-name">Auto Car Plus</p>
-                        </div>
-                    </div>
-                    <div class="loading-overlay" id="loadingPlayer">
-                        <div class="spinner"></div>
-                        <p>Yükleniyor...</p>
-                    </div>
                     <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
-                    <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
-                </div>
-
-                <div id="videoControlsBar">
-                    <button class="player-nav-btn" onclick="changeChannel(-1)">
-                        <span>I⏮</span> Geri
-                    </button>
                     
-                    <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
-                        <span>⛶</span> Tam Ekran
-                    </button>
-                    
-                    <button class="player-nav-btn" onclick="changeChannel(1)">
-                        İleri <span>⏭I</span>
-                    </button>
+                    <div id="videoControlsBar">
+                        <button class="player-nav-btn" onclick="changeChannel(-1)"><span>I⏮</span> Geri</button>
+                        <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()"><span>⛶</span> Tam Ekran</button>
+                        <button class="player-nav-btn" onclick="changeChannel(1)">İleri <span>⏭I</span></button>
+                    </div>
                 </div>
             </main>
         </div>
