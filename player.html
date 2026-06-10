@@ -3,339 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="screen-orientation" content="auto">
     <title>PlusTV - Video Player</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
-        /* --- KANAL İSİMLERİNİN TAM GÖRÜNMESİ İÇİN KORUMALI KOMPAKT SİSTEM --- */
-        .player-sidebar {
-            width: 250px !important; /* İsimlerin sığması için genişlik ideal noktaya çekildi */
-            padding: 8px !important;
+        /* --- TAM EKRAN DÜZENLEMELERİ --- */
+        
+        /* Tam ekran moduna girildiğinde sidebar ve kategorileri tamamen gizle */
+        :fullscreen .player-sidebar,
+        :fullscreen .player-categories-section {
+            display: none !important;
         }
-
-        /* Sidebar Üst Başlık Alanı */
-        .sidebar-header {
-            margin-bottom: 8px !important;
-            gap: 5px !important;
-        }
-        .sidebar-header h3 {
-            font-size: 13px !important;
-        }
-        .back-btn, .zoom-toggle-btn {
-            padding: 5px !important;
-            font-size: 11px !important;
-        }
-
-        /* Kanallar / Favoriler Sekme Butonları */
-        .sidebar-tabs {
-            gap: 4px !important;
-            margin-bottom: 8px !important;
-        }
-        .sidebar-tabs .tab-btn {
-            padding: 6px 10px !important; 
-            font-size: 12px !important;    
-            border-radius: 4px !important;
-        }
-
-        /* Her bir kanal kutusu (Kartı) */
-        .channels-sidebar-list .channel-item, 
-        #channelsSidebarList > div,
-        #channelsSidebarList > button {
-            display: flex !important;
-            align-items: center !important;
-            padding: 5px 6px !important;   /* İçi kibar tutuldu */
-            margin-bottom: 4px !important;  
-            border-radius: 5px !important;
-            gap: 6px !important;            /* Yazıya yer açmak için aralık daraltıldı */
-            min-height: auto !important;
+        
+        /* Tam ekrandayken ana alanı genişlet */
+        :fullscreen .player-main {
             width: 100% !important;
-            box-sizing: border-box !important;
-        }
-
-        /* Kanal logolarının boyutu */
-        .channels-sidebar-list .channel-item img,
-        #channelsSidebarList div img,
-        .channels-sidebar-list .channel-logo {
-            width: 26px !important;  
-            height: 26px !important;
-            border-radius: 4px !important;
-            flex-shrink: 0 !important; /* Logonun ezilmesini önler */
-        }
-
-        /* Kanal İsmi Kapsayıcı Alanı */
-        .channel-info-wrapper, 
-        .channels-sidebar-list .channel-info,
-        #channelsSidebarList div .info-area {
-            flex-grow: 1 !important;
-            white-space: normal !important; /* Yazının sığmadığında alt satıra geçebilmesini veya esnemesini sağlar */
-            overflow: visible !important;
-            text-overflow: clip !important;
-        }
-
-        /* Ana kanal ismi (Örn: Show Türk, Tabii Spor 1) */
-        .channels-sidebar-list .channel-name,
-        #channelsSidebarList div .channel-title,
-        #channelsSidebarList div h4 {
-            font-size: 12.5px !important;   /* Okunabilirlik için çok hafif optimize edildi */
-            font-weight: 500 !important;
-            line-height: 1.2 !important;
-            white-space: nowrap !important; /* Tek satır kalmaya zorlar */
-            overflow: visible !important;   /* Taşmayı gizleyip üç nokta yapmayı engeller */
-            text-overflow: unset !important;/* Üç noktayı tamamen kaldırır */
-        }
-
-        /* Altındaki kategori ismi (Örn: Ulusal) */
-        .channels-sidebar-list .channel-category,
-        #channelsSidebarList div .channel-sub,
-        #channelsSidebarList div p {
-            font-size: 10px !important;  
-            opacity: 0.5 !important;
-            margin-top: 1px !important;
-            white-space: nowrap !important;
-        }
-
-        /* Favori Yıldız Butonu */
-        .channels-sidebar-list .fav-btn,
-        #channelsSidebarList div .star-icon {
-            transform: scale(0.75) !important; 
-            flex-shrink: 0 !important; /* Yıldızın sıkışmasını önler */
-            margin-left: auto !important; /* En sağa yaslar */
-        }
-
-
-        /* --- KATEGORİLERİ SOLA YANAŞTIRMA VE KAYDIRILABİLİR YAPMA --- */
-        .player-categories-section {
-            width: 100%;
-            padding: 10px 0;
-            background-color: transparent;
-            overflow: hidden;
-        }
-
-        .player-categories-container {
-            display: flex;
-            justify-content: flex-start !important; 
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            overflow-x: auto; 
-            white-space: nowrap;
-            padding-bottom: 5px;
-            scrollbar-width: thin; 
-            -webkit-overflow-scrolling: touch;
-        }
-
-
-        /* --- MİNİMAL VE KÜÇÜLTÜLMÜŞ KONTROL BAR BUTONLARI --- */
-        #videoControlsBar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;                  
-            padding: 8px 0;             
-            background-color: #111; 
-            border-top: 1px solid #222;
-            width: 100%;
-        }
-
-        .player-nav-btn {
-            background: #222;
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
-            padding: 6px 14px;          
-            font-size: 12px;            
-            border-radius: 4px;         
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s ease;
-            user-select: none;
-            height: 30px;               
-        }
-
-        .player-nav-btn:hover {
-            background: #333;
-            transform: scale(1.02);
-        }
-
-        #fullscreenBtn { 
-            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); 
-            border: 1px solid rgba(255,255,255,0.2); 
-            color: #fff; 
-            padding: 6px 18px;          
-            font-size: 12.5px;          
-            letter-spacing: 0.3px;
-            font-weight: 500;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
-            text-shadow: 0 1px 1px rgba(0,0,0,0.3);
-            height: 30px;               
-        }
-
-        #fullscreenBtn:hover { 
-            background: linear-gradient(135deg, #0056b3 0%, #007bff 100%);
-            box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
-            transform: scale(1.03);
-            color: #fff;
-        }
-
-        /* GERÇEK TAM EKRAN MODU CSS GÜVENLİĞİ */
-        :-webkit-full-screen #videoControlsBar {
-            position: absolute;
-            bottom: 0;
+            height: 100vh !important;
+            position: absolute !important;
+            top: 0;
             left: 0;
-            z-index: 2147483647;
-            background: rgba(17, 17, 17, 0.9);
-            padding: 8px 0;
-            width: 100%;
+            background: #000;
         }
-        :-ms-fullscreen #videoControlsBar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            z-index: 2147483647;
-            background: rgba(17, 17, 17, 0.9);
-            padding: 8px 0;
-            width: 100%;
+
+        /* Tam ekran modunda video kapsayıcısını tam doldur */
+        :fullscreen .video-container-player {
+            height: calc(100vh - 60px) !important;
         }
+
+        /* Kontrol barını tam ekranın altına sabitle */
         :fullscreen #videoControlsBar {
             position: absolute;
             bottom: 0;
-            left: 0;
-            z-index: 2147483647;
-            background: rgba(17, 17, 17, 0.9);
-            padding: 8px 0;
             width: 100%;
+            z-index: 9999;
         }
 
-        /* Tam ekrandayken oynatıcının tüm ekranı kaplaması için */
-        :fullscreen .video-container-player {
-            height: calc(100vh - 46px) !important;
-            width: 100% !important;
-        }
-        :-webkit-full-screen .video-container-player {
-            height: calc(100vh - 46px) !important;
-            width: 100% !important;
-        }
-
-        [data-theme='polar'] #fullscreenBtn {
-            color: #fff;
-        }
+        /* Mevcut sitiliniz: Sidebar ve diğer elementleriniz buraya gelecek */
+        .player-content-wrapper { display: flex; width: 100%; height: 100vh; }
+        .player-sidebar { width: 250px; background: #111; }
+        .player-main { flex: 1; display: flex; flex-direction: column; }
+        .video-container-player { flex: 1; position: relative; background: #000; }
     </style>
 </head>
 <body>
     <div class="player-page" id="wholePlayerPage"> 
         <div class="player-content-wrapper">
             <aside class="player-sidebar">
-                <div class="sidebar-header">
-                    <button class="back-btn" id="backBtn" title="Ana Sayfaya Dön">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 12H5M12 19l-7-7 7-7"/>
-                        </svg>
-                        <span>Geri</span>
-                    </button>
-                    <h3 id="sidebarCategoryTitle">Kanallar</h3>
-                    <button class="zoom-toggle-btn" id="zoomToggleBtn" title="Genişlet">
-                        <svg class="fullscreen-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-                        </svg>
-                    </button>
-                </div>
-                
-                <div class="sidebar-tabs">
-                    <button class="tab-btn active" data-tab="channels">Kanallar</button>
-                    <button class="tab-btn" data-tab="favorites">⭐ Favoriler</button>
-                </div>
-                
-                <div class="channels-sidebar-list" id="channelsSidebarList">
-                </div>
-            </aside>
+                </aside>
 
-            <main class="player-main">
+            <main class="player-main" id="playerMain">
                 <section class="player-categories-section">
-                    <div class="player-categories-container">
-                        <div class="category-card" data-category="all">
-                            <div class="category-icon">📺</div>
-                            <div class="category-name">Tümü</div>
-                        </div>
-                    </div>
-                </section>
+                    </section>
 
                 <div class="video-container-player" id="videoContainerPlayer">
-                    <div class="video-placeholder-player" id="videoPlaceholderPlayer">
-                        <div class="placeholder-content">
-                            <div class="placeholder-icon">📺</div>
-                            <h2>Bir Kanal Seçin</h2>
-                            <p>Sol taraftaki listeden bir kanal seçin</p>
-                            
-                            <p class="brand-name">61 BYD 61</p>
-                        </div>
-                    </div>
-                    <div class="loading-overlay" id="loadingPlayer">
-                        <div class="spinner"></div>
-                        <p>Yükleniyor...</p>
-                    </div>
-                    <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
-                    <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
+                    <video id="videoPlayer" class="video-player" autoplay playsinline></video>
                 </div>
 
                 <div id="videoControlsBar">
-                    <button class="player-nav-btn" onclick="changeChannel(-1)">
-                        <span>I⏮</span> Geri
-                    </button>
-                    
-                    <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
-                        <span>⛶</span> Tam Ekran
-                    </button>
-                    
-                    <button class="player-nav-btn" onclick="changeChannel(1)">
-                        İleri <span>⏭I</span>
-                    </button>
+                    <button class="player-nav-btn" onclick="changeChannel(-1)">Geri</button>
+                    <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">Tam Ekran</button>
+                    <button class="player-nav-btn" onclick="changeChannel(1)">İleri</button>
                 </div>
-
             </main>
         </div>
     </div>
 
-    <script src="player.js"></script>
-
     <script>
         function toggleFullscreen() {
-            // Sadece video container ve butonların olduğu ana bölümü tam ekran yapıyoruz.
-            // Böylece sol menü ve üst kategoriler tam ekranda kendiliğinden kaybolur.
-            const playerElement = document.getElementById("videoContainerPlayer").parentElement;
-            if (!playerElement) return;
-
-            if (
-                document.fullscreenElement ||
-                document.webkitFullscreenElement ||
-                document.mozFullScreenElement ||
-                document.msFullscreenElement
-            ) {
+            // Sadece player-main kısmını (video + kontroller) tam ekran yapıyoruz.
+            // Sidebar ve kategoriler otomatik olarak dışarıda kalacak ve CSS ile gizlenecektir.
+            const playerMain = document.getElementById("playerMain");
+            
+            if (!document.fullscreenElement) {
+                if (playerMain.requestFullscreen) {
+                    playerMain.requestFullscreen();
+                } else if (playerMain.webkitRequestFullscreen) {
+                    playerMain.webkitRequestFullscreen();
+                }
+            } else {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
                 } else if (document.webkitExitFullscreen) {
                     document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                }
-            } 
-            else {
-                if (playerElement.requestFullscreen) {
-                    playerElement.requestFullscreen();
-                } else if (playerElement.webkitRequestFullscreen) {
-                    playerElement.webkitRequestFullscreen();
-                } else if (playerElement.mozRequestFullScreen) {
-                    playerElement.mozRequestFullScreen();
-                } else if (playerElement.msRequestFullscreen) {
-                    playerElement.msRequestFullscreen();
                 }
             }
         }
@@ -343,24 +93,12 @@
         function changeChannel(direction) {
             const listContainer = document.getElementById('channelsSidebarList');
             if (!listContainer) return;
-
             const channels = Array.from(listContainer.children);
-            if (channels.length === 0) return;
-
             let currentIndex = channels.findIndex(ch => ch.classList.contains('active'));
             let nextIndex = currentIndex + direction;
-
-            if (nextIndex >= channels.length) {
-                nextIndex = 0; 
-            } else if (nextIndex < 0) {
-                nextIndex = channels.length - 1; 
-            }
-
-            const targetChannel = channels[nextIndex];
-            if (targetChannel) {
-                targetChannel.click(); 
-                targetChannel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
+            if (nextIndex >= channels.length) nextIndex = 0;
+            if (nextIndex < 0) nextIndex = channels.length - 1;
+            channels[nextIndex].click();
         }
     </script>
 </body>
