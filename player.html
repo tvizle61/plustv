@@ -12,16 +12,34 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
-        /* --- KATEGORİLERİ SOLA YASLAMA DÜZENLEMESİ --- */
-        .player-categories-container {
+        /* --- SIDEBAR VE KANAL LİSTESİ DÜZENLEMESİ --- */
+        .player-sidebar {
+            width: 300px;
             display: flex;
-            justify-content: flex-start !important; /* Sola yaslar */
-            gap: 15px; /* İkonlar arası boşluk */
-            padding: 10px 0;
-            overflow-x: auto; /* Çok kategori varsa kaydırma çubuğu çıkar */
+            flex-direction: column;
+            background: #111;
+            border-right: 1px solid #222;
+            height: 100vh;
         }
 
-        /* --- PROFESYONEL TAM EKRAN VE KONTROL BAR STİLLERİ --- */
+        .channels-sidebar-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        /* --- KATEGORİLERİ SOLA YASLAMA --- */
+        .player-categories-container {
+            display: flex;
+            justify-content: flex-start !important; 
+            gap: 15px;
+            padding: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* --- DİĞER STİLLER --- */
         #videoControlsBar {
             display: flex;
             justify-content: center;
@@ -64,6 +82,11 @@
             border-radius: 6px;
             box-shadow: 0 0 15px rgba(0,0,0,0.3);
         }
+
+        .player-content-wrapper {
+            display: flex;
+            flex-direction: row;
+        }
     </style>
 </head>
 <body>
@@ -71,14 +94,14 @@
         <div class="player-content-wrapper">
             <aside class="player-sidebar">
                 <div class="sidebar-header">
-                    <button class="back-btn" id="backBtn">
+                    <button class="back-btn" id="backBtn" title="Ana Sayfaya Dön">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M19 12H5M12 19l-7-7 7-7"/>
                         </svg>
                         <span>Geri</span>
                     </button>
                     <h3 id="sidebarCategoryTitle">Kanallar</h3>
-                    <button class="zoom-toggle-btn" id="zoomToggleBtn">
+                    <button class="zoom-toggle-btn" id="zoomToggleBtn" title="Tam ekran">
                         <svg class="fullscreen-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
                         </svg>
@@ -90,7 +113,8 @@
                     <button class="tab-btn" data-tab="favorites">⭐ Favoriler</button>
                 </div>
                 
-                <div class="channels-sidebar-list" id="channelsSidebarList"></div>
+                <div class="channels-sidebar-list" id="channelsSidebarList">
+                    </div>
             </aside>
 
             <main class="player-main">
@@ -110,6 +134,7 @@
                             <h2>Bir Kanal Seçin</h2>
                             <p>Sol taraftaki listeden bir kanal seçin</p>
                             <a href="https://t.me/carautoplus" target="_blank" rel="noopener noreferrer" class="telegram-link">t.me/carautoplus</a>
+                            <p class="brand-name">Auto Car Plus</p>
                         </div>
                     </div>
                     <div class="loading-overlay" id="loadingPlayer">
@@ -117,12 +142,21 @@
                         <p>Yükleniyor...</p>
                     </div>
                     <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
+                    <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
                 </div>
 
                 <div id="videoControlsBar">
-                    <button class="player-nav-btn" onclick="changeChannel(-1)"><span>I⏮</span> Geri</button>
-                    <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()"><span>⛶</span> Tam Ekran</button>
-                    <button class="player-nav-btn" onclick="changeChannel(1)">İleri <span>⏭I</span></button>
+                    <button class="player-nav-btn" onclick="changeChannel(-1)">
+                        <span>I⏮</span> Geri
+                    </button>
+                    
+                    <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
+                        <span>⛶</span> Tam Ekran
+                    </button>
+                    
+                    <button class="player-nav-btn" onclick="changeChannel(1)">
+                        İleri <span>⏭I</span>
+                    </button>
                 </div>
             </main>
         </div>
@@ -132,8 +166,9 @@
     <script>
         function toggleFullscreen() {
             const playerElement = document.getElementById("videoContainerPlayer");
+            if (!playerElement) return;
             if (!document.fullscreenElement) {
-                playerElement.requestFullscreen().catch(err => alert(`Hata: ${err.message}`));
+                playerElement.requestFullscreen();
             } else {
                 document.exitFullscreen();
             }
@@ -141,17 +176,18 @@
 
         function changeChannel(direction) {
             const listContainer = document.getElementById('channelsSidebarList');
+            if (!listContainer) return;
             const channels = Array.from(listContainer.children);
             if (channels.length === 0) return;
-
             let currentIndex = channels.findIndex(ch => ch.classList.contains('active'));
             let nextIndex = currentIndex + direction;
-
             if (nextIndex >= channels.length) nextIndex = 0;
             else if (nextIndex < 0) nextIndex = channels.length - 1;
-
-            channels[nextIndex].click();
-            channels[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            const targetChannel = channels[nextIndex];
+            if (targetChannel) {
+                targetChannel.click();
+                targetChannel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
         }
     </script>
 </body>
