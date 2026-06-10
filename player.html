@@ -12,14 +12,15 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
-        /* --- SIDEBAR VE KANAL LİSTESİ DÜZENLEMESİ --- */
+        /* --- SIDEBAR GÜNCELLEMESİ (220px) --- */
         .player-sidebar {
-            width: 300px;
+            width: 220px; /* Genişlik 220px olarak ayarlandı */
             display: flex;
             flex-direction: column;
             background: #111;
             border-right: 1px solid #222;
             height: 100vh;
+            flex-shrink: 0; /* İçeriğin sıkışmasını engeller */
         }
 
         .channels-sidebar-list {
@@ -27,7 +28,7 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            padding: 10px;
+            padding: 8px; /* Listeyi biraz daha daralttık */
         }
 
         /* --- KATEGORİLERİ SOLA YASLAMA --- */
@@ -86,6 +87,7 @@
         .player-content-wrapper {
             display: flex;
             flex-direction: row;
+            height: 100vh;
         }
     </style>
 </head>
@@ -114,7 +116,7 @@
                 </div>
                 
                 <div class="channels-sidebar-list" id="channelsSidebarList">
-                    </div>
+                </div>
             </aside>
 
             <main class="player-main">
