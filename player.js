@@ -1314,7 +1314,7 @@ function renderSidebarChannels() {
 function renderCategorySidebar() {
     if (!categorySidebarList) return;
     
-    const categories = ['all', 'Ulusal', 'Haber', 'Spor', 'Eğlence', 'Müzik', 'Belgesel', 'Dini', 'Çocuk', 'Ekonomi', 'Yurt Dışı', 'Radyo Canlı'];
+    const categories = ['all', 'Ulusal', 'Haber', 'Spor', 'Eğlence', 'Müzik', 'Belgesel', 'Dini', 'Çocuk', 'Ekonomi', 'Yurt Dışı', 'Youtube'];
     const categoryNames = {
         'all': 'Tümü',
         'Ulusal': 'Ulusal',
