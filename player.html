@@ -5,23 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="screen-orientation" content="auto">
     <title>PlusTV - Video Player</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
-        /* --- PROFESYONEL TAM EKRAN VE KONTROL BAR STİLLERİ --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #000; color: #fff; height: 100vh; overflow: hidden; }
+
+        .player-content-wrapper { display: flex; height: 100vh; }
+
+        /* --- SİDEBAR 220PX AYARI --- */
+        .player-sidebar {
+            width: 220px !important;
+            background: #111;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #222;
+        }
+
+        .channels-sidebar-list {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        /* --- KATEGORİLER SOLA YANAŞTIRMA --- */
+        .player-categories-container {
+            display: flex !important;
+            justify-content: flex-start !important;
+            gap: 15px;
+            padding: 15px;
+            overflow-x: auto;
+        }
+
+        .category-card {
+            cursor: pointer;
+            text-align: center;
+            min-width: 60px;
+        }
+
+        /* --- VİDEO VE KONTROL --- */
+        .player-main { flex-grow: 1; display: flex; flex-direction: column; }
+        .video-container-player { flex-grow: 1; position: relative; background: #000; }
+        
         #videoControlsBar {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 15px;
             padding: 15px 0;
-            background-color: #111; /* Resimdeki alt siyah bar rengi */
+            background-color: #111;
             border-top: 1px solid #222;
-            width: 100%;
         }
 
         .player-nav-btn {
@@ -29,184 +64,71 @@
             border: 1px solid rgba(255,255,255,0.1);
             color: #fff;
             padding: 10px 25px;
-            font-size: 15px;
             border-radius: 6px;
             cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            user-select: none;
-        }
-
-        .player-nav-btn:hover {
-            background: #333;
-            transform: scale(1.02);
         }
 
         #fullscreenBtn { 
-            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); /* Resimdeki mavi buton rengi */
-            border: 1px solid rgba(255,255,255,0.2); 
-            color: #fff; 
-            padding: 14px 40px;
-            font-size: 17px;
-            letter-spacing: 0.5px;
-            font-weight: 500;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            border: none;
+            padding: 10px 30px;
+            color: #fff;
             border-radius: 6px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.3);
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-        }
-
-        #fullscreenBtn:hover { 
-            background: linear-gradient(135deg, #0056b3 0%, #007bff 100%);
-            box-shadow: 0 0 25px rgba(0, 123, 255, 0.6);
-            transform: scale(1.05) translateY(-2px);
-            color: #fff;
-        }
-
-        [data-theme='polar'] #fullscreenBtn {
-            color: #fff;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
-    <div class="player-page">
-        <div class="player-content-wrapper">
-            <aside class="player-sidebar">
-                <div class="sidebar-header">
-                    <button class="back-btn" id="backBtn" title="Ana Sayfaya Dön">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 12H5M12 19l-7-7 7-7"/>
-                        </svg>
-                        <span>Geri</span>
-                    </button>
-                    <h3 id="sidebarCategoryTitle">Kanallar</h3>
-                    <button class="zoom-toggle-btn" id="zoomToggleBtn" title="Tam ekran">
-                        <svg class="fullscreen-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-                        </svg>
-                        <svg class="fullscreen-exit-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
-                            <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
-                        </svg>
-                    </button>
+    <div class="player-content-wrapper">
+        <aside class="player-sidebar">
+            <div class="sidebar-header">
+                <h3>Kanallar</h3>
+            </div>
+            <div class="channels-sidebar-list" id="channelsSidebarList">
                 </div>
-                
-                <div class="sidebar-tabs">
-                    <button class="tab-btn active" data-tab="channels">Kanallar</button>
-                    <button class="tab-btn" data-tab="favorites">⭐ Favoriler</button>
+        </aside>
+
+        <main class="player-main">
+            <section class="player-categories-section">
+                <div class="player-categories-container">
+                    <div class="category-card">📺 Tümü</div>
+                    <div class="category-card">🌐 Ulusal</div>
                 </div>
-                
-                <div class="channels-sidebar-list" id="channelsSidebarList">
-                    </div>
-            </aside>
+            </section>
 
-            <main class="player-main">
-                <section class="player-categories-section">
-                    <div class="player-categories-container">
-                        <div class="category-card" data-category="all">
-                            <div class="category-icon">📺</div>
-                            <div class="category-name">Tümü</div>
-                        </div>
-                    </div>
-                </section>
+            <div class="video-container-player" id="videoContainerPlayer">
+                <video id="videoPlayer" class="video-player" autoplay playsinline></video>
+            </div>
 
-                <div class="video-container-player" id="videoContainerPlayer">
-                    <div class="video-placeholder-player" id="videoPlaceholderPlayer">
-                        <div class="placeholder-content">
-                            <div class="placeholder-icon">📺</div>
-                            <h2>Bir Kanal Seçin</h2>
-                            <p>Sol taraftaki listeden bir kanal seçin</p>
-                            <a href="https://t.me/carautoplus" target="_blank" rel="noopener noreferrer" class="telegram-link">t.me/carautoplus</a>
-                            <p class="brand-name">Auto Car Plus</p>
-                        </div>
-                    </div>
-                    <div class="loading-overlay" id="loadingPlayer">
-                        <div class="spinner"></div>
-                        <p>Yükleniyor...</p>
-                    </div>
-                    <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
-                    <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
-                </div>
-
-                <div id="videoControlsBar">
-                    <button class="player-nav-btn" onclick="changeChannel(-1)">
-                        <span>I⏮</span> Geri
-                    </button>
-                    
-                    <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
-                        <span>⛶</span> Tam Ekran
-                    </button>
-                    
-                    <button class="player-nav-btn" onclick="changeChannel(1)">
-                        İleri <span>⏭I</span>
-                    </button>
-                </div>
-
-            </main>
-        </div>
+            <div id="videoControlsBar">
+                <button class="player-nav-btn" onclick="changeChannel(-1)">I⏮ Geri</button>
+                <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">⛶ Tam Ekran</button>
+                <button class="player-nav-btn" onclick="changeChannel(1)">İleri ⏭I</button>
+            </div>
+        </main>
     </div>
 
-    <script src="player.js"></script>
-
     <script>
-        // 1. TAM EKRAN AÇMA VE KAPATMA FONKSİYONU
         function toggleFullscreen() {
-            // Tam ekran yapılacak element (Video kutusu)
-            const playerElement = document.getElementById("videoContainerPlayer");
-            if (!playerElement) return;
-
-            // Eğer zaten tam ekrandaysa, ÇIK
-            if (
-                document.fullscreenElement ||
-                document.webkitFullscreenElement ||
-                document.mozFullScreenElement ||
-                document.msFullscreenElement
-            ) {
-                if (document.exitFullscreen) document.exitFullscreen();
-                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-                else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
-                else if (document.msExitFullscreen) document.msExitFullscreen();
-            } 
-            // Tam ekranda değilse, GİR
-            else {
-                if (playerElement.requestFullscreen) playerElement.requestFullscreen();
-                else if (playerElement.webkitRequestFullscreen) playerElement.webkitRequestFullscreen();
-                else if (playerElement.mozRequestFullScreen) playerElement.mozRequestFullScreen();
-                else if (playerElement.msRequestFullscreen) playerElement.msRequestFullscreen();
+            const el = document.getElementById("videoContainerPlayer");
+            if (!document.fullscreenElement) {
+                el.requestFullscreen().catch(err => alert(err.message));
+            } else {
+                document.exitFullscreen();
             }
         }
 
-        // 2. KANAL DEĞİŞTİRME FONKSİYONU (İLERİ / GERİ)
         function changeChannel(direction) {
-            // Sol taraftaki listede bulunan tüm tıklanabilir kanal elementlerini topluyoruz
             const listContainer = document.getElementById('channelsSidebarList');
             if (!listContainer) return;
-
-            // Liste içerisindeki tüm çocuk elementleri (kanalları) diziye çevir
             const channels = Array.from(listContainer.children);
             if (channels.length === 0) return;
-
-            // Şu an aktif olan kanalı 'active' class'ına göre bul
             let currentIndex = channels.findIndex(ch => ch.classList.contains('active'));
-
-            // Yeni kanalın sırasını hesapla
-            let nextIndex = currentIndex + direction;
-
-            // Sınır kontrolü (Döngüsel geçiş)
-            if (nextIndex >= channels.length) {
-                nextIndex = 0; // Son kanaldan sonra ileri denirse ilk kanala dön
-            } else if (nextIndex < 0) {
-                nextIndex = channels.length - 1; // İlk kanaldan önce geri denirse son kanala git
-            }
-
-            // Hedef kanalı seç ve tıkla
-            const targetChannel = channels[nextIndex];
-            if (targetChannel) {
-                targetChannel.click(); // Otomatik tıklayarak oynatıcıyı tetikler
-                
-                // Sol menüyü tıklanan kanala doğru otomatik kaydır
-                targetChannel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
+            let nextIndex = (currentIndex === -1) ? 0 : currentIndex + direction;
+            if (nextIndex >= channels.length) nextIndex = 0;
+            if (nextIndex < 0) nextIndex = channels.length - 1;
+            channels[nextIndex].click();
+            channels[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     </script>
 </body>
