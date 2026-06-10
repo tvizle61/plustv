@@ -880,7 +880,7 @@ async function loadChannelsFromM3U() {
             });
         });
         
-        allCategories.add('Radyo Canlı');
+        allCategories.add('Youtube');
         
         console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
         console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
