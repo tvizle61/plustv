@@ -12,74 +12,82 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
-        /* Temel Sayfa Düzeni */
-        body, html { margin: 0; padding: 0; height: 100%; background: #000; }
-        .player-page { display: flex; height: 100vh; overflow: hidden; }
-
-        /* Sidebar 220px */
+        /* --- SIDEBAR GÜNCELLEMESİ (220px) --- */
         .player-sidebar {
-            width: 220px;
-            flex-shrink: 0;
+            width: 220px; /* Genişlik 220px olarak ayarlandı */
             display: flex;
             flex-direction: column;
             background: #111;
             border-right: 1px solid #222;
+            height: 100vh;
+            flex-shrink: 0; /* İçeriğin sıkışmasını engeller */
         }
 
-        .channels-sidebar-list { flex-grow: 1; overflow-y: auto; padding: 8px; }
-
-        /* Main Alan */
-        .player-content-wrapper { display: flex; flex-direction: row; width: 100%; }
-        .player-main { flex-grow: 1; display: flex; flex-direction: column; overflow: hidden; }
-
-        /* Kategoriler (Sola Yaslı) */
-        .player-categories-container {
-            display: flex;
-            justify-content: flex-start !important;
-            gap: 10px;
-            padding: 10px;
-        }
-
-        /* Video ve Kontrol Barı (Tam Ekran Kapsayıcısı) */
-        .video-container-player {
-            position: relative;
+        .channels-sidebar-list {
             flex-grow: 1;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
-            background: #000;
+            padding: 8px; /* Listeyi biraz daha daralttık */
         }
-        
-        .video-player { flex-grow: 1; width: 100%; }
 
+        /* --- KATEGORİLERİ SOLA YASLAMA --- */
+        .player-categories-container {
+            display: flex;
+            justify-content: flex-start !important; 
+            gap: 15px;
+            padding: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* --- DİĞER STİLLER --- */
         #videoControlsBar {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
-            padding: 8px 0;
+            gap: 15px;
+            padding: 15px 0;
             background-color: #111;
             border-top: 1px solid #222;
             width: 100%;
         }
 
-        /* Küçük Butonlar */
         .player-nav-btn {
             background: #222;
             border: 1px solid rgba(255,255,255,0.1);
             color: #fff;
-            padding: 6px 15px;
-            font-size: 13px;
-            border-radius: 4px;
+            padding: 10px 25px;
+            font-size: 15px;
+            border-radius: 6px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .player-nav-btn:hover {
+            background: #333;
+            transform: scale(1.02);
         }
 
         #fullscreenBtn { 
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-            padding: 7px 20px;
-            font-size: 13px;
+            border: 1px solid rgba(255,255,255,0.2); 
+            color: #fff; 
+            padding: 14px 40px;
+            font-size: 17px;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+            border-radius: 6px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        .player-content-wrapper {
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
         }
     </style>
 </head>
@@ -88,27 +96,69 @@
         <div class="player-content-wrapper">
             <aside class="player-sidebar">
                 <div class="sidebar-header">
-                    <button class="back-btn" id="backBtn"><span>Geri</span></button>
-                    <h3>Kanallar</h3>
+                    <button class="back-btn" id="backBtn" title="Ana Sayfaya Dön">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        <span>Geri</span>
+                    </button>
+                    <h3 id="sidebarCategoryTitle">Kanallar</h3>
+                    <button class="zoom-toggle-btn" id="zoomToggleBtn" title="Tam ekran">
+                        <svg class="fullscreen-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                        </svg>
+                    </button>
                 </div>
-                <div class="channels-sidebar-list" id="channelsSidebarList"></div>
+                
+                <div class="sidebar-tabs">
+                    <button class="tab-btn active" data-tab="channels">Kanallar</button>
+                    <button class="tab-btn" data-tab="favorites">⭐ Favoriler</button>
+                </div>
+                
+                <div class="channels-sidebar-list" id="channelsSidebarList">
+                </div>
             </aside>
 
             <main class="player-main">
                 <section class="player-categories-section">
                     <div class="player-categories-container">
-                        <div class="category-card" data-category="all">📺 Tümü</div>
+                        <div class="category-card" data-category="all">
+                            <div class="category-icon">📺</div>
+                            <div class="category-name">Tümü</div>
+                        </div>
                     </div>
                 </section>
 
                 <div class="video-container-player" id="videoContainerPlayer">
-                    <video id="videoPlayer" class="video-player" autoplay playsinline></video>
-                    
-                    <div id="videoControlsBar">
-                        <button class="player-nav-btn" onclick="changeChannel(-1)">⏮ Geri</button>
-                        <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">⛶ Tam Ekran</button>
-                        <button class="player-nav-btn" onclick="changeChannel(1)">İleri ⏭</button>
+                    <div class="video-placeholder-player" id="videoPlaceholderPlayer">
+                        <div class="placeholder-content">
+                            <div class="placeholder-icon">📺</div>
+                            <h2>Bir Kanal Seçin</h2>
+                            <p>Sol taraftaki listeden bir kanal seçin</p>
+                            <a href="https://t.me/carautoplus" target="_blank" rel="noopener noreferrer" class="telegram-link">t.me/carautoplus</a>
+                            <p class="brand-name">Auto Car Plus</p>
+                        </div>
                     </div>
+                    <div class="loading-overlay" id="loadingPlayer">
+                        <div class="spinner"></div>
+                        <p>Yükleniyor...</p>
+                    </div>
+                    <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
+                    <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
+                </div>
+
+                <div id="videoControlsBar">
+                    <button class="player-nav-btn" onclick="changeChannel(-1)">
+                        <span>I⏮</span> Geri
+                    </button>
+                    
+                    <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
+                        <span>⛶</span> Tam Ekran
+                    </button>
+                    
+                    <button class="player-nav-btn" onclick="changeChannel(1)">
+                        İleri <span>⏭I</span>
+                    </button>
                 </div>
             </main>
         </div>
@@ -118,6 +168,7 @@
     <script>
         function toggleFullscreen() {
             const playerElement = document.getElementById("videoContainerPlayer");
+            if (!playerElement) return;
             if (!document.fullscreenElement) {
                 playerElement.requestFullscreen();
             } else {
@@ -127,13 +178,18 @@
 
         function changeChannel(direction) {
             const listContainer = document.getElementById('channelsSidebarList');
+            if (!listContainer) return;
             const channels = Array.from(listContainer.children);
             if (channels.length === 0) return;
             let currentIndex = channels.findIndex(ch => ch.classList.contains('active'));
             let nextIndex = currentIndex + direction;
             if (nextIndex >= channels.length) nextIndex = 0;
             else if (nextIndex < 0) nextIndex = channels.length - 1;
-            channels[nextIndex].click();
+            const targetChannel = channels[nextIndex];
+            if (targetChannel) {
+                targetChannel.click();
+                targetChannel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
         }
     </script>
 </body>
