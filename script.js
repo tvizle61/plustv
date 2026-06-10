@@ -509,7 +509,7 @@ const STANDARD_CATEGORIES = [
     { id: 'Çocuk', name: 'Çocuk', icon: '👶' },
     { id: 'Ekonomi', name: 'Ekonomi', icon: '💰' },
     { id: 'Yurt Dışı', name: 'Yurt Dışı', icon: '🌍' },
-    { id: 'You Tube', name: 'You Tube', icon: '▶️' }
+    { id: 'Youtube', name: 'You Tube', icon: '▶️' }
 ];
 
 // Kategori eşleştirme (eski -> yeni)
