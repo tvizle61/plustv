@@ -76,45 +76,46 @@
             transform: scale(0.85) !important;
         }
 
-        /* --- ÜST KATEGORİ BUTONLARINI YARI YARIYA KÜÇÜLTME --- */
         /* --- ÜST KATEGORİ SECTİON VE CONTAINER AYARLARI --- */
-.player-categories-section {
-    background: #111; /* İsteğe bağlı: Sidebar ile bütünlük sağlaması için arka plan rengi */
-    border-bottom: 1px solid #222;
-    width: 100%;
-}
+        .player-categories-section {
+            background: #111; 
+            border-bottom: 1px solid #222;
+            width: 100%;
+        }
 
-.player-categories-container {
-    display: flex;
-    justify-content: flex-start !important; 
-    gap: 6px !important;             /* Butonlar arası boşluk daraltıldı */
-    padding: 8px 12px !important;    /* Üst ve alt iç boşluklar biraz daha daraltıldı */
-    flex-wrap: nowrap !important;    /* Yan yana düzgün sıralanması için taşmayı engeller */
-    overflow-x: auto;                /* Çok fazla kategori gelirse sağa doğru kaydırılabilir */
-}
+        .player-categories-container {
+            display: flex;
+            justify-content: flex-start !important; 
+            gap: 5px !important;             /* Butonlar arası boşluk daraltıldı */
+            padding: 5px 10px !important;    /* Üst bar yüksekliği buton boyutuyla dengelendi */
+            flex-wrap: nowrap !important;    
+            overflow-x: auto;                
+        }
 
-/* --- KATEGORİ KARTLARINI SIKIŞTIRMA VE HİZALAMA --- */
-.category-card {
-    padding: 4px 10px !important;     /* İç boşluklar küçültüldü */
-    min-width: 60px !important;       /* Butonların çok küçülüp bozulmasını önlemek için ideal taban genişlik */
-    height: auto !important;
-    border-radius: 6px !important;    /* Kenar yumuşatma sidebar ile eşitlendi */
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 2px !important;              
-    flex-shrink: 0 !important;        /* Kartların genişliğinin ezilmesini önler */
-}
+        /* --- ORANTILI KATEGORİ BUTONLARI (YENİLENEN KISIM) --- */
+        .category-card {
+            padding: 3px 8px !important;     /* İç boşluklar yazıyla tam orantılı olacak şekilde küçültüldü */
+            min-width: 48px !important;      /* Yazıların taşmamasını sağlayan kibar bir taban genişlik */
+            height: auto !important;
+            border-radius: 5px !important;    
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 2px !important;              
+            flex-shrink: 0 !important;
+        }
 
-.category-icon {
-    font-size: 11px !important;       /* İkonlar biraz daha kibarlaştırıldı */
-    line-height: 1 !important;
-}
+        .category-icon {
+            font-size: 11px !important;       
+            line-height: 1 !important;
+        }
 
-.category-name {
-    font-size: 9px !important;        /* Yazı boyutu küçültüldü */
-    font-weight: 500 !important;
-}
+        .category-name {
+            font-size: 9px !important;        /* Yazı boyutu */
+            font-weight: 500 !important;
+            white-space: nowrap !important;   /* Yazının buton içinde kırılmasını önler */
+        }
 
         /* --- VİDEO ALANI ANA AYARLARI --- */
         .player-main {
