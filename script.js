@@ -420,7 +420,7 @@ async function loadChannelsFromM3U() {
         
         // YouTube Radyo kanallarını ekle
         const radioChannels = [
-            { name: 'Hayri Yaşar Karagülle-Geldi Bahar Ayları', url: 'https://www.youtube.com/watch?v=0RziZxRimS0' },
+            { name: 'Kral POP Radyo', url: 'https://www.youtube.com/watch?v=5J-w9AHKHsc' },
             { name: "Radyo 45'lik", url: 'https://www.youtube.com/watch?v=dk_uf4o2atY' },
             { name: 'Slow Türk', url: 'https://www.youtube.com/watch?v=tWTHF0r2oEw' },
             { name: 'Kral FM', url: 'https://www.youtube.com/watch?v=A49bKX8gb-8' },
@@ -444,7 +444,7 @@ async function loadChannelsFromM3U() {
                 id: channelId++,
                 name: radio.name,
                 url: radio.url,
-                category: 'Youtube',
+                category: 'Radyo Canlı',
                 tvgId: '',
                 tvgLogo: ''
             });
@@ -491,7 +491,7 @@ const categoryIcons = {
     'Ekonomi': '💰',
     'Yurt Disi': '🌍',
     'Yurt Dışı': '🌍',
-    'Youtube': '▶️',
+    'Radyo Canlı': '▶️',
     'Radyo': '📻',
     'Diğer': '📺'
 };
@@ -509,7 +509,7 @@ const STANDARD_CATEGORIES = [
     { id: 'Çocuk', name: 'Çocuk', icon: '👶' },
     { id: 'Ekonomi', name: 'Ekonomi', icon: '💰' },
     { id: 'Yurt Dışı', name: 'Yurt Dışı', icon: '🌍' },
-    { id: 'Youtube', name: 'Youtube', icon: '▶️' }
+    { id: 'Radyo Canlı', name: 'Radyo Canlı', icon: '▶️' }
 ];
 
 // Kategori eşleştirme (eski -> yeni)
@@ -824,7 +824,7 @@ function renderChannels() {
         'Çocuk': 'Çocuk Kanalları',
         'Ekonomi': 'Ekonomi Kanalları',
         'Yurt Dışı': 'Yurt Dışı Kanallar',
-        'Youtube': 'Youtube'
+        'Radyo Canlı': 'Radyo Canlı'
     };
     
     if (categoryTitle) {
