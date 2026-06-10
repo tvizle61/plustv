@@ -14,13 +14,13 @@
     <style>
         /* --- SIDEBAR GÜNCELLEMESİ (220px) --- */
         .player-sidebar {
-            width: 220px; /* Genişlik 220px olarak ayarlandı */
+            width: 220px;
             display: flex;
             flex-direction: column;
             background: #111;
             border-right: 1px solid #222;
             height: 100vh;
-            flex-shrink: 0; /* İçeriğin sıkışmasını engeller */
+            flex-shrink: 0;
         }
 
         .channels-sidebar-list {
@@ -28,7 +28,7 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            padding: 8px; /* Listeyi biraz daha daralttık */
+            padding: 8px;
         }
 
         /* --- KATEGORİLERİ SOLA YASLAMA --- */
@@ -40,44 +40,40 @@
             flex-wrap: wrap;
         }
 
-        /* --- VİDEO ALANI VE KÜÇÜLTÜLMÜŞ KONTROLLER --- */
+        /* --- VİDEO KAPSAYICI AYARI --- */
         #videoContainerPlayer {
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: space-between !important;
-            position: relative !important;
+            position: relative !important; /* Altındaki mutlak elemanlara referans olması için */
+            overflow: hidden;
         }
 
-        #videoPlayer, #iframePlayer {
-            flex: 1 !important;
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: contain !important;
-            min-height: 0 !important;
-        }
-
+        /* --- KONTROL BARINI EN ÜST KATMANA SABİTLEME --- */
         #videoControlsBar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;          /* Yarı yarıya küçültüldü */
-            padding: 8px 0;    /* Bar yüksekliği daraltıldı */
-            background-color: #111;
-            border-top: 1px solid #222;
-            width: 100%;
+            position: absolute !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 12px 0 !important;
+            background: rgba(17, 17, 17, 0.9) !important; /* Premium ve hafif şeffaf arka plan */
+            border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+            z-index: 999999 !important; /* Video ve yükleme ekranının kesinlikle üstünde kalır */
         }
 
+        /* --- DENGELİ BUTON BOYUTLARI --- */
         .player-nav-btn {
             background: #222;
             border: 1px solid rgba(255,255,255,0.1);
             color: #fff;
-            padding: 5px 12px; /* Yarı yarıya küçültüldü */
-            font-size: 12px;   /* Yazı boyutu küçültüldü */
-            border-radius: 4px;
+            padding: 8px 20px;
+            font-size: 13px;
+            border-radius: 6px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 4px;          /* İkon boşluğu küçültüldü */
+            gap: 6px;
             transition: all 0.3s ease;
             user-select: none;
         }
@@ -91,12 +87,12 @@
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
             border: 1px solid rgba(255,255,255,0.2); 
             color: #fff; 
-            padding: 6px 20px; /* Yarı yarıya küçültüldü */
-            font-size: 12px;   /* Yazı boyutu küçültüldü */
+            padding: 10px 30px;
+            font-size: 14px;
             letter-spacing: 0.5px;
             font-weight: 500;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            border-radius: 6px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
         }
 
         .player-content-wrapper {
@@ -154,10 +150,12 @@
                             <p class="brand-name">Auto Car Plus</p>
                         </div>
                     </div>
+                    
                     <div class="loading-overlay" id="loadingPlayer">
                         <div class="spinner"></div>
                         <p>Yükleniyor...</p>
                     </div>
+                    
                     <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
                     <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
                 
@@ -185,7 +183,7 @@
             const playerElement = document.getElementById("videoContainerPlayer");
             if (!playerElement) return;
             if (!document.fullscreenElement) {
-                playerElement.requestFullscreen();
+                playerElement.requestFullscreen().catch(err => console.log(err));
             } else {
                 document.exitFullscreen();
             }
