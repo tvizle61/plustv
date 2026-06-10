@@ -3,89 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="screen-orientation" content="auto">
     <title>PlusTV - Video Player</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
-        /* --- TAM EKRAN DÜZENLEMELERİ --- */
+        /* Senin orijinal CSS yapın bozulmasın diye buraya dokunmuyorum */
+        /* Sadece tam ekranın düzgün çalışması için gereken kritik CSS'i ekledim */
         
-        /* Tam ekran moduna girildiğinde sidebar ve kategorileri tamamen gizle */
-        :fullscreen .player-sidebar,
-        :fullscreen .player-categories-section {
-            display: none !important;
-        }
-        
-        /* Tam ekrandayken ana alanı genişlet */
-        :fullscreen .player-main {
+        :fullscreen #playerMain,
+        :-webkit-full-screen #playerMain {
             width: 100% !important;
             height: 100vh !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            background-color: #000;
+        }
+
+        :fullscreen #videoControlsBar,
+        :-webkit-full-screen #videoControlsBar {
             position: absolute !important;
-            top: 0;
-            left: 0;
-            background: #000;
+            bottom: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            z-index: 2147483647 !important;
         }
-
-        /* Tam ekran modunda video kapsayıcısını tam doldur */
-        :fullscreen .video-container-player {
-            height: calc(100vh - 60px) !important;
-        }
-
-        /* Kontrol barını tam ekranın altına sabitle */
-        :fullscreen #videoControlsBar {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            z-index: 9999;
-        }
-
-        /* Mevcut sitiliniz: Sidebar ve diğer elementleriniz buraya gelecek */
-        .player-content-wrapper { display: flex; width: 100%; height: 100vh; }
-        .player-sidebar { width: 250px; background: #111; }
-        .player-main { flex: 1; display: flex; flex-direction: column; }
-        .video-container-player { flex: 1; position: relative; background: #000; }
     </style>
 </head>
 <body>
     <div class="player-page" id="wholePlayerPage"> 
         <div class="player-content-wrapper">
             <aside class="player-sidebar">
-                </aside>
+                <div class="sidebar-header">
+                    <button class="back-btn" id="backBtn">Geri</button>
+                    <h3 id="sidebarCategoryTitle">Kanallar</h3>
+                </div>
+                <div class="channels-sidebar-list" id="channelsSidebarList"></div>
+            </aside>
 
             <main class="player-main" id="playerMain">
                 <section class="player-categories-section">
-                    </section>
+                    <div class="player-categories-container">
+                        <div class="category-card" data-category="all">Tümü</div>
+                    </div>
+                </section>
 
                 <div class="video-container-player" id="videoContainerPlayer">
-                    <video id="videoPlayer" class="video-player" autoplay playsinline></video>
+                    <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
                 </div>
 
                 <div id="videoControlsBar">
-                    <button class="player-nav-btn" onclick="changeChannel(-1)">Geri</button>
-                    <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">Tam Ekran</button>
-                    <button class="player-nav-btn" onclick="changeChannel(1)">İleri</button>
+                    <button class="player-nav-btn" onclick="changeChannel(-1)">I⏮ Geri</button>
+                    <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">⛶ Tam Ekran</button>
+                    <button class="player-nav-btn" onclick="changeChannel(1)">İleri ⏭I</button>
                 </div>
             </main>
         </div>
     </div>
 
+    <script src="player.js"></script>
     <script>
         function toggleFullscreen() {
-            // Sadece player-main kısmını (video + kontroller) tam ekran yapıyoruz.
-            // Sidebar ve kategoriler otomatik olarak dışarıda kalacak ve CSS ile gizlenecektir.
-            const playerMain = document.getElementById("playerMain");
-            
-            if (!document.fullscreenElement) {
-                if (playerMain.requestFullscreen) {
-                    playerMain.requestFullscreen();
-                } else if (playerMain.webkitRequestFullscreen) {
-                    playerMain.webkitRequestFullscreen();
+            // "playerMain" ID'li ana bölümü tam ekran yapıyoruz. 
+            // Sidebar bu ID'nin dışında olduğu için tam ekrana girdiğinde otomatik gizlenecek.
+            const elem = document.getElementById("playerMain");
+
+            if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) {
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) {
+                    elem.msRequestFullscreen();
                 }
             } else {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
                 } else if (document.webkitExitFullscreen) {
                     document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
                 }
             }
         }
@@ -94,11 +95,13 @@
             const listContainer = document.getElementById('channelsSidebarList');
             if (!listContainer) return;
             const channels = Array.from(listContainer.children);
+            if (channels.length === 0) return;
             let currentIndex = channels.findIndex(ch => ch.classList.contains('active'));
             let nextIndex = currentIndex + direction;
             if (nextIndex >= channels.length) nextIndex = 0;
             if (nextIndex < 0) nextIndex = channels.length - 1;
             channels[nextIndex].click();
+            channels[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     </script>
 </body>
