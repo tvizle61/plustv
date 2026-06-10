@@ -93,55 +93,56 @@
         }
 
         /* --- ORANTILI KATEGORİ BUTONLARI --- */
-.category-card {
-    padding: 2px !important;         /* İç boşluğu minimuma indirdik, buton kesinlikle büyümez */
-    width: 55px !important;          /* Sabit genişlik */
-    height: 38px !important;         /* Sabit yükseklik */
-    box-sizing: border-box !important;/* Taşmaları önler */
-    border-radius: 5px !important;    
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: space-between !important; /* İkonu yukarı, yazıyı aşağı yaslar (maksimum alan açar) */
-    gap: 0px !important;             
-    flex-shrink: 0 !important;
-    overflow: hidden !important;     
-}
+        .category-card {
+            padding: 2px !important;         /* İç boşluğu minimuma indirdik, buton kesinlikle büyümez */
+            width: 55px !important;          /* Sabit genişlik */
+            height: 38px !important;         /* Sabit yükseklik */
+            box-sizing: border-box !important;/* Taşmaları önler */
+            border-radius: 5px !important;    
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: space-between !important; /* İkonu yukarı, yazıyı aşağı yaslar (maksimum alan açar) */
+            gap: 0px !important;             
+            flex-shrink: 0 !important;
+            overflow: hidden !important;     
+        }
 
-/* --- BÜYÜTÜLEN İKON / RESİM ALANI (TÜM ELEMENTLER İÇİN) --- */
-.category-icon {
-    font-size: 24px !important;       /* Eğer düz metin/emoji ise boyutu 24px yapar */
-    line-height: 1 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex: 1 !important;              /* Butonun üst kısmındaki tüm boş alanı kaplar */
-    width: 100% !important;
-    height: 24px !important;
-}
+        /* --- BÜYÜTÜLEN İKON / RESİM ALANI (TÜM ELEMENTLER İÇİN) --- */
+        .category-icon {
+            font-size: 24px !important;       /* Eğer düz metin/emoji ise boyutu 24px yapar */
+            line-height: 1 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex: 1 !important;              /* Butonun üst kısmındaki tüm boş alanı kaplar */
+            width: 100% !important;
+            height: 24px !important;
+        }
 
-/* js ile sonradan yüklenen img, svg, i (font-awesome) veya span etiketleri varsa hepsini büyütür: */
-.category-icon img,
-.category-icon svg,
-.category-icon i,
-.category-icon span {
-    width: 24px !important;          /* Genişlik 24px */
-    height: 24px !important;         /* Yükseklik 24px */
-    font-size: 24px !important;       /* İkon fontu ise boyutu */
-    object-fit: contain !important;  /* Orantılı sığdır */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
+        /* js ile sonradan yüklenen img, svg, i (font-awesome) veya span etiketleri varsa hepsini büyütür: */
+        .category-icon img,
+        .category-icon svg,
+        .category-icon i,
+        .category-icon span {
+            width: 24px !important;          /* Genişlik 24px */
+            height: 24px !important;         /* Yükseklik 24px */
+            font-size: 24px !important;       /* İkon fontu ise boyutu */
+            object-fit: contain !important;  /* Orantılı sığdır */
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
 
-/* --- YAZI ALANI --- */
-.category-name {
-    font-size: 9px !important;        
-    font-weight: 500 !important;
-    white-space: nowrap !important;   
-    line-height: 1 !important;       
-    margin-bottom: 2px !important;   /* Alt sınıra hafifçe yaklaştırır */
-}
+        /* --- YAZI ALANI --- */
+        .category-name {
+            font-size: 9px !important;        
+            font-weight: 500 !important;
+            white-space: nowrap !important;   
+            line-height: 1 !important;       
+            margin-bottom: 2px !important;   /* Alt sınıra hafifçe yaklaştırır */
+        }
+
         /* --- VİDEO ALANI ANA AYARLARI --- */
         .player-main {
             flex-grow: 1;
@@ -158,20 +159,21 @@
             background: #000;
         }
 
-        /* --- MİNİBAL KONTROL BAR --- */
+        /* --- DEĞİŞTİRİLEN ALAN: SOLA YANAŞIK KONTROL BAR --- */
         #videoControlsBar {
             position: absolute !important;
             bottom: 0 !important;
             left: 0 !important;
             width: 100% !important;
             display: flex !important;
-            justify-content: center !important;
+            justify-content: flex-start !important; /* Ortadan Sola yanaştırıldı */
             align-items: center !important;
             gap: 8px !important;
-            padding: 6px 0 !important;
+            padding: 6px 15px !important; /* Butonların sol kenara sıfırlanmaması için sol boşluk eklendi */
             background: rgba(17, 17, 17, 0.75) !important;
             border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
             z-index: 999999 !important;
+            box-sizing: border-box !important;
         }
 
         /* --- MİNİ BUTONLAR --- */
@@ -240,7 +242,7 @@
                 </div>
                 
                 <div class="channels-sidebar-list" id="channelsSidebarList">
-                    </div>
+                </div>
             </aside>
 
             <main class="player-main">
@@ -259,7 +261,7 @@
                             <div class="placeholder-icon">📺</div>
                             <h2>Bir Kanal Seçin</h2>
                             <p>Sol taraftaki listeden bir kanal seçin</p>
-                           
+                            
                             <p class="brand-name">61 BYD 61</p>
                         </div>
                     </div>
