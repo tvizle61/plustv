@@ -1327,7 +1327,7 @@ function renderCategorySidebar() {
         'Çocuk': 'Çocuk',
         'Ekonomi': 'Ekonomi',
         'Yurt Dışı': 'Yurt Dışı',
-        'Radyo Canlı': 'Radyo Canlı'
+        'Radyo Canlı': 'Youtube'
     };
     
     categorySidebarList.innerHTML = '';
