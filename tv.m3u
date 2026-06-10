@@ -22,14 +22,10 @@ https://streams.uzunmuhalefet.com/stream/0ed1c367-312d-4a42-9772-ef257a36b775.m3
 https://ciner.daioncdn.net/showtv/showtv.m3u8?ce=3&app=4bc856ef-4c68-4a94-bc87-37dfaaa66558
 #EXTINF:-1 tvg-name="15. Beyaz Tv" tvg-id="" tvg-logo="https://gitlatte.github.io/m3ueditor/images/kanal-gorselleri/turkiye/beyaz-tv-tr.png" group-title="Ulusal", 6. Beyaz Tv
 https://beyaztv-live.daioncdn.net/beyaztv/beyaztv_1080p.m3u8
-#EXTINF:-1 tvg-id="BeyazTV.tr" tvg-logo="http://assets.tvcdn.net/60d7aaf4-817b-46be-bbab-68f8b30de8fb.png" group-title="Ulusal", 6. Beyaz TV
-https://beyaztv.daioncdn.net/beyaztv/beyaztv.m3u8?app=fcd5c66b-da9d-44ba-a410-4f34805c397d&ce=3
 #EXTINF:-1 tvg-name="13. Kanal 7" tvg-id="" tvg-logo="https://play-lh.googleusercontent.com/s029TvwR-pU-SIoJh2GcGIScm4LzsmuTTbwPSCtwIK_6aOOXjQwC6mcHeMrPDst2KYM" group-title="Ulusal", 7. Kanal 7
 https://kanal7-live.daioncdn.net/kanal7/kanal7_1080p.m3u8
 #EXTINF:0 CUID="7" tvg-name="Kanal 7" tvg-logo="https://feo.kablowebtv.com/resize/168A635D265A4328C2883FB4CD8FF/500/500/channels/logos/c1414195-4807-4bbc-95b5-5f7c4c639b02.png" group-title="Ulusal", 7. Kanal 7
 https://yurhnwtpys.turknet.ercdn.net/cvmbjbpmdx/kanal7/kanal7_1080p.m3u8
-#EXTINF:-1 tvg-name="TV 8" tvg-language="Turkish" tvg-country="TR" tvg-id="tv8" tvg-logo="https://www.campaigntr.com/wp-content/uploads/2014/09/tv8-logo.png" group-title="Ulusal", 8. TV 8
-https://tv8.daioncdn.net/tv8/tv8.m3u8?app=7ddc255a-ef47-4e81-ab14-c0e5f2949788&ce=3
 #EXTINF:-1 tvg-name="11. TV 8" tvg-id="" tvg-logo="https://upload.wikimedia.org/wikipedia/tr/6/68/Tv8_Yeni_Logo.png" group-title="Ulusal", 8. TV 8
 https://rkhubpaomb.turknet.ercdn.net/fwjkgpasof/tv8/tv8_1080p.m3u8
 #EXTINF:0 CUID="4" tvg-name="NOW TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/NOW_TV_%28Turkey%29_wordmark-red.svg/960px-NOW_TV_%28Turkey%29_wordmark-red.png" group-title="Ulusal", 10. NOW TV
@@ -91,9 +87,6 @@ https://tv-trtspor1.medya.trt.com.tr/master.m3u8
 
 #EXTINF:-1 tvg-name="A Spor" tvg-language="Turkish" tvg-country="TR" tvg-id="aspor" tvg-logo="https://bursasporxcom.teimg.com/crop/1280x720/bursasporx-com/uploads/2024/10/imaj-aspor.jpg" group-title="Spor", A Spor
 https://zeus324232.cfd/xaspor/index.m3u8
-
-#EXTINF:-1 tvg-logo="https://i.ibb.co/F5FcvbZ/flash4ok.png",FLASH HABER
-https://flashhaber-live.ercdn.net/flashhaber/flashhaber.m3u8
 #EXTINF:-1 tvg-id="TV100.tr" tvg-logo="http://assets.tvcdn.net/d7741078-ccce-47d8-ba1c-a041b659bad6.png" group-title="Haber",TV 100
 https://tv100-live.daioncdn.net/tv100/tv100_1080p.m3u8
 
