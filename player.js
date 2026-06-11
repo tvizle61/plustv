@@ -869,20 +869,19 @@ async function loadChannelsFromM3U() {
             { name: 'Apolas Lermi - Bir Baktım', url: 'https://www.youtube.com/watch?v=HTMGLfBX_7g' },
             { name: 'Resul Dindar - Gümüşhane Kızları', url: 'https://www.youtube.com/watch?v=VPNx4UDohUk' },
             { name: 'O.Şahin Kalem Çektim', url: 'https://www.youtube.com/watch?v=T6wbun1gpMs' },
-            { name: 'O.Şahin Eygidi günler', url: 'https://www.youtube.com/watch?v=gOVYxDS_l_w' }
+            { name: 'O.Şahin Eygidi günler', url: 'https://www.youtube.com/watch?v=gOVYxDS_l_w' },
             { name: 'O.Şahin Yama', url: 'https://www.youtube.com/watch?v=8s_Xhv6Zvlk' },
             { name: 'O.Şahin Bi Kız Var Nişan Eden', url: 'https://www.youtube.com/watch?v=4ZYY4_7Vhhg' },
-            { name: 'O.ŞAhin Bu Zamanın Kızlari', url: 'https://www.youtube.com/watch?v=7Ya3MNQTGgM' }
+            { name: 'O.ŞAhin Bu Zamanın Kızlari', url: 'https://www.youtube.com/watch?v=7Ya3MNQTGgM' },
             { name: 'Yalnız Değilsin', url: 'https://www.youtube.com/watch?v=aZCpmiUGYcw' },
             { name: 'Nem Kaldı', url: 'https://www.youtube.com/watch?v=na1kcFLe1Yo' },
-            { name: 'Minnet Eylemem', url: 'https://www.youtube.com/watch?v=N7VlPV7mLMM' }
-
-        { name: 'Çeşmi Siyahım', url: 'https://www.youtube.com/watch?v=eJCDdjOodUE' },
+            { name: 'Minnet Eylemem', url: 'https://www.youtube.com/watch?v=N7VlPV7mLMM' },
+            { name: 'Çeşmi Siyahım', url: 'https://www.youtube.com/watch?v=eJCDdjOodUE' },
             { name: 'Yolun Sonu ', url: 'https://www.youtube.com/watch?v=cuHH0kComrU' },
-                { name: 'Giresun İçinde ', url: 'https://www.youtube.com/watch?v=x-Qmlb1pd5A' },
-                    { name: 'Şu Kanlı Zalimin ', url: 'https://www.youtube.com/watch?v=qv5pT7Qw01c' },
-                        { name: 'Üryan Geldim ', url: 'https://www.youtube.com/watch?v=gYZMtjPk8jc' },
-                            { name: 'Böyledir Bizim Sevdamız ', url: 'https://www.youtube.com/watch?v=TtwgA1r8mPo' },
+            { name: 'Giresun İçinde ', url: 'https://www.youtube.com/watch?v=x-Qmlb1pd5A' },
+            { name: 'Şu Kanlı Zalimin ', url: 'https://www.youtube.com/watch?v=qv5pT7Qw01c' },
+            { name: 'Üryan Geldim ', url: 'https://www.youtube.com/watch?v=gYZMtjPk8jc' },
+             { name: 'Böyledir Bizim Sevdamız ', url: 'https://www.youtube.com/watch?v=TtwgA1r8mPo' },
                                 { name: 'Dolanı Dolanı ', url: 'https://www.youtube.com/watch?v=YI7LfBKpdM0' },
                                     { name: 'Susarak Özlüyorum ', url: 'https://www.youtube.com/watch?v=fYOXs7pjirA' },
                                                     
