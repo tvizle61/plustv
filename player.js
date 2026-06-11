@@ -883,7 +883,7 @@ async function loadChannelsFromM3U() {
             { name: 'Üryan Geldim ', url: 'https://www.youtube.com/watch?v=gYZMtjPk8jc' },
             { name: 'Böyledir Bizim Sevdamız ', url: 'https://www.youtube.com/watch?v=TtwgA1r8mPo' },
             { name: 'Dolanı Dolanı ', url: 'https://www.youtube.com/watch?v=YI7LfBKpdM0' },
-            { name: 'Susarak Özlüyorum ', url: 'https://www.youtube.com/watch?v=fYOXs7pjirA' },
+            { name: 'Susarak Özlüyorum ', url: 'https://www.youtube.com/watch?v=fYOXs7pjirA' }
                                                     
         ];
         
