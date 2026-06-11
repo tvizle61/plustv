@@ -52,7 +52,7 @@ const STANDARD_CATEGORIES = [
     { id: 'Ekonomi', name: 'Ekonomi', icon: '💰' },
     { id: 'Yurt Dışı', name: 'Yurt Dışı', icon: '🌍' },
     { id: 'Youtube', name: 'Youtube', icon: '▶️' } 
-    { id: 'Youtube1', name: 'Youtube1', icon: '▶️' }
+    
 ];
 
 // Kategori eşleştirme (eski -> yeni)
@@ -888,28 +888,7 @@ async function loadChannelsFromM3U() {
         console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
         console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
 
-        // YouTube Radyo kanallarını ekle
-        const radioChannels = [
-            { name: 'deneme', url: 'https://www.youtube.com/watch?v=5J-w9AHKHsc' },
-            
-        ];
-        
-        radioChannels.forEach(radio => {
-            channels.push({
-                id: channelId++,
-                name: radio.name,
-                url: radio.url,
-                category: 'Youtube1',
-                tvgId: '',
-                tvgLogo: ''
-            });
-        });
-        
-        allCategories.add('Youtube1');
-        
-        console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
-        console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
-        
+                
         // Render dynamic categories (anasayfa ile aynı) - DOM hazır olduğunda
         setTimeout(() => {
             renderDynamicCategories();
@@ -1340,7 +1319,7 @@ function renderSidebarChannels() {
 function renderCategorySidebar() {
     if (!categorySidebarList) return;
     
-    const categories = ['all', 'Ulusal', 'Haber', 'Spor', 'Eğlence', 'Müzik', 'Karadeniz', 'Belgesel', 'Dini', 'Çocuk', 'Ekonomi', 'Yurt Dışı', 'Youtube'];
+    const categories = ['all', 'Ulusal', 'Haber', 'Spor', 'Eğlence', 'Müzik', 'Belgesel', 'Dini', 'Çocuk', 'Ekonomi', 'Yurt Dışı', 'Youtube'];
     const categoryNames = {
         'all': 'Tümü',
         'Ulusal': 'Ulusal',
@@ -1348,7 +1327,6 @@ function renderCategorySidebar() {
         'Spor': 'Spor',
         'Eğlence': 'Eğlence',
         'Müzik': 'Müzik',
-        'Karadeniz': 'Karadeniz',
         'Belgesel': 'Belgesel',
         'Dini': 'Dini',
         'Çocuk': 'Çocuk',
