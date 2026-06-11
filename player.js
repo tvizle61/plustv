@@ -51,7 +51,8 @@ const STANDARD_CATEGORIES = [
     { id: 'Çocuk', name: 'Çocuk', icon: '👶' },
     { id: 'Ekonomi', name: 'Ekonomi', icon: '💰' },
     { id: 'Yurt Dışı', name: 'Yurt Dışı', icon: '🌍' },
-    { id: 'Youtube', name: 'Youtube', icon: '▶️' }
+    { id: 'Youtube', name: 'Youtube', icon: '▶️' } 
+    { id: 'Youtube1', name: 'Youtube1', icon: '▶️' }
 ];
 
 // Kategori eşleştirme (eski -> yeni)
@@ -883,6 +884,28 @@ async function loadChannelsFromM3U() {
         });
         
         allCategories.add('Youtube');
+        
+        console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
+        console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
+
+        // YouTube Radyo kanallarını ekle
+        const radioChannels = [
+            { name: 'deneme', url: 'https://www.youtube.com/watch?v=5J-w9AHKHsc' },
+            
+        ];
+        
+        radioChannels.forEach(radio => {
+            channels.push({
+                id: channelId++,
+                name: radio.name,
+                url: radio.url,
+                category: 'Youtube1',
+                tvgId: '',
+                tvgLogo: ''
+            });
+        });
+        
+        allCategories.add('Youtube1');
         
         console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
         console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
