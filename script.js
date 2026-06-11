@@ -455,28 +455,7 @@ async function loadChannelsFromM3U() {
         console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
         console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
 
-         // Karadeniz Müzik kanallarını ekle
-        const radioChannels = [
-            { name: 'deneme', url: 'https://www.youtube.com/watch?v=5J-w9AHKHsc' },
-            
-        ];
-        
-        radioChannels.forEach(radio => {
-            channels.push({
-                id: channelId++,
-                name: radio.name,
-                url: radio.url,
-                category: 'Karadeniz',
-                tvgId: '',
-                tvgLogo: ''
-            });
-        });
-        
-        allCategories.add('Karadeniz');
-        
-        console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
-        console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
-        
+               
         // Dinamik kategori kartlarını oluştur
         renderDynamicCategories();
         
