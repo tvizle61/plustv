@@ -1,3 +1,4 @@
+let hls = null;
 // Global Variables
 let channels = [];
 let currentChannel = null;
@@ -1870,3 +1871,116 @@ function showError(message) {
         }, 300);
     }, timeoutDuration);
 }
+//------------ sonra ekledim
+// ==========================================
+// PLUS TV - AUTOMATIC HLS PLAYER FIX (EN ALT)
+// ==========================================
+(function() {
+    let globalHls = null;
+
+    // Sayfa tamamen yüklendiğinde video elementini dinlemeye al
+    function initHlsInterceptor() {
+        const video = document.getElementById('videoPlayer');
+        if (!video) {
+            // Video elementi henüz yüklenmediyse biraz bekleyip tekrar dene
+            setTimeout(initHlsInterceptor, 200);
+            return;
+        }
+
+        // Tarayıcının orijinal "src" atama mekanizmasını ele geçiriyoruz
+        const originalSrcDescriptor = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'src');
+
+        Object.defineProperty(video, 'src', {
+            get: function() {
+                return this.getAttribute('src');
+            },
+            set: function(url) {
+                // Eğer gelen link boşsa veya geçerli bir m3u8 değilse orijinal akışa bırak
+                if (!url || !url.includes('.m3u8')) {
+                    if (globalHls) { globalHls.destroy(); globalHls = null; }
+                    originalSrcDescriptor.set.call(this, url);
+                    return;
+                }
+
+                console.log("HLS Interceptor yakaladı:", url);
+
+                // Mevcut çalışan bir hls varsa çakışmayı önlemek için temizle
+                if (globalHls) {
+                    globalHls.destroy();
+                    globalHls = null;
+                }
+
+                const loading = document.getElementById('loadingPlayer');
+                if (loading) loading.style.display = 'flex';
+
+                // Eğer siten HTTPS ama yayın HTTP ise korumayı aşmak için HTTPS yapmayı dene
+                if (url.startsWith('http://') && window.location.protocol === 'https:') {
+                    url = url.replace('http://', 'https://');
+                }
+
+                // HLS.js Destekleyen Tarayıcılar (Chrome, Edge, Firefox)
+                if (Hls.isSupported()) {
+                    globalHls = new Hls({
+                        maxMaxBufferLength: 10,
+                        enableWorker: true,
+                        lowLatencyMode: true
+                    });
+                    
+                    globalHls.loadSource(url);
+                    globalHls.attachMedia(video);
+                    
+                    globalHls.on(Hls.Events.MANIFEST_PARSED, function() {
+                        if (loading) loading.style.display = 'none';
+                        video.play().catch(() => {});
+                    });
+
+                    globalHls.on(Hls.Events.ERROR, function (event, data) {
+                        if (data.fatal) {
+                            switch (data.type) {
+                                case Hls.ErrorTypes.NETWORK_ERROR:
+                                    globalHls.startLoad();
+                                    break;
+                                case Hls.ErrorTypes.MEDIA_ERROR:
+                                    globalHls.recoverMediaError();
+                                    break;
+                                default:
+                                    if (loading) loading.style.display = 'none';
+                                    break;
+                            }
+                        }
+                    });
+                } 
+                // Yerleşik HLS Destekleyen Tarayıcılar (Safari, iOS)
+                else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                    originalSrcDescriptor.set.call(video, url);
+                    video.addEventListener('loadedmetadata', function() {
+                        if (loading) loading.style.display = 'none';
+                        video.play().catch(() => {});
+                    });
+                } else {
+                    if (loading) loading.style.display = 'none';
+                    originalSrcDescriptor.set.call(video, url);
+                }
+            },
+            configurable: true
+        });
+
+        // Tıklama sonrası tetiklenen yerleşik video.load() fonksiyonunu da hls'e uyumlu hale getir
+        const originalLoad = video.load;
+        video.load = function() {
+            if (video.src && video.src.includes('.m3u8') && Hls.isSupported()) {
+                // HLS zaten yüklemeyi yönetiyor, standart yüklemeyi pas geç
+                return;
+            }
+            originalLoad.apply(this, arguments);
+        };
+    }
+
+    // Sistem hazır olduğunda tetikle
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initHlsInterceptor);
+    } else {
+        initHlsInterceptor();
+    }
+})();
+// ==========================================
