@@ -420,12 +420,12 @@ async function loadChannelsFromM3U() {
         
         // YouTube Radyo kanallarını ekle
         const radioChannels = [
-            { name: 'Hayri Yaşar Karagülle-Geldi Bahar Ayları', url: 'https://www.youtube.com/watch?v=0RziZxRimS0' },
+             { name: 'Hayri Yaşar Karagülle-Geldi Bahar Ayları', url: 'https://www.youtube.com/watch?v=0RziZxRimS0' },
             { name: "Koliva - Oy Oy Güzelum", url: 'https://www.youtube.com/watch?v=j6n_EFtyi5s' },
             { name: 'Fatih Reyhan - Eski Hemşin', url: 'https://www.youtube.com/watch?v=hcTZw4Q57HI' },
             { name: 'Hayri Yaşar Karagülle Vur Elleri Ellere', url: 'https://www.youtube.com/watch?v=zzE_SG7_XcE' },
             { name: 'Sinan Sami - Gene Yaranamadım', url: 'https://www.youtube.com/watch?v=jJ-V4r3LPC4' },
-            { name: 'Hayri Yaşar Karagülle - Selam Trabzon'uma', url: 'https://www.youtube.com/watch?v=NGJGZvG4Ra8' },
+            { name: 'Hayri Yaşar Karagülle - Selam Trabzonuma', url: 'https://www.youtube.com/watch?v=NGJGZvG4Ra8' },
             { name: 'Asırlık Şu Çınara', url: 'https://www.youtube.com/watch?v=lQ5QBlF85Hc' },
             { name: 'Hilmi Yerekaban-Virane Kıranlara', url: 'https://www.youtube.com/watch?v=mXx6h1B3mY8' },
             { name: 'Zeynep Başkan - Çayluk', url: 'https://www.youtube.com/watch?v=f6LrFjj9agI' },
@@ -444,13 +444,13 @@ async function loadChannelsFromM3U() {
             { name: 'Nem Kaldı', url: 'https://www.youtube.com/watch?v=na1kcFLe1Yo' },
             { name: 'Minnet Eylemem', url: 'https://www.youtube.com/watch?v=N7VlPV7mLMM' },
             { name: 'Çeşmi Siyahım', url: 'https://www.youtube.com/watch?v=eJCDdjOodUE' },
-            { name: 'Yolun Sonu ', url: 'https://www.youtube.com/watch?v=cuHH0kComrU' },
-            { name: 'Giresun İçinde ', url: 'https://www.youtube.com/watch?v=x-Qmlb1pd5A' },
-            { name: 'Şu Kanlı Zalimin ', url: 'https://www.youtube.com/watch?v=qv5pT7Qw01c' },
-            { name: 'Üryan Geldim ', url: 'https://www.youtube.com/watch?v=gYZMtjPk8jc' },
-            { name: 'Böyledir Bizim Sevdamız ', url: 'https://www.youtube.com/watch?v=TtwgA1r8mPo' },
-            { name: 'Dolanı Dolanı ', url: 'https://www.youtube.com/watch?v=YI7LfBKpdM0' },
-            { name: 'Susarak Özlüyorum ', url: 'https://www.youtube.com/watch?v=fYOXs7pjirA' }
+            { name: 'Yolun Sonu', url: 'https://www.youtube.com/watch?v=cuHH0kComrU' },
+            { name: 'Giresun İçinde', url: 'https://www.youtube.com/watch?v=x-Qmlb1pd5A' },
+            { name: 'Şu Kanlı Zalimin', url: 'https://www.youtube.com/watch?v=qv5pT7Qw01c' },
+            { name: 'Üryan Geldim', url: 'https://www.youtube.com/watch?v=gYZMtjPk8jc' },
+            { name: 'Böyledir Bizim Sevdamız', url: 'https://www.youtube.com/watch?v=TtwgA1r8mPo' },
+            { name: 'Dolanı Dolanı', url: 'https://www.youtube.com/watch?v=YI7LfBKpdM0' },
+            { name: 'Susarak Özlüyorum', url: 'https://www.youtube.com/watch?v=fYOXs7pjirA' }
         ];
         
         radioChannels.forEach(radio => {
