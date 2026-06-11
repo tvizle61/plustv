@@ -1097,13 +1097,13 @@ function showError(message) {
                 id: channelId++,
                 name: radio.name,
                 url: radio.url,
-                category: 'Youtube',
+                category: 'Ekonomi',
                 tvgId: '',
                 tvgLogo: ''
             });
         });
         
-        allCategories.add('Youtube');
+        allCategories.add('Ekonomi');
         
         console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
         console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
