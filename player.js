@@ -1870,3 +1870,45 @@ function showError(message) {
         }, 300);
     }, timeoutDuration);
 }
+
+// sonra eklenen
+
+// --- HLS DESTEĞİ İÇİN KÖPRÜ KODU ---
+let hls = null;
+
+function upgradeToHLS(url) {
+    const video = document.getElementById('videoPlayer');
+    const loading = document.getElementById('loadingPlayer');
+
+    if (hls) { hls.destroy(); }
+
+    if (Hls.isSupported()) {
+        hls = new Hls({ maxMaxBufferLength: 10, enableWorker: true });
+        hls.loadSource(url);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            if(loading) loading.style.display = 'none';
+            video.play().catch(() => {});
+        });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = url;
+        video.play();
+    }
+}
+
+// Player.js içindeki video.src atamalarını yakalamak için modern bir hile:
+const videoElem = document.getElementById('videoPlayer');
+if (videoElem) {
+    Object.defineProperty(videoElem, 'src', {
+        set: function(url) {
+            if (url && url.includes('.m3u8')) {
+                upgradeToHLS(url);
+            } else {
+                this.setAttribute('src', url);
+            }
+        },
+        get: function() {
+            return this.getAttribute('src');
+        }
+    });
+}
