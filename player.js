@@ -1424,247 +1424,211 @@ function playChannel(channel) {
     }
 }
 
-// Play M3U8
 function playM3U8(url) {
+
     videoPlayer.style.display = 'block';
     iframePlayer.style.display = 'none';
+
     if (currentChannel && videoPlayer) {
         videoPlayer.title = currentChannel.name;
     }
-    
-    // Video element'ini optimize et
+
+    if (url.startsWith('//')) {
+        url = 'https:' + url;
+    }
+
     videoPlayer.preload = 'auto';
     videoPlayer.playsInline = true;
-    
-    // Controls'u ayarla (uygulama içinde olabilir)
+
     setupVideoControls();
-    
+
     if (typeof Hls === 'undefined') {
-        // Hata mesajı kaldırıldı - sessiz çalış
         console.warn('HLS.js yüklenemedi');
         loadingPlayer.classList.remove('active');
         return;
     }
-    
+
+    if (hlsInstance) {
+        try {
+            hlsInstance.destroy();
+        } catch (e) {}
+        hlsInstance = null;
+    }
+
+    if (videoPlayer.hls) {
+        try {
+            videoPlayer.hls.destroy();
+        } catch (e) {}
+        videoPlayer.hls = null;
+    }
+
     if (Hls.isSupported()) {
-        // Cleanup previous HLS instance
-        if (hlsInstance) {
-            try {
-                hlsInstance.destroy();
-            } catch (e) {
-                console.warn('Previous HLS cleanup error:', e);
-            }
-        }
-        
-        if (videoPlayer.hls) {
-            try {
-                videoPlayer.hls.destroy();
-            } catch (e) {
-                console.warn('Video player HLS cleanup error:', e);
-            }
-            videoPlayer.hls = null;
-        }
-        
+
         const hls = new Hls({
-            enableWorker: true,
-            lowLatencyMode: true, // Enable for faster loading
+
             debug: false,
-            maxBufferLength: 10, // Reduced buffer for faster start
-            maxMaxBufferLength: 20,
-            maxBufferSize: 30 * 1000 * 1000, // 30MB max buffer (reduced for faster start)
-            startLevel: -1, // Auto start level
-            capLevelToPlayerSize: true, // Auto adjust quality
-            startFragPrefetch: true, // Prefetch first fragment
-            testBandwidth: false, // Disable bandwidth testing for faster start
-            progressive: false, // Use HLS.js instead of native
+
+            enableWorker: true,
+
+            lowLatencyMode: false,
+
+            backBufferLength: 90,
+
+            maxBufferLength: 60,
+
+            maxMaxBufferLength: 120,
+
+            maxBufferSize: 100 * 1000 * 1000,
+
+            liveSyncDurationCount: 3,
+
+            liveMaxLatencyDurationCount: 10,
+
+            startLevel: -1,
+
+            capLevelToPlayerSize: false,
+
+            startFragPrefetch: true,
+
+            testBandwidth: true,
+
+            progressive: true,
+
+            manifestLoadingTimeOut: 20000,
+            manifestLoadingMaxRetry: 6,
+
+            levelLoadingTimeOut: 20000,
+            levelLoadingMaxRetry: 6,
+
+            fragLoadingTimeOut: 20000,
+            fragLoadingMaxRetry: 6,
+
             xhrSetup: function(xhr, url) {
+
                 xhr.withCredentials = false;
-                // Set timeout for faster failure detection
-                xhr.timeout = 8000; // 8 seconds timeout
+
+                xhr.timeout = 20000;
+
+                try {
+                    xhr.setRequestHeader('Accept', '*/*');
+                } catch(e) {}
+
             }
+
         });
-        
+
         hlsInstance = hls;
         videoPlayer.hls = hls;
-        
-        // VideoPlayer'ı temizle ve optimize et
+
         videoPlayer.src = '';
         videoPlayer.load();
-        
-        // HLS'yi yükle
+
         hls.loadSource(url);
         hls.attachMedia(videoPlayer);
-        
-        let manifestParsed = false;
-        let timeout;
-        
-        // Loading'i daha erken kaldırmak için fragment loading event'lerini dinle
-        let firstFragmentLoaded = false;
-        hls.on(Hls.Events.FRAG_LOADED, () => {
-            // İlk fragment yüklendiğinde loading'i kaldır
-            if (!firstFragmentLoaded && loadingPlayer && loadingPlayer.classList.contains('active')) {
-                firstFragmentLoaded = true;
-                loadingPlayer.classList.remove('active');
-                if (videoPlaceholderPlayer) videoPlaceholderPlayer.style.display = 'none';
-            }
-        });
-        
-        hls.on(Hls.Events.LEVEL_LOADED, () => {
-            // Level yüklendiğinde de loading'i kaldır (fallback)
-            if (loadingPlayer && loadingPlayer.classList.contains('active')) {
-                loadingPlayer.classList.remove('active');
-                if (videoPlaceholderPlayer) videoPlaceholderPlayer.style.display = 'none';
-            }
-        });
-        
-        // VideoPlayer'ın canplay event'ini dinle (daha erken loading kaldırma)
-        const canPlayHandler = () => {
-            if (loadingPlayer && loadingPlayer.classList.contains('active')) {
-                loadingPlayer.classList.remove('active');
-                if (videoPlaceholderPlayer) videoPlaceholderPlayer.style.display = 'none';
-            }
-            videoPlayer.removeEventListener('canplay', canPlayHandler);
-        };
-        videoPlayer.addEventListener('canplay', canPlayHandler);
-        
+
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            manifestParsed = true;
-            if (timeout) {
-                clearTimeout(timeout);
-                activeTimeouts = activeTimeouts.filter(t => t !== timeout);
+
+            loadingPlayer.classList.remove('active');
+
+            if (videoPlaceholderPlayer) {
+                videoPlaceholderPlayer.style.display = 'none';
             }
-            // Loading'i kaldır
-            if (loadingPlayer) loadingPlayer.classList.remove('active');
-            if (videoPlaceholderPlayer) videoPlaceholderPlayer.style.display = 'none';
-            
-            // Controls'u tekrar ayarla (video yüklendiğinde)
+
             setupVideoControls();
-            
-            videoPlayer.play().catch(err => {
-                console.error('Playback error:', err);
-                // Hata mesajı kaldırıldı - sessiz çalış
-                console.warn('Video oynatılamadı');
-            });
+
+            videoPlayer.play().catch(() => {});
         });
-        
-        hls.on(Hls.Events.ERROR, (event, data) => {
-            console.error('HLS Error:', data);
-            if (data.fatal) {
-                switch(data.type) {
-                    case Hls.ErrorTypes.NETWORK_ERROR:
-                        try {
-                            hls.startLoad();
-                        } catch(e) {
-                            if (loadingPlayer) loadingPlayer.classList.remove('active');
+
+        hls.on(Hls.Events.FRAG_LOADED, () => {
+
+            loadingPlayer.classList.remove('active');
+
+            if (videoPlaceholderPlayer) {
+                videoPlaceholderPlayer.style.display = 'none';
+            }
+
+        });
+
+        hls.on(Hls.Events.ERROR, function(event, data) {
+
+            console.log('HLS ERROR', data);
+
+            if (!data.fatal) {
+                return;
+            }
+
+            switch (data.type) {
+
+                case Hls.ErrorTypes.NETWORK_ERROR:
+
+                    try {
+                        hls.startLoad();
+                    } catch (e) {
+
+                        setTimeout(() => {
                             try {
-                                hls.destroy();
-                            } catch (destroyErr) {
-                                console.warn('HLS destroy error:', destroyErr);
-                            }
-                            // Hata mesajı kaldırıldı - sessiz çalış
-                console.warn('Ağ hatası');
-                        }
-                        break;
-                    case Hls.ErrorTypes.MEDIA_ERROR:
-                        try {
-                            hls.recoverMediaError();
-                        } catch(e) {
-                            if (loadingPlayer) loadingPlayer.classList.remove('active');
-                            try {
-                                hls.destroy();
-                            } catch (destroyErr) {
-                                console.warn('HLS destroy error:', destroyErr);
-                            }
-                            // Hata mesajı kaldırıldı - sessiz çalış
-                            console.warn('Video çözümlenemedi');
-                        }
-                        break;
-                    default:
-                        if (timeout) {
-                            clearTimeout(timeout);
-                            activeTimeouts = activeTimeouts.filter(t => t !== timeout);
-                        }
-                        if (loadingPlayer) loadingPlayer.classList.remove('active');
+                                hls.loadSource(url);
+                            } catch(err){}
+                        }, 1000);
+
+                    }
+
+                    break;
+
+                case Hls.ErrorTypes.MEDIA_ERROR:
+
+                    try {
+                        hls.recoverMediaError();
+                    } catch (e) {
+
                         try {
                             hls.destroy();
-                        } catch (destroyErr) {
-                            console.warn('HLS destroy error:', destroyErr);
-                        }
-                        // Hata mesajı kaldırıldı - sessiz çalış
-                        console.warn('Kanal yüklenemedi');
-                        break;
-                }
+                        } catch(err){}
+
+                        setTimeout(() => {
+                            playM3U8(url);
+                        }, 2000);
+
+                    }
+
+                    break;
+
+                default:
+
+                    try {
+                        hls.destroy();
+                    } catch(err){}
+
+                    setTimeout(() => {
+                        playM3U8(url);
+                    }, 2000);
+
+                    break;
             }
+
         });
-        
-        timeout = safeSetTimeout(() => {
-            if (!manifestParsed) {
-                if (loadingPlayer) loadingPlayer.classList.remove('active');
-                try {
-                    hls.destroy();
-                } catch (destroyErr) {
-                    console.warn('HLS destroy error:', destroyErr);
-                }
-                // Hata mesajı kaldırıldı - sessiz çalış
-                console.warn('Kanal yükleme zaman aşımı');
-            }
-        }, 10000); // 10 saniye timeout (15'ten 10'a düşürüldü)
-        
+
     } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-        // Controls'u ayarla (Safari için)
-        setupVideoControls();
-        
+
         videoPlayer.src = url;
-        
-        // Safari için loading'i daha erken kaldırmak için canplay event'ini dinle
-        const canPlayHandler = () => {
-            if (loadingPlayer) loadingPlayer.classList.remove('active');
-            if (videoPlaceholderPlayer) videoPlaceholderPlayer.style.display = 'none';
-            // Controls'u tekrar ayarla
-            setupVideoControls();
-            videoPlayer.removeEventListener('canplay', canPlayHandler);
-            if (safariTimeout) {
-                clearTimeout(safariTimeout);
-                activeTimeouts = activeTimeouts.filter(t => t !== safariTimeout);
+
+        videoPlayer.addEventListener('loadedmetadata', function() {
+
+            loadingPlayer.classList.remove('active');
+
+            if (videoPlaceholderPlayer) {
+                videoPlaceholderPlayer.style.display = 'none';
             }
-        };
-        videoPlayer.addEventListener('canplay', canPlayHandler);
-        
-        const playPromise = videoPlayer.play();
-        
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                // Play başarılı olduğunda loading'i kaldır
-                if (loadingPlayer) loadingPlayer.classList.remove('active');
-                if (videoPlaceholderPlayer) videoPlaceholderPlayer.style.display = 'none';
-            }).catch(err => {
-                console.error('Playback error:', err);
-                if (loadingPlayer) loadingPlayer.classList.remove('active');
-                // Hata mesajı kaldırıldı - sessiz çalış
-                console.warn('Video oynatılamadı');
-            });
-        }
-        
-        const safariTimeout = safeSetTimeout(() => {
-            if (videoPlayer.readyState === 0) {
-                if (loadingPlayer) loadingPlayer.classList.remove('active');
-                // Hata mesajı kaldırıldı - sessiz çalış
-                console.warn('Kanal yükleme zaman aşımı');
-            }
-        }, 10000); // 10 saniye timeout (15'ten 10'a düşürüldü)
-        
-        const loadedDataHandler = () => {
-            if (safariTimeout) {
-            clearTimeout(safariTimeout);
-            activeTimeouts = activeTimeouts.filter(t => t !== safariTimeout);
-            }
-            videoPlayer.removeEventListener('loadeddata', loadedDataHandler);
-        };
-        videoPlayer.addEventListener('loadeddata', loadedDataHandler, { once: true });
+
+            videoPlayer.play().catch(() => {});
+
+        }, { once:true });
+
     } else {
+
+        console.warn('Tarayıcı HLS desteklemiyor');
         loadingPlayer.classList.remove('active');
-        // Hata mesajı kaldırıldı - sessiz çalış
-        console.warn('Tarayıcı bu video formatını desteklemiyor');
+
     }
 }
 
