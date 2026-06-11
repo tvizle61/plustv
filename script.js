@@ -437,7 +437,7 @@ async function loadChannelsFromM3U() {
             { name: 'Fuat Saka Torul', url: 'https://www.youtube.com/watch?v=-XNoI12npcg' },
             { name: 'Kemençe', url: 'https://www.youtube.com/watch?v=bEwyzIEoD5M' },
             { name: 'Şükrü Güler- horon', url: 'https://www.youtube.com/watch?v=Q0khMZWqyW4' },
-                  { name: 'Sinan Sami - Gene Yaranamadım', url: 'https://www.youtube.com/watch?v=jJ-V4r3LPC4' },
+            { name: 'Sinan Sami - Gene Yaranamadım', url: 'https://www.youtube.com/watch?v=jJ-V4r3LPC4' },
             { name: 'Hayri Yaşar Karagülle - Selam Trabzonuma', url: 'https://www.youtube.com/watch?v=NGJGZvG4Ra8' },
             { name: 'Asırlık Şu Çınara', url: 'https://www.youtube.com/watch?v=lQ5QBlF85Hc' },
             { name: 'Hilmi Yerekaban-Virane Kıranlara', url: 'https://www.youtube.com/watch?v=mXx6h1B3mY8' },
