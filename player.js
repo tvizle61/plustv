@@ -898,40 +898,7 @@ async function loadChannelsFromM3U() {
     }
 }
 
- // Karadeniz müzik kanallarını ekle
-        const radioChannels = [
-            { name: 'deneme', url: 'https://www.youtube.com/watch?v=5J-w9AHKHsc' },
-            
-        ];
-        
-        radioChannels.forEach(radio => {
-            channels.push({
-                id: channelId++,
-                name: radio.name,
-                url: radio.url,
-                category: 'Karadeniz',
-                tvgId: '',
-                tvgLogo: ''
-            });
-        });
-        
-        allCategories.add('Karadeniz');
-        
-        console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
-        console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
-        
-        // Render dynamic categories (anasayfa ile aynı) - DOM hazır olduğunda
-        setTimeout(() => {
-            renderDynamicCategories();
-        }, 100);
-    } catch (error) {
-        console.error('M3U dosyası yüklenemedi:', error);
-        // Hata mesajı kaldırıldı - sessiz çalış
-        console.warn('Kanal listesi yüklenemedi');
-    }
-}
-
-
+ 
 // Kategorileri birleştir ve normalize et
 function mergeAndNormalizeCategories() {
     const categoryMap = new Map(); // normalized -> { name, icon, id, count, isStandard }
