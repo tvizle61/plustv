@@ -853,23 +853,39 @@ async function loadChannelsFromM3U() {
         
         // YouTube Radyo kanallarını ekle
         const radioChannels = [
-            { name: 'Kral POP Radyo', url: 'https://www.youtube.com/watch?v=5J-w9AHKHsc' },
-            { name: "Radyo 45'lik", url: 'https://www.youtube.com/watch?v=dk_uf4o2atY' },
-            { name: 'Slow Türk', url: 'https://www.youtube.com/watch?v=tWTHF0r2oEw' },
-            { name: 'Kral FM', url: 'https://www.youtube.com/watch?v=A49bKX8gb-8' },
-            { name: 'Fenomen Türk', url: 'https://www.youtube.com/watch?v=lYq5eFZp2GQ' },
-            { name: 'Kalp FM', url: 'https://www.youtube.com/watch?v=_V8XXGBh_kw' },
-            { name: 'Akustik Türkü', url: 'https://www.youtube.com/watch?v=_qm_JqY-6OI' },
-            { name: 'Radyo Damar', url: 'https://www.youtube.com/watch?v=gbNBCvSkFlg' },
-            { name: 'Radyo 44', url: 'https://www.youtube.com/watch?v=gsD3xoM8v3k' },
-            { name: 'Radyo 7', url: 'https://www.youtube.com/watch?v=Nnn6OWQ6kk0' },
-            { name: 'Radyo Seymen', url: 'https://www.youtube.com/watch?v=D-bO7oD8xNk' },
-            { name: 'Karadeniz Akustik', url: 'https://www.youtube.com/watch?v=Fru_Ss-TqgY' },
-            { name: 'Radyo 2000', url: 'https://www.youtube.com/watch?v=ydJGw5tjJyA&list=RDydJGw5tjJyA&start_radio=1' },
-            { name: 'Hit Remix', url: 'https://www.youtube.com/watch?v=4j0GAzbACjk' },
-            { name: 'Viva Arabesk', url: 'https://www.youtube.com/watch?v=Vie289ngRO8' },
-            { name: 'Arabesk Türk', url: 'https://www.youtube.com/watch?v=IshBtT-tdxQ' },
-            { name: 'En Çok Dinlenen Türküler', url: 'https://www.youtube.com/watch?v=vhOeV8QsVzo&list=RDvhOeV8QsVzo&start_radio=1' }
+            { name: 'Hayri Yaşar Karagülle-Geldi Bahar Ayları', url: 'https://www.youtube.com/watch?v=0RziZxRimS0' },
+            { name: "Koliva - Oy Oy Güzelum", url: 'https://www.youtube.com/watch?v=j6n_EFtyi5s' },
+            { name: 'Fatih Reyhan - Eski Hemşin', url: 'https://www.youtube.com/watch?v=hcTZw4Q57HI' },
+            { name: 'Hayri Yaşar Karagülle Vur Elleri Ellere', url: 'https://www.youtube.com/watch?v=zzE_SG7_XcE' },
+            { name: 'Sinan Sami - Gene Yaranamadım', url: 'https://www.youtube.com/watch?v=jJ-V4r3LPC4' },
+            { name: 'Hayri Yaşar Karagülle - Selam Trabzon'uma', url: 'https://www.youtube.com/watch?v=NGJGZvG4Ra8' },
+            { name: 'Asırlık Şu Çınara', url: 'https://www.youtube.com/watch?v=lQ5QBlF85Hc' },
+            { name: 'Hilmi Yerekaban-Virane Kıranlara', url: 'https://www.youtube.com/watch?v=mXx6h1B3mY8' },
+            { name: 'Zeynep Başkan - Çayluk', url: 'https://www.youtube.com/watch?v=f6LrFjj9agI' },
+            { name: 'Selim Bölükbaşı - Kapıya Sandalye', url: 'https://www.youtube.com/watch?v=XWNGrb97P8c' },
+            { name: 'Hülya Polat - Gaybana', url: 'https://www.youtube.com/watch?v=Hülya Polat - Gaybana' },
+            { name: 'Aylin Demir - Müjgan', url: 'https://www.youtube.com/watch?v=nZhfo7G_JfY' },
+            { name: 'Tulum Horon Potpori', url: 'https://www.youtube.com/watch?v=olgBiI1sY9o' },
+            { name: 'Apolas Lermi - Bir Baktım', url: 'https://www.youtube.com/watch?v=HTMGLfBX_7g' },
+            { name: 'Resul Dindar - Gümüşhane Kızları', url: 'https://www.youtube.com/watch?v=VPNx4UDohUk' },
+            { name: 'O.Şahin Kalem Çektim', url: 'https://www.youtube.com/watch?v=T6wbun1gpMs' },
+            { name: 'O.Şahin Eygidi günler', url: 'https://www.youtube.com/watch?v=gOVYxDS_l_w' }
+            { name: 'O.Şahin Yama', url: 'https://www.youtube.com/watch?v=8s_Xhv6Zvlk' },
+            { name: 'O.Şahin Bi Kız Var Nişan Eden', url: 'https://www.youtube.com/watch?v=4ZYY4_7Vhhg' },
+            { name: 'O.ŞAhin Bu Zamanın Kızlari', url: 'https://www.youtube.com/watch?v=7Ya3MNQTGgM' }
+            { name: 'Yalnız Değilsin', url: 'https://www.youtube.com/watch?v=aZCpmiUGYcw' },
+            { name: 'Nem Kaldı', url: 'https://www.youtube.com/watch?v=na1kcFLe1Yo' },
+            { name: 'Minnet Eylemem', url: 'https://www.youtube.com/watch?v=N7VlPV7mLMM' }
+
+        { name: 'Çeşmi Siyahım', url: 'https://www.youtube.com/watch?v=eJCDdjOodUE' },
+            { name: 'Yolun Sonu ', url: 'https://www.youtube.com/watch?v=cuHH0kComrU' },
+                { name: 'Giresun İçinde ', url: 'https://www.youtube.com/watch?v=x-Qmlb1pd5A' },
+                    { name: 'Şu Kanlı Zalimin ', url: 'https://www.youtube.com/watch?v=qv5pT7Qw01c' },
+                        { name: 'Üryan Geldim ', url: 'https://www.youtube.com/watch?v=gYZMtjPk8jc' },
+                            { name: 'Böyledir Bizim Sevdamız ', url: 'https://www.youtube.com/watch?v=TtwgA1r8mPo' },
+                                { name: 'Dolanı Dolanı ', url: 'https://www.youtube.com/watch?v=YI7LfBKpdM0' },
+                                    { name: 'Susarak Özlüyorum ', url: 'https://www.youtube.com/watch?v=fYOXs7pjirA' },
+                                                    
         ];
         
         radioChannels.forEach(radio => {
