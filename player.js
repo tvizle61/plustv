@@ -1426,6 +1426,9 @@ function playChannel(channel) {
 
 // Play M3U8
 function playM3U8(url) {
+    if (url.startsWith('http://') && location.protocol === 'https:') {
+    url = url.replace('http://', 'https://');
+}
     videoPlayer.style.display = 'block';
     iframePlayer.style.display = 'none';
     if (currentChannel && videoPlayer) {
