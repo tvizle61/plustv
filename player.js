@@ -1365,7 +1365,7 @@ function renderSidebarChannels() {
 function renderCategorySidebar() {
     if (!categorySidebarList) return;
     
-    const categories = ['all', 'Ulusal', 'Haber', 'Spor', 'Eğlence', 'Müzik', 'Belgesel', 'Dini', 'Çocuk', 'Ekonomi', 'Yurt Dışı', 'Youtube'];
+    const categories = ['all', 'Ulusal', 'Haber', 'Spor', 'Eğlence', 'Müzik', 'Karadeniz', 'Belgesel', 'Dini', 'Çocuk', 'Ekonomi', 'Yurt Dışı', 'Youtube'];
     const categoryNames = {
         'all': 'Tümü',
         'Ulusal': 'Ulusal',
@@ -1373,6 +1373,7 @@ function renderCategorySidebar() {
         'Spor': 'Spor',
         'Eğlence': 'Eğlence',
         'Müzik': 'Müzik',
+        'Karadeniz': 'Karadeniz',
         'Belgesel': 'Belgesel',
         'Dini': 'Dini',
         'Çocuk': 'Çocuk',
