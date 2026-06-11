@@ -485,7 +485,6 @@ const categoryIcons = {
     'Eğlence': '🎭',
     'Muzik': '🎵',
     'Müzik': '🎵',
-    'Karadeniz': '🎵',
     'Belgesel': '🎬',
     'Dini': '🕌',
     'Cocuk': '👶',
@@ -506,7 +505,6 @@ const STANDARD_CATEGORIES = [
     { id: 'Spor', name: 'Spor', icon: '⚽' },
     { id: 'Eğlence', name: 'Eğlence', icon: '🎭' },
     { id: 'Müzik', name: 'Müzik', icon: '🎵' },
-    { id: 'Karadeniz', name: 'Karadeniz', icon: '🎵' },
     { id: 'Belgesel', name: 'Belgesel', icon: '🎬' },
     { id: 'Dini', name: 'Dini', icon: '🕌' },
     { id: 'Çocuk', name: 'Çocuk', icon: '👶' },
@@ -828,7 +826,7 @@ function renderChannels() {
         'Ekonomi': 'Ekonomi Kanalları',
         'Yurt Dışı': 'Yurt Dışı Kanallar',
         'Youtube': 'Youtube'
-        'Karadeniz': 'Karadeniz Müzikleri'
+       
     };
     
     if (categoryTitle) {
