@@ -902,7 +902,20 @@ async function loadChannelsFromM3U() {
         
         console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
         console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
-// YouTube Radyo kanallarını ekle
+        
+        // Render dynamic categories (anasayfa ile aynı) - DOM hazır olduğunda
+        setTimeout(() => {
+            renderDynamicCategories();
+        }, 100);
+    } catch (error) {
+        console.error('M3U dosyası yüklenemedi:', error);
+        // Hata mesajı kaldırıldı - sessiz çalış
+        console.warn('Kanal listesi yüklenemedi');
+    }
+}
+
+
+        // YouTube Radyo kanallarını ekle
         const radioChannels = [
             { name: 'deneme', url: 'https://www.youtube.com/watch?v=0RziZxRimS0' },
             { name: "deneme1", url: 'https://www.youtube.com/watch?v=j6n_EFtyi5s' },
