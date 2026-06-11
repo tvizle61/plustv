@@ -457,23 +457,8 @@ async function loadChannelsFromM3U() {
 
          // Karadeniz Müzik kanallarını ekle
         const radioChannels = [
-            { name: 'pop sc', url: 'https://www.youtube.com/watch?v=5J-w9AHKHsc' },
-            { name: "Radyo 45'lik", url: 'https://www.youtube.com/watch?v=dk_uf4o2atY' },
-            { name: 'Slow Türk', url: 'https://www.youtube.com/watch?v=tWTHF0r2oEw' },
-            { name: 'Kral FM', url: 'https://www.youtube.com/watch?v=A49bKX8gb-8' },
-            { name: 'Fenomen Türk', url: 'https://www.youtube.com/watch?v=lYq5eFZp2GQ' },
-            { name: 'Kalp FM', url: 'https://www.youtube.com/watch?v=_V8XXGBh_kw' },
-            { name: 'Akustik Türkü', url: 'https://www.youtube.com/watch?v=_qm_JqY-6OI' },
-            { name: 'Radyo Damar', url: 'https://www.youtube.com/watch?v=gbNBCvSkFlg' },
-            { name: 'Radyo 44', url: 'https://www.youtube.com/watch?v=gsD3xoM8v3k' },
-            { name: 'Radyo 7', url: 'https://www.youtube.com/watch?v=Nnn6OWQ6kk0' },
-            { name: 'Radyo Seymen', url: 'https://www.youtube.com/watch?v=D-bO7oD8xNk' },
-            { name: 'Karadeniz Akustik', url: 'https://www.youtube.com/watch?v=Fru_Ss-TqgY' },
-            { name: 'Radyo 2000', url: 'https://www.youtube.com/watch?v=ydJGw5tjJyA&list=RDydJGw5tjJyA&start_radio=1' },
-            { name: 'Hit Remix', url: 'https://www.youtube.com/watch?v=4j0GAzbACjk' },
-            { name: 'Viva Arabesk', url: 'https://www.youtube.com/watch?v=Vie289ngRO8' },
-            { name: 'Arabesk Türk', url: 'https://www.youtube.com/watch?v=IshBtT-tdxQ' },
-            { name: 'En Çok Dinlenen Türküler', url: 'https://www.youtube.com/watch?v=vhOeV8QsVzo&list=RDvhOeV8QsVzo&start_radio=1' }
+            { name: 'deneme', url: 'https://www.youtube.com/watch?v=5J-w9AHKHsc' },
+            
         ];
         
         radioChannels.forEach(radio => {
@@ -542,7 +527,7 @@ const STANDARD_CATEGORIES = [
     { id: 'Spor', name: 'Spor', icon: '⚽' },
     { id: 'Eğlence', name: 'Eğlence', icon: '🎭' },
     { id: 'Müzik', name: 'Müzik', icon: '🎵' },
-     { id: 'Karadeniz', name: 'Karadeniz', icon: '🎵' },
+    { id: 'Karadeniz', name: 'Karadeniz', icon: '🎵' },
     { id: 'Belgesel', name: 'Belgesel', icon: '🎬' },
     { id: 'Dini', name: 'Dini', icon: '🕌' },
     { id: 'Çocuk', name: 'Çocuk', icon: '👶' },
