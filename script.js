@@ -468,7 +468,28 @@ async function loadChannelsFromM3U() {
         
         console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
         console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
-
+// YouTube Radyo kanallarını ekle
+        const radioChannels = [
+             { name: 'deneme1', url: 'https://www.youtube.com/watch?v=0RziZxRimS0' },
+             { name: "deneme2", url: 'https://www.youtube.com/watch?v=j6n_EFtyi5s' },
+             { name: 'deneme3', url: 'https://www.youtube.com/watch?v=fYOXs7pjirA' }
+        ];
+        
+        radioChannels.forEach(radio => {
+            channels.push({
+                id: channelId++,
+                name: radio.name,
+                url: radio.url,
+                category: 'Ekonomi',
+                tvgId: '',
+                tvgLogo: ''
+            });
+        });
+        
+        allCategories.add('Ekonomi');
+        
+        console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
+        console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
                        
         // Dinamik kategori kartlarını oluştur
         renderDynamicCategories();
