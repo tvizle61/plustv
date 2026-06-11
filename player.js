@@ -1469,17 +1469,21 @@ function playM3U8(url) {
         }
         
         const hls = new Hls({
-            enableWorker: true,
-            lowLatencyMode: true, // Enable for faster loading
-            debug: false,
-            maxBufferLength: 10, // Reduced buffer for faster start
-            maxMaxBufferLength: 20,
-            maxBufferSize: 30 * 1000 * 1000, // 30MB max buffer (reduced for faster start)
-            startLevel: -1, // Auto start level
-            capLevelToPlayerSize: true, // Auto adjust quality
-            startFragPrefetch: true, // Prefetch first fragment
-            testBandwidth: false, // Disable bandwidth testing for faster start
-            progressive: false, // Use HLS.js instead of native
+            const hls = new Hls({
+    enableWorker: true,
+    lowLatencyMode: false,
+    debug: false,
+
+    maxBufferLength: 60,
+    maxMaxBufferLength: 120,
+    maxBufferSize: 100 * 1000 * 1000,
+
+    startLevel: -1,
+    capLevelToPlayerSize: false,
+
+    startFragPrefetch: true,
+    testBandwidth: true,
+    progressive: true,
             xhrSetup: function(xhr, url) {
                 xhr.withCredentials = false;
                 // Set timeout for faster failure detection
