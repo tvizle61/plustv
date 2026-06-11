@@ -468,6 +468,64 @@ async function loadChannelsFromM3U() {
         
         console.log(`✅ Toplam ${channels.length} kanal yüklendi!`);
         console.log(`✅ ${allCategories.size} kategori bulundu:`, Array.from(allCategories).sort());
+
+        // Dinamik kategori kartlarını oluştur
+        renderDynamicCategories();
+        
+        // Event listener'ları yeniden bağla
+        setupCategoryEventListeners();
+        
+        renderChannels();
+        
+        // Set first category as active
+        const firstCategoryCard = document.querySelector('.category-card[data-category="all"]');
+        if (firstCategoryCard) {
+            firstCategoryCard.classList.add('active');
+        }
+    } catch (error) {
+        console.error('M3U dosyası yüklenemedi:', error);
+        showError('Kanal listesi yüklenemedi. Lütfen sayfayı yenileyin.');
+    }
+}
+
+// Kategori ikonları mapping
+const categoryIcons = {
+    'all': '📺',
+    'Ulusal': '📡',
+    'Haber': '📰',
+    'Spor': '⚽',
+    'Eglence': '🎭',
+    'Eğlence': '🎭',
+    'Muzik': '🎵',
+    'Müzik': '🎵',
+    'Belgesel': '🎬',
+    'Dini': '🕌',
+    'Cocuk': '👶',
+    'Çocuk': '👶',
+    'Ekonomi': '💰',
+    'Yurt Disi': '🌍',
+    'Yurt Dışı': '🌍',
+    'Youtube': '▶️',
+    'Radyo': '📻',
+    'Diğer': '📺'
+};
+
+// Sabit kategori listesi (player.html ile aynı)
+const STANDARD_CATEGORIES = [
+    { id: 'all', name: 'Tümü', icon: '📺' },
+    { id: 'Ulusal', name: 'Ulusal', icon: '📡' },
+    { id: 'Haber', name: 'Haber', icon: '📰' },
+    { id: 'Spor', name: 'Spor', icon: '⚽' },
+    { id: 'Eğlence', name: 'Eğlence', icon: '🎭' },
+    { id: 'Müzik', name: 'Müzik', icon: '🎵' },
+    { id: 'Belgesel', name: 'Belgesel', icon: '🎬' },
+    { id: 'Dini', name: 'Dini', icon: '🕌' },
+    { id: 'Çocuk', name: 'Çocuk', icon: '👶' },
+    { id: 'Ekonomi', name: 'Ekonomi', icon: '💰' },
+    { id: 'Yurt Dışı', name: 'Yurt Dışı', icon: '🌍' },
+    { id: 'Youtube', name: 'Youtube', icon: '▶️' }
+   
+];
 // YouTube Radyo kanallarını ekle
         const radioChannels = [
              { name: 'deneme1', url: 'https://www.youtube.com/watch?v=0RziZxRimS0' },
