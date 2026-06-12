@@ -31,60 +31,57 @@
             padding: 6px;
         }
 
-        /* --- KANAL LİSTESİ (BAYAĞI KÜÇÜLTÜLMÜŞ MİNİ BOYUT) --- */
+        /* --- KANAL LİSTESİ (MİNİ BOYUT) --- */
         #channelsSidebarList > * {
-            padding: 4px 6px !important;          /* İç boşlukları minimuma indirdik */
-            margin-bottom: 3px !important;        /* Kanalların arasındaki boşluğu daralttık */
-            min-height: 32px !important;          /* Yüksekliği 40px'ten 32px'e çekerek bayağı ince yaptık */
+            padding: 4px 6px !important;
+            margin-bottom: 3px !important;
+            min-height: 32px !important;
             max-height: 32px !important;
             border-radius: 4px !important;
             display: flex !important;
             align-items: center !important;
-            gap: 6px !important;                  /* Logo ve yazı arasındaki mesafeyi daralttık */
+            gap: 6px !important;
         }
 
-        /* Kanal Logoları (Küçültüldü) */
         #channelsSidebarList > * img,
         #channelsSidebarList > * .channel-logo,
         #channelsSidebarList > * [class*="logo"] {
-            width: 20px !important;               /* Logoları 26px'ten 20px'e düşürdük */
+            width: 20px !important;
             height: 20px !important;
             min-width: 20px !important;
             border-radius: 3px !important;
             object-fit: contain !important;
         }
 
-        /* Kanal İsimleri (Küçültüldü) */
         #channelsSidebarList > * .channel-name,
         #channelsSidebarList > * h4,
         #channelsSidebarList > * span,
         #channelsSidebarList > * div {
-            font-size: 10px !important;           /* Yazı boyutunu 11px'ten 10px'e indirdik */
+            font-size: 10px !important;
             font-weight: 500 !important;
             line-height: 1.2 !important;
-            white-space: nowrap !important;       /* Tek satıra zorlayıp taşmayı önledik */
+            white-space: nowrap !important;
             overflow: hidden !important;
-            text-overflow: ellipsis !important;   /* Çok uzun isimlerin sonuna üç nokta koyar */
+            text-overflow: ellipsis !important;
         }
 
-       /* Alt Kategori / Alt Yazı Kısmı */
         #channelsSidebarList > * p,
         #channelsSidebarList > * small,
         #channelsSidebarList > * .channel-category {
-            font-size: 8px !important;            /* Kategori yazılarını iyice minik yaptık */
+            font-size: 8px !important;
             opacity: 0.6;
             margin: 0 !important;
             display: block !important;
         }
 
-        /* Favori Yıldız Butonu */
         #channelsSidebarList > * .fav-btn,
         #channelsSidebarList > * .star-icon,
         #channelsSidebarList > * svg {
-            transform: scale(0.75) !important;    /* Yıldız ikonunu biraz daha küçülttük */
-            margin-left: auto !important;         /* En sağa yaslanmasını garantiledik */
+            transform: scale(0.75) !important;
+            margin-left: auto !important;
         }
-        /* --- ÜST KATEGORİ SECTİON VE CONTAINER AYARLARI --- */
+
+        /* --- ÜST KATEGORİ AYARLARI --- */
         .player-categories-section {
             background: #111; 
             border-bottom: 1px solid #222;
@@ -94,15 +91,12 @@
         .player-categories-container {
             display: flex;
             justify-content: flex-start !important; 
-            gap: 5px !important;             /* Butonlar arası boşluk daraltıldı */
-            padding: 5px 10px !important;    /* Üst bar yüksekliği buton boyutuyla dengelendi */
+            gap: 5px !important;
+            padding: 5px 10px !important;
             flex-wrap: nowrap !important;    
             overflow-x: auto;                
         }
 
-      /* --- KATEGORİ BUTONLARI DÜZELTME (DİKEY VE ESNEK) --- */
-        
-        /* 1. Genişliği kilitler, yüksekliği içeriğe göre esnek bırakır (Ezilmeyi önler) */
         .player-categories-container div.category-card,
         .player-categories-container [class*="category"],
         .player-categories-container .active,
@@ -110,25 +104,20 @@
             width: 40px !important;
             max-width: 40px !important;
             min-width: 40px !important;
-            height: auto !important;          /* Sabit yükseklik kaldırıldı, ezilme kesinlikle biter */
-            max-height: none !important;
-            min-height: auto !important;
-            padding: 4px 1px !important;       /* Üst ve alttan sağlıklı bir iç boşluk */
+            height: auto !important;
+            padding: 4px 1px !important;
             box-sizing: border-box !important;
             border-radius: 4px !important;
-            
             display: flex !important;
-            flex-direction: column !important; /* İkon üstte, yazı altta (orijinal düzen) */
+            flex-direction: column !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 2px !important;               /* İkon ile yazı arasındaki dikey boşluk */
+            gap: 2px !important;
             flex-shrink: 0 !important;
-            overflow: visible !important;      /* Yazıların taşarak görünmesini sağlar */
+            overflow: visible !important;
         }
 
-        /* 2. İkon Boyut Sabitleme */
-        .category-icon,
-        [class*="category-icon"] {
+        .category-icon, [class*="category-icon"] {
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
@@ -138,35 +127,25 @@
             padding: 0 !important;
         }
 
-        /* İkon içindeki emoji veya görseller */
-        .category-icon img,
-        .category-icon svg,
-        .category-icon i,
-        .category-icon span {
+        .category-icon img, .category-icon svg, .category-icon i, .category-icon span {
             width: 15px !important;
             height: 15px !important;
             font-size: 15px !important;
             object-fit: contain !important;
-            line-height: 1 !important;
         }
 
-        /* 3. Yazı Boyutu ve Görünürlük Kalkanı */
-        .player-categories-container .category-card .category-name,
-        .player-categories-container [class*="category"] [class*="name"],
         .category-name {
             display: block !important;
             visibility: visible !important;
             opacity: 1 !important;
-            
-            font-size: 7px !important;         /* Küçük ama okunabilir yazı boyutu */
+            font-size: 7px !important;
             font-weight: 500 !important;
-            color: #ffffff !important;         /* Yazı rengini beyaza zorlar */
+            color: #ffffff !important;
             white-space: nowrap !important;   
             line-height: 1 !important;       
-            margin: 0 !important;   
-            padding: 0 !important;
             text-align: center !important;
         }
+
         /* --- VİDEO ALANI ANA AYARLARI --- */
         .player-main {
             flex-grow: 1;
@@ -176,61 +155,77 @@
             height: 100vh;
         }
 
-        /* --- DÜZELTİLEN YER: İÇERİKLERİN DIŞARI TAŞMASINI ENGELLEYEN YAPI --- */
+        /* TAM EKRAN YAPILACAK ANA KUTU */
         #videoContainerPlayer {
             position: relative !important;
             flex-grow: 1;
             background: #000;
             display: flex !important;
-            flex-direction: column !important; /* Videoyu üstte, kontrol barını altta sıralar */
-            overflow: visible !important;      /* Butonların gizlenmesini engeller */
+            flex-direction: column !important; /* Üst üste binmeyi engeller, dikey sıralar */
+            height: 100% !important;
+            overflow: hidden !important;
         }
 
-        /* --- HER ZAMAN SABİT VE GÖRÜNÜR KONTROL BAR --- */
-        #videoControlsBar {
-            position: relative !important;     /* Absolute yapısı kaldırıldı, artık kaybolamaz */
+        /* VİDEONUN KENDİ KUTUSU (BUTONLARDAN BAĞIMSIZ ÜST ALAN) */
+        .video-wrapper-inner {
+            position: relative !important;
             width: 100% !important;
+            height: calc(100% - 45px) !important; /* Buton barına altta net 45px yer bırakır */
+            background: #000;
+        }
+
+        .video-player, 
+        .iframe-player {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: fill !important; /* Sağ ve soldaki siyah boşlukları kapatır */
+            z-index: 1 !important;
+        }
+
+        /* --- SAKLANAMAZ, ORTALI, HER ZAMAN SABİT VE GÖRÜNÜR KONTROL BAR --- */
+        #videoControlsBar {
+            position: relative !important;
+            width: 100% !important;
+            height: 45px !important;           /* Yükseklik tam araç ekranına göre optimize edildi */
+            background: #111111 !important;    /* Tam opak koyu arka plan */
             display: flex !important;
-            justify-content: flex-start !important; 
-            align-items: center !important;
-            gap: 12px !important;
-            padding: 8px 15px !important; 
-            background: #111111 !important;    /* Araç ekranında net görünmesi için düz koyu arka plan */
-            border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+            justify-content: center !important; /* Butonları yatayda tam ortalar */
+            align-items: center !important;     /* Butonları dikeyde tam ortalar */
+            gap: 20px !important;              /* Araçta rahat basılsın diye butonlar arası mesafe açıldı */
+            padding: 0 15px !important; 
+            border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
             z-index: 999999 !important;
             box-sizing: border-box !important;
-            height: 40px !important;           /* Buton barının yüksekliği */
-            flex-shrink: 0 !important;         /* Barın ezilmesini engeller */
+            flex-shrink: 0 !important;         /* Asla ezilmez */
         }
 
-        /* --- MİNİ BUTONLAR --- */
+        /* --- DOKUNMATİK EKRAN DOSTU BUTONLAR --- */
         .player-nav-btn {
-            background: #222;
-            border: 1px solid rgba(255,255,255,0.15);
-            color: #fff;
-            padding: 4px 12px;
-            font-size: 11px;
-            border-radius: 4px;
+            background: #222 !important;
+            border: 1px solid rgba(255,255,255,0.2) !important;
+            color: #fff !important;
+            padding: 0 16px !important;
+            font-size: 12px !important;
+            font-weight: 500 !important;
+            border-radius: 6px !important;
             cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 6px !important;
             user-select: none;
-            height: 26px;
+            height: 32px !important;           /* Kolay tıklama alanı */
         }
 
-        /* --- MİNİ TAM EKRAN BUTONU --- */
+        /* MİNİ TAM EKRAN BUTONU */
         #fullscreenBtn { 
-            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-            border: 1px solid rgba(255,255,255,0.2); 
-            color: #fff; 
-            padding: 4px 16px;
-            font-size: 11px;
-            letter-spacing: 0.3px;
-            font-weight: 500;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.4);
-            height: 26px;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
+            border: 1px solid rgba(255,255,255,0.2) !important; 
+            padding: 0 22px !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4) !important;
         }
 
         .player-content-wrapper {
@@ -239,23 +234,13 @@
             height: 100vh;
         }
 
-        /* --- VİDEOYU ÜSTTE TUTAN VE BUTON BARINA ALAN AÇAN YENİ BOYUTLANDIRMA --- */
-        .video-player, 
-        .iframe-player {
-            width: 100% !important;
-            flex-grow: 1 !important;           /* Kalan tüm üst alanı videoya verir */
-            height: calc(100% - 40px) !important; /* Buton barının alanını korur */
-            object-fit: fill !important;       /* Sağ-sol siyah boşlukları engeller */
-        }
-
-        /* Placeholder alanının düzgün durması için */
         #videoPlaceholderPlayer {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: calc(100% - 40px);
-            z-index: 10;
+            height: 100%;
+            z-index: 5;
         }
     </style>
 </head>
@@ -298,23 +283,25 @@
                 </section>
 
                 <div class="video-container-player" id="videoContainerPlayer">
-                    <div class="video-placeholder-player" id="videoPlaceholderPlayer">
-                        <div class="placeholder-content">
-                            <div class="placeholder-icon">📺</div>
-                            <h2>Bir Kanal Seçin</h2>
-                            <p>Sol taraftaki listeden bir kanal seçin</p>
-                            
-                            <p class="brand-name">61 BYD 61</p>
+                    
+                    <div class="video-wrapper-inner">
+                        <div class="video-placeholder-player" id="videoPlaceholderPlayer">
+                            <div class="placeholder-content">
+                                <div class="placeholder-icon">📺</div>
+                                <h2>Bir Kanal Seçin</h2>
+                                <p>Sol taraftaki listeden bir kanal seçin</p>
+                                <p class="brand-name">61 BYD 61</p>
+                            </div>
                         </div>
+                        
+                        <div class="loading-overlay" id="loadingPlayer">
+                            <div class="spinner"></div>
+                            <p>Yükleniyor...</p>
+                        </div>
+                        
+                        <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
+                        <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
                     </div>
-                    
-                    <div class="loading-overlay" id="loadingPlayer">
-                        <div class="spinner"></div>
-                        <p>Yükleniyor...</p>
-                    </div>
-                    
-                    <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
-                    <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
                 
                     <div id="videoControlsBar">
                         <button class="player-nav-btn" onclick="changeChannel(-1)">
@@ -329,6 +316,7 @@
                             İleri <span>⏭I</span>
                         </button>
                     </div>
+
                 </div>
             </main>
         </div>
