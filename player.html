@@ -161,16 +161,16 @@
             flex-grow: 1;
             background: #000;
             display: flex !important;
-            flex-direction: column !important; /* Üst üste binmeyi engeller, dikey sıralar */
+            flex-direction: column !important;
             height: 100% !important;
             overflow: hidden !important;
         }
 
-        /* VİDEONUN KENDİ KUTUSU (BUTONLARDAN BAĞIMSIZ ÜST ALAN) */
+        /* VİDEONUN KENDİ KUTUSU */
         .video-wrapper-inner {
             position: relative !important;
             width: 100% !important;
-            height: calc(100% - 45px) !important; /* Buton barına altta net 45px yer bırakır */
+            height: calc(100% - 45px) !important;
             background: #000;
         }
 
@@ -181,28 +181,28 @@
             left: 0 !important;
             width: 100% !important;
             height: 100% !important;
-            object-fit: fill !important; /* Sağ ve soldaki siyah boşlukları kapatır */
+            object-fit: fill !important;
             z-index: 1 !important;
         }
 
-        /* --- SAKLANAMAZ, ORTALI, HER ZAMAN SABİT VE GÖRÜNÜR KONTROL BAR --- */
+        /* --- DEĞİŞEN KISIM: SOLA YANAŞIK KONTROL BAR --- */
         #videoControlsBar {
             position: relative !important;
             width: 100% !important;
-            height: 45px !important;           /* Yükseklik tam araç ekranına göre optimize edildi */
-            background: #111111 !important;    /* Tam opak koyu arka plan */
+            height: 45px !important;
+            background: #111111 !important;
             display: flex !important;
-            justify-content: center !important; /* Butonları yatayda tam ortalar */
-            align-items: center !important;     /* Butonları dikeyde tam ortalar */
-            gap: 20px !important;              /* Araçta rahat basılsın diye butonlar arası mesafe açıldı */
-            padding: 0 15px !important; 
+            justify-content: flex-start !important; /* Butonlar sola yanaştırıldı */
+            align-items: center !important;
+            gap: 12px !important;                 /* Butonların arası açıldı */
+            padding: 0 15px !important;            /* Sol kenardan temiz bir boşluk bırakıldı */
             border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
             z-index: 999999 !important;
             box-sizing: border-box !important;
-            flex-shrink: 0 !important;         /* Asla ezilmez */
+            flex-shrink: 0 !important;
         }
 
-        /* --- DOKUNMATİK EKRAN DOSTU BUTONLAR --- */
+        /* --- BUTONLAR --- */
         .player-nav-btn {
             background: #222 !important;
             border: 1px solid rgba(255,255,255,0.2) !important;
@@ -217,10 +217,10 @@
             justify-content: center !important;
             gap: 6px !important;
             user-select: none;
-            height: 32px !important;           /* Kolay tıklama alanı */
+            height: 32px !important;
         }
 
-        /* MİNİ TAM EKRAN BUTONU */
+        /* TAM EKRAN BUTONU */
         #fullscreenBtn { 
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
             border: 1px solid rgba(255,255,255,0.2) !important; 
@@ -283,7 +283,6 @@
                 </section>
 
                 <div class="video-container-player" id="videoContainerPlayer">
-                    
                     <div class="video-wrapper-inner">
                         <div class="video-placeholder-player" id="videoPlaceholderPlayer">
                             <div class="placeholder-content">
