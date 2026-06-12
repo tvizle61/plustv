@@ -176,51 +176,47 @@
             height: 100vh;
         }
 
+        /* --- DÜZELTİLEN YER: İÇERİKLERİN DIŞARI TAŞMASINI ENGELLEYEN YAPI --- */
         #videoContainerPlayer {
             position: relative !important;
-            overflow: hidden;
             flex-grow: 1;
             background: #000;
+            display: flex !important;
+            flex-direction: column !important; /* Videoyu üstte, kontrol barını altta sıralar */
+            overflow: visible !important;      /* Butonların gizlenmesini engeller */
         }
 
-        /* --- DEĞİŞTİRİLEN KISIM: BUTONLARI SİYAH BOŞLUĞA SABİTLEME --- */
+        /* --- HER ZAMAN SABİT VE GÖRÜNÜR KONTROL BAR --- */
         #videoControlsBar {
-            position: absolute !important;
-            bottom: -35px !important;       /* Butonları 35-40px (yaklaşık 5 cm) daha aşağı kaydırdık, böylece yayının dışındaki alt siyah boşluğa tam oturdu */
-            left: 0 !important;
+            position: relative !important;     /* Absolute yapısı kaldırıldı, artık kaybolamaz */
             width: 100% !important;
             display: flex !important;
             justify-content: flex-start !important; 
             align-items: center !important;
-            gap: 8px !important;
-            padding: 6px 15px !important; 
-            background: rgba(17, 17, 17, 0.95) !important; /* Arka planı koyulaştırdık ki butonlar net görünsün */
+            gap: 12px !important;
+            padding: 8px 15px !important; 
+            background: #111111 !important;    /* Araç ekranında net görünmesi için düz koyu arka plan */
             border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
             z-index: 999999 !important;
             box-sizing: border-box !important;
-            height: 35px !important;        /* Kontrol barının yüksekliğini sabitledik */
+            height: 40px !important;           /* Buton barının yüksekliği */
+            flex-shrink: 0 !important;         /* Barın ezilmesini engeller */
         }
 
         /* --- MİNİ BUTONLAR --- */
         .player-nav-btn {
             background: #222;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
             color: #fff;
-            padding: 2px 10px;              /* Yüksekliğe uyum sağlaması için iç boşluğu daralttık */
+            padding: 4px 12px;
             font-size: 11px;
             border-radius: 4px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            transition: all 0.3s ease;
             user-select: none;
-            height: 24px;                   /* İnce barda taşma yapmaması için sabit yükseklik */
-        }
-
-        .player-nav-btn:hover {
-            background: #333;
-            transform: scale(1.02);
+            height: 26px;
         }
 
         /* --- MİNİ TAM EKRAN BUTONU --- */
@@ -228,13 +224,13 @@
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
             border: 1px solid rgba(255,255,255,0.2); 
             color: #fff; 
-            padding: 2px 16px;
+            padding: 4px 16px;
             font-size: 11px;
             letter-spacing: 0.3px;
             font-weight: 500;
             border-radius: 4px;
             box-shadow: 0 0 10px rgba(0,0,0,0.4);
-            height: 24px;
+            height: 26px;
         }
 
         .player-content-wrapper {
@@ -243,12 +239,23 @@
             height: 100vh;
         }
 
-        /* --- SAĞ/SOL SİYAH BOŞLUKLARI YOK ETME VE VİDEOYU BUTON BARINA GÖRE KALDIRMA --- */
+        /* --- VİDEOYU ÜSTTE TUTAN VE BUTON BARINA ALAN AÇAN YENİ BOYUTLANDIRMA --- */
         .video-player, 
         .iframe-player {
             width: 100% !important;
-            height: calc(100% - 35px) !important; /* Videoyu alt kontrol barı kadar (35px) yukarı kaldırdık */
-            object-fit: fill !important; 
+            flex-grow: 1 !important;           /* Kalan tüm üst alanı videoya verir */
+            height: calc(100% - 40px) !important; /* Buton barının alanını korur */
+            object-fit: fill !important;       /* Sağ-sol siyah boşlukları engeller */
+        }
+
+        /* Placeholder alanının düzgün durması için */
+        #videoPlaceholderPlayer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 40px);
+            z-index: 10;
         }
     </style>
 </head>
