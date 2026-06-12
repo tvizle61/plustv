@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
-        /* --- SIDEBAR AYARLARI (220px) --- */
+        /* --- SIDEBAR AYARLARI --- */
         .player-sidebar {
             width: 220px;
             display: flex;
@@ -23,57 +23,89 @@
             flex-shrink: 0;
         }
 
+        /* Üst Başlık Kısmını da Hafif Küçülttük */
+        .sidebar-header {
+            padding: 8px 10px !important;
+        }
+        .sidebar-header h3 {
+            font-size: 13px !important;
+        }
+        .back-btn {
+            padding: 4px 8px !important;
+            font-size: 11px !important;
+        }
+
+        /* Sekme Butonları (Kanallar / Favoriler) */
+        .sidebar-tabs {
+            padding: 4px 6px !important;
+            gap: 4px !important;
+        }
+        .tab-btn {
+            padding: 6px 4px !important;
+            font-size: 11px !important;
+            border-radius: 5px !important;
+        }
+
         .channels-sidebar-list {
             flex-grow: 1;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            padding: 6px;
+            padding: 4px !important; /* Dış boşluğu daralttık */
         }
 
-        /* --- KANAL LİSTESİ (MİNİ BOYUT & KESİLMEYEN İSİMLER) --- */
+        /* --- KANAL LİSTESİ (BAYAĞI KÜÇÜLTÜLMÜŞ MİNİ BOYUT) --- */
         #channelsSidebarList > * {
-            padding: 4px 8px !important;
-            margin-bottom: 4px !important;
-            min-height: 40px !important;
-            border-radius: 6px !important;
+            padding: 4px 6px !important;          /* İç boşlukları minimuma indirdik */
+            margin-bottom: 3px !important;        /* Kanalların arasındaki boşluğu daralttık */
+            min-height: 32px !important;          /* Yüksekliği 40px'ten 32px'e çekerek bayağı ince yaptık */
+            max-height: 32px !important;
+            border-radius: 4px !important;
             display: flex !important;
             align-items: center !important;
-            gap: 8px !important;
+            gap: 6px !important;                  /* Logo ve yazı arasındaki mesafeyi daralttık */
         }
 
+        /* Kanal Logoları (Küçültüldü) */
         #channelsSidebarList > * img,
         #channelsSidebarList > * .channel-logo,
         #channelsSidebarList > * [class*="logo"] {
-            width: 26px !important;
-            height: 26px !important;
-            min-width: 26px !important;
-            border-radius: 4px !important;
+            width: 20px !important;               /* Logoları 26px'ten 20px'e düşürdük */
+            height: 20px !important;
+            min-width: 20px !important;
+            border-radius: 3px !important;
             object-fit: contain !important;
         }
 
+        /* Kanal İsimleri (Küçültüldü) */
         #channelsSidebarList > * .channel-name,
         #channelsSidebarList > * h4,
         #channelsSidebarList > * span,
         #channelsSidebarList > * div {
-            font-size: 11px !important;
-            line-height: 1.3 !important;
-            white-space: normal !important;    
-            text-overflow: clip !important;    
-            word-break: break-word !important; 
+            font-size: 10px !important;           /* Yazı boyutunu 11px'ten 10px'e indirdik */
+            font-weight: 500 !important;
+            line-height: 1.2 !important;
+            white-space: nowrap !important;       /* Tek satıra zorlayıp taşmayı önledik */
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;   /* Çok uzun isimlerin sonuna üç nokta koyar */
         }
 
+        /* Alt Kategori / Alt Yazı Kısmı */
         #channelsSidebarList > * p,
         #channelsSidebarList > * small,
         #channelsSidebarList > * .channel-category {
-            font-size: 9px !important;
-            opacity: 0.7;
+            font-size: 8px !important;            /* Kategori yazılarını iyice minik yaptık */
+            opacity: 0.6;
+            margin: 0 !important;
+            display: block !important;
         }
 
+        /* Favori Yıldız Butonu */
         #channelsSidebarList > * .fav-btn,
         #channelsSidebarList > * .star-icon,
         #channelsSidebarList > * svg {
-            transform: scale(0.85) !important;
+            transform: scale(0.75) !important;    /* Yıldız ikonunu biraz daha küçülttük */
+            margin-left: auto !important;         /* En sağa yaslanmasını garantiledik */
         }
 
         /* --- ÜST KATEGORİ SECTİON VE CONTAINER AYARLARI --- */
@@ -81,20 +113,28 @@
             background: #111; 
             border-bottom: 1px solid #222;
             width: 100%;
+            height: 44px !important;         
+            max-height: 44px !important;
+            display: flex !important;
+            align-items: center !important;   
+            box-sizing: border-box !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
         .player-categories-container {
             display: flex;
             justify-content: flex-start !important; 
-            gap: 5px !important;             /* Butonlar arası boşluk daraltıldı */
-            padding: 5px 10px !important;    /* Üst bar yüksekliği buton boyutuyla dengelendi */
+            gap: 5px !important;              
+            padding: 0px 10px !important;     
+            margin: 0 !important;
             flex-wrap: nowrap !important;    
             overflow-x: auto;                
+            width: 100%;
+            box-sizing: border-box !important;
+            align-items: center !important;   
         }
 
-      /* --- KATEGORİ BUTONLARI DÜZELTME (DİKEY VE ESNEK) --- */
-        
-        /* 1. Genişliği kilitler, yüksekliği içeriğe göre esnek bırakır (Ezilmeyi önler) */
         .player-categories-container div.category-card,
         .player-categories-container [class*="category"],
         .player-categories-container .active,
@@ -102,63 +142,43 @@
             width: 40px !important;
             max-width: 40px !important;
             min-width: 40px !important;
-            height: auto !important;          /* Sabit yükseklik kaldırıldı, ezilme kesinlikle biter */
-            max-height: none !important;
-            min-height: auto !important;
-            padding: 4px 1px !important;       /* Üst ve alttan sağlıklı bir iç boşluk */
+            height: 34px !important;          
+            max-height: 34px !important;
+            min-height: 34px !important;
+            padding: 2px 1px 4px 1px !important; 
             box-sizing: border-box !important;
             border-radius: 4px !important;
-            
             display: flex !important;
-            flex-direction: column !important; /* İkon üstte, yazı altta (orijinal düzen) */
+            flex-direction: column !important; 
             align-items: center !important;
-            justify-content: center !important;
-            gap: 2px !important;               /* İkon ile yazı arasındaki dikey boşluk */
+            justify-content: center !important; 
+            gap: 0px !important;              
             flex-shrink: 0 !important;
-            overflow: visible !important;      /* Yazıların taşarak görünmesini sağlar */
+            overflow: visible !important;      
         }
 
-        /* 2. İkon Boyut Sabitleme */
         .category-icon,
         [class*="category-icon"] {
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
-            width: 15px !important;
-            height: 15px !important;
-            margin: 0 !important;
+            width: 14px !important;
+            height: 14px !important;
+            margin: 0 0 -1px 0 !important;       
             padding: 0 !important;
         }
 
-        /* İkon içindeki emoji veya görseller */
         .category-icon img,
         .category-icon svg,
         .category-icon i,
         .category-icon span {
-            width: 15px !important;
-            height: 15px !important;
-            font-size: 15px !important;
+            width: 14px !important;
+            height: 14px !important;
+            font-size: 14px !important;
             object-fit: contain !important;
             line-height: 1 !important;
         }
 
-        /* 3. Yazı Boyutu ve Görünürlük Kalkanı */
-        .player-categories-container .category-card .category-name,
-        .player-categories-container [class*="category"] [class*="name"],
-        .category-name {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            
-            font-size: 7px !important;         /* Küçük ama okunabilir yazı boyutu */
-            font-weight: 500 !important;
-            color: #ffffff !important;         /* Yazı rengini beyaza zorlar */
-            white-space: nowrap !important;   
-            line-height: 1 !important;       
-            margin: 0 !important;   
-            padding: 0 !important;
-            text-align: center !important;
-        }
         /* --- VİDEO ALANI ANA AYARLARI --- */
         .player-main {
             flex-grow: 1;
@@ -175,17 +195,17 @@
             background: #000;
         }
 
-        /* --- DEĞİŞTİRİLEN ALAN: SOLA YANAŞIK KONTROL BAR --- */
+        /* --- SOLA YANAŞIK KONTROL BAR --- */
         #videoControlsBar {
             position: absolute !important;
             bottom: 0 !important;
             left: 0 !important;
             width: 100% !important;
             display: flex !important;
-            justify-content: flex-start !important; /* Ortadan Sola yanaştırıldı */
+            justify-content: flex-start !important; 
             align-items: center !important;
             gap: 8px !important;
-            padding: 6px 15px !important; /* Butonların sol kenara sıfırlanmaması için sol boşluk eklendi */
+            padding: 6px 15px !important; 
             background: rgba(17, 17, 17, 0.75) !important;
             border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
             z-index: 999999 !important;
@@ -266,7 +286,6 @@
                     <div class="player-categories-container">
                         <div class="category-card" data-category="all">
                             <div class="category-icon">📺</div>
-                            <div class="category-name">Tümü</div>
                         </div>
                     </div>
                 </section>
@@ -277,7 +296,6 @@
                             <div class="placeholder-icon">📺</div>
                             <h2>Bir Kanal Seçin</h2>
                             <p>Sol taraftaki listeden bir kanal seçin</p>
-                            
                             <p class="brand-name">61 BYD 61</p>
                         </div>
                     </div>
