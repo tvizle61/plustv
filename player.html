@@ -170,7 +170,7 @@
         .video-wrapper-inner {
             position: relative !important;
             width: 100% !important;
-            height: calc(100% - 45px) !important;
+            height: calc(100% - 28px) !important; /* Bar inceldiği için (28px) video alanı maksimuma çıkarıldı */
             background: #000;
         }
 
@@ -185,47 +185,48 @@
             z-index: 1 !important;
         }
 
-        /* --- DEĞİŞEN KISIM: SOLA YANAŞIK KONTROL BAR --- */
+        /* --- ALTTAN VE ÜSTTEN İYİCE İNCELTİLMİŞ ŞERİT BAR --- */
         #videoControlsBar {
             position: relative !important;
             width: 100% !important;
-            height: 28px !important;
+            height: 28px !important;               /* Yükseklik 38px'den 28px'e indirilerek incecik yapıldı */
             background: #111111 !important;
             display: flex !important;
-            justify-content: flex-start !important; /* Butonlar sola yanaştırıldı */
+            justify-content: flex-start !important;
             align-items: center !important;
-            gap: 6px !important;                 /* Butonların arası açıldı */
-            padding: 0 10px !important;            /* Sol kenardan temiz bir boşluk bırakıldı */
-            border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+            gap: 6px !important;                   /* Butonlar arası boşluk biraz daha daraltıldı */
+            padding: 0 10px !important;            /* İç dikey boşluk sıfırlandı, sağ sol ayarlandı */
+            border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
             z-index: 999999 !important;
             box-sizing: border-box !important;
             flex-shrink: 0 !important;
         }
 
-        /* --- BUTONLAR --- */
+        /* --- DİKEYDE MAKSİMUM DARALTILMIŞ MİNİ BUTONLAR --- */
         .player-nav-btn {
             background: #222 !important;
-            border: 1px solid rgba(255,255,255,0.2) !important;
+            border: 1px solid rgba(255,255,255,0.18) !important;
             color: #fff !important;
-            padding: 0 16px !important;
-            font-size: 12px !important;
+            padding: 0 8px !important;             /* Yatay genişlik de kibarlaştırıldı */
+            font-size: 10px !important;            /* İnce barda taşmaması için yazı 10px yapıldı */
             font-weight: 500 !important;
-            border-radius: 6px !important;
+            border-radius: 3px !important;          
             cursor: pointer;
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 6px !important;
+            gap: 3px !important;                   
             user-select: none;
-            height: 32px !important;
+            height: 20px !important;               /* Buton yüksekliği alttan ve üstten kısılarak 20px yapıldı */
+            line-height: 1 !important;
         }
 
-        /* TAM EKRAN BUTONU */
+        /* İNCE TAM EKRAN BUTONU */
         #fullscreenBtn { 
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
             border: 1px solid rgba(255,255,255,0.2) !important; 
-            padding: 0 14px !important;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.4) !important;
+            padding: 0 12px !important;            
+            box-shadow: 0 1px 4px rgba(0,0,0,0.4) !important;
         }
 
         .player-content-wrapper {
