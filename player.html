@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
-        /* --- SIDEBAR AYARLARI --- */
+        /* --- SIDEBAR ANA AYARLARI --- */
         .player-sidebar {
             width: 220px;
             display: flex;
@@ -31,7 +31,7 @@
             padding: 6px;
         }
 
-        /* --- KANAL LİSTESİ SATIR DÜZENİ --- */
+        /* --- KANAL SATIR YAPISI --- */
         #channelsSidebarList > * {
             padding: 4px 6px !important;          
             margin-bottom: 3px !important;        
@@ -40,11 +40,11 @@
             border-radius: 4px !important;
             display: flex !important;
             align-items: center !important;
-            justify-content: flex-start !important; /* Her şeyi sola toplar */
             gap: 6px !important;                  
+            position: relative !important;
         }
 
-        /* Kanal Logoları */
+        /* Kanal Logoları (Orijinal boyut korundu) */
         #channelsSidebarList > * img,
         #channelsSidebarList > * .channel-logo,
         #channelsSidebarList > * [class*="logo"] {
@@ -56,7 +56,7 @@
             flex-shrink: 0 !important;
         }
 
-        /* --- KANAL İSİMLERİ (Görünürlük Sorunu Çözüldü) --- */
+        /* --- KANAL YAZILARI KORUMA ALANI --- */
         #channelsSidebarList > * .channel-name,
         #channelsSidebarList > * h4,
         #channelsSidebarList > * span,
@@ -67,13 +67,16 @@
             white-space: nowrap !important;       
             overflow: hidden !important;
             text-overflow: ellipsis !important;   
-            display: inline-block !important;      /* Görünürlüğü garanti altına alır */
-            visibility: visible !important;        /* Silinmesini kesinlikle önler */
+            
+            /* Yazıların kaybolmasını önleyen kalkan ayarlar */
+            display: block !important;
+            visibility: visible !important;
             opacity: 1 !important;
-            flex-grow: 0 !important;               /* Sağ tarafa doğru gereksiz yer kaplamaz */
+            width: auto !important;
+            max-width: 130px !important; 
         }
 
-        /* Alt Kategori / Alt Yazı Kısmı */
+        /* Alt Kategori Bilgisi */
         #channelsSidebarList > * p,
         #channelsSidebarList > * small,
         #channelsSidebarList > * .channel-category {
@@ -83,14 +86,17 @@
             display: block !important;
         }
 
-        /* --- FAVORİ YILDIZI (İsmin Hemen Dibine Hizalandı) --- */
+        /* --- FAVORİ YILDIZI (Güvenli Sola Yanaştırma) --- */
         #channelsSidebarList > * .fav-btn,
         #channelsSidebarList > * .star-icon,
         #channelsSidebarList > * svg {
             transform: scale(0.75) !important;    
-            margin-left: 4px !important;          /* Kanal isminin bittiği yerden olan uzaklığı */
-            margin-right: auto !important;         /* Kalan tüm boşluğu sağa atarak yıldızı sola yaslar */
             flex-shrink: 0 !important;
+            display: inline-block !important;
+            
+            /* Yazıları ezmeden, sadece boşluğu daraltarak sola çeken güvenli kod */
+            margin-left: 6px !important;          
+            margin-right: auto !important;
         }
 
         /* --- ÜST KATEGORİ SECTİON VE CONTAINER AYARLARI --- */
@@ -167,7 +173,7 @@
             text-align: center !important;
         }
 
-        /* --- VİDEO ALANI VE SİYAH BOŞLUKLARI YOK ETME --- */
+        /* --- VİDEO OYNATICI (Siyah boşlukları yok etme ayarı) --- */
         .player-main {
             flex-grow: 1;
             display: flex;
@@ -187,7 +193,7 @@
         .iframe-player {
             width: 100% !important;
             height: 100% !important;
-            object-fit: fill !important; /* Siyah boşlukları kapatıp videoyu tam sığdırır */
+            object-fit: fill !important; /* Sağ ve soldaki siyah bantları tamamen kapatır */
         }
 
         /* --- KONTROL BAR --- */
