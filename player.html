@@ -12,9 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
-        /* --- SIDEBAR AYARLARI (Genişlik dengelendi) --- */
+        /* --- SIDEBAR AYARLARI --- */
         .player-sidebar {
-            width: 200px;
+            width: 220px;
             display: flex;
             flex-direction: column;
             background: #111;
@@ -31,7 +31,7 @@
             padding: 6px;
         }
 
-        /* --- KANAL LİSTESİ VE YILDIZ DÜZENLEME --- */
+        /* --- KANAL LİSTESİ SATIR DÜZENİ --- */
         #channelsSidebarList > * {
             padding: 4px 6px !important;          
             margin-bottom: 3px !important;        
@@ -40,7 +40,7 @@
             border-radius: 4px !important;
             display: flex !important;
             align-items: center !important;
-            justify-content: flex-start !important; /* Yıldızı sola, ismin yanına yanaştırır */
+            justify-content: flex-start !important; /* Her şeyi sola toplar */
             gap: 6px !important;                  
         }
 
@@ -56,7 +56,7 @@
             flex-shrink: 0 !important;
         }
 
-        /* Kanal İsimleri */
+        /* --- KANAL İSİMLERİ (Görünürlük Sorunu Çözüldü) --- */
         #channelsSidebarList > * .channel-name,
         #channelsSidebarList > * h4,
         #channelsSidebarList > * span,
@@ -67,8 +67,10 @@
             white-space: nowrap !important;       
             overflow: hidden !important;
             text-overflow: ellipsis !important;   
-            flex-grow: 0 !important;             /* İsmin gereksiz boşluk yaratmasını önler */
-            max-width: 120px !important;         /* Yıldızın isme yaklaşmasını sağlar */
+            display: inline-block !important;      /* Görünürlüğü garanti altına alır */
+            visibility: visible !important;        /* Silinmesini kesinlikle önler */
+            opacity: 1 !important;
+            flex-grow: 0 !important;               /* Sağ tarafa doğru gereksiz yer kaplamaz */
         }
 
         /* Alt Kategori / Alt Yazı Kısmı */
@@ -81,13 +83,13 @@
             display: block !important;
         }
 
-        /* Favori Yıldız Butonu (Sola Yapışık) */
+        /* --- FAVORİ YILDIZI (İsmin Hemen Dibine Hizalandı) --- */
         #channelsSidebarList > * .fav-btn,
         #channelsSidebarList > * .star-icon,
         #channelsSidebarList > * svg {
             transform: scale(0.75) !important;    
-            margin-left: 2px !important;         /* İsmin hemen bitimine yapıştırır */
-            margin-right: auto !important;        /* Sağ tarafı boş bırakıp yıldızı sola çeker */
+            margin-left: 4px !important;          /* Kanal isminin bittiği yerden olan uzaklığı */
+            margin-right: auto !important;         /* Kalan tüm boşluğu sağa atarak yıldızı sola yaslar */
             flex-shrink: 0 !important;
         }
 
@@ -107,7 +109,7 @@
             overflow-x: auto;                
         }
 
-        /* --- KATEGORİ BUTONLARI DÜZELTME --- */
+        /* --- KATEGORİ BUTONLARI --- */
         .player-categories-container div.category-card,
         .player-categories-container [class*="category"],
         .player-categories-container .active,
@@ -165,7 +167,7 @@
             text-align: center !important;
         }
 
-        /* --- VİDEO ALANI ANA AYARLARI --- */
+        /* --- VİDEO ALANI VE SİYAH BOŞLUKLARI YOK ETME --- */
         .player-main {
             flex-grow: 1;
             display: flex;
@@ -181,12 +183,11 @@
             background: #000;
         }
 
-        /* --- VİDEODAKİ SAĞ VE SOL SİYAH BOŞLUKLARI YOK ETME --- */
         .video-player, 
         .iframe-player {
             width: 100% !important;
             height: 100% !important;
-            object-fit: fill !important; /* Görüntüyü ekrana tam oturtur, siyahlıkları siler */
+            object-fit: fill !important; /* Siyah boşlukları kapatıp videoyu tam sığdırır */
         }
 
         /* --- KONTROL BAR --- */
