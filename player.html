@@ -92,7 +92,7 @@
             overflow-x: auto;                
         }
 
-        /* --- KATEGORİ BUTONLARI VE YAZI AYARI (KESİN ÇÖZÜM) --- */
+       /* --- KATEGORİ BUTONLARI VE YAZI AYARI (NİHAİ ÇÖZÜM) --- */
         
         /* 1. Tüm kutuları (mavi dahil) 40x28 pikselde kilitler */
         .player-categories-container div.category-card,
@@ -105,26 +105,26 @@
             height: 28px !important;
             max-height: 28px !important;
             min-height: 28px !important;
-            padding: 2px 1px 1px 1px !important; /* Üstten ve alttan boşluklar minimize edildi */
+            padding: 2px 1px 1px 1px !important;
             box-sizing: border-box !important;
             border-radius: 4px !important;
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;
-            justify-content: flex-start !important; /* Elemanları yukarıdan aşağı sırayla dizer */
-            gap: 1px !important; /* İkon ve yazı arasındaki boşluk 1px */
+            justify-content: flex-start !important;
+            gap: 1px !important;
             flex-shrink: 0 !important;
-            overflow: visible !important; /* Taşsa bile yazının görünmesini sağlar */
+            overflow: visible !important;
         }
 
-        /* 2. İkon alanının yüksekliğini yazıya yer açmak için düşürdük */
+        /* 2. İkon alanının yüksekliğini düşürür */
         .category-icon,
         [class*="category-icon"] {
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
             width: 100% !important;
-            height: 13px !important; /* Yükseklik 16px'den 13px'e çekildi */
+            height: 13px !important;
             max-height: 13px !important;
             margin: 0 !important;
             padding: 0 !important;
@@ -135,26 +135,35 @@
         .category-icon svg,
         .category-icon i,
         .category-icon span {
-            width: 13px !important;  /* Görsel boyutu küçüldü */
+            width: 13px !important;
             height: 13px !important;
             font-size: 13px !important;
             object-fit: contain !important;
             line-height: 1 !important;
         }
 
-        /* 4. Yazı alanını görünür ve sığabilir yapar */
-        .category-name,
-        [class*="category-name"] {
-            font-size: 6.5px !important; /* Çok hafif küçültüldü ki 40px genişliğe sığsın */
+        /* 4. YAZIYI ZORLA EKLEME VE GÖRÜNÜR KILMA ALANI */
+        .player-categories-container .category-card .category-name,
+        .player-categories-container [class*="category"] [class*="name"],
+        .category-name {
+            /* Gizleme komutlarını tamamen devre dışı bırakıyoruz */
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            height: auto !important;
+            width: 100% !important;
+            
+            /* Yazı tipi ve hizalama ayarları */
+            font-size: 6.5px !important;
             font-weight: 500 !important;
+            color: #ffffff !important; /* Yazı rengini beyaza zorla */
             white-space: nowrap !important;   
             line-height: 1 !important;       
             margin: 0 !important;   
             padding: 0 !important;
-            display: block !important;
             text-align: center !important;
+            text-transform: none !important;
         }
-
         /* --- VİDEO ALANI ANA AYARLARI --- */
         .player-main {
             flex-grow: 1;
