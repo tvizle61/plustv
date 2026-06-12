@@ -76,25 +76,34 @@
             transform: scale(0.85) !important;
         }
 
-        /* --- ÜST KATEGORİ SECTİON VE CONTAINER AYARLARI --- */
+        /* --- ÜST KATEGORİ SECTİON VE CONTAINER AYARLARI (DARALTILDI) --- */
         .player-categories-section {
             background: #111; 
             border-bottom: 1px solid #222;
             width: 100%;
+            height: 38px !important;         /* Dış siyah barın yüksekliği 38px'e düşürüldü */
+            max-height: 38px !important;
+            display: flex !important;
+            align-items: center !important;   /* Elemanları dikeyde tam ortalar */
+            box-sizing: border-box !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
         .player-categories-container {
             display: flex;
             justify-content: flex-start !important; 
-            gap: 5px !important;             /* Butonlar arası boşluk daraltıldı */
-            padding: 5px 10px !important;    /* Üst bar yüksekliği buton boyutuyla dengelendi */
+            gap: 4px !important;              /* Butonlar arası yan boşluk */
+            padding: 0px 10px !important;     /* Üst ve alt iç boşluk sıfırlandı, yukarı yapıştı */
+            margin: 0 !important;
             flex-wrap: nowrap !important;    
             overflow-x: auto;                
+            width: 100%;
+            box-sizing: border-box !important;
+            align-items: center !important;
         }
 
-      /* --- KATEGORİ BUTONLARI DÜZELTME (DİKEY VE ESNEK) --- */
-        
-        /* 1. Genişliği kilitler, yüksekliği içeriğe göre esnek bırakır (Ezilmeyi önler) */
+        /* --- KATEGORİ BUTONLARI DÜZELTME (DİKEY VE TAM SIĞAN) --- */
         .player-categories-container div.category-card,
         .player-categories-container [class*="category"],
         .player-categories-container .active,
@@ -102,20 +111,20 @@
             width: 40px !important;
             max-width: 40px !important;
             min-width: 40px !important;
-            height: auto !important;          /* Sabit yükseklik kaldırıldı, ezilme kesinlikle biter */
-            max-height: none !important;
-            min-height: auto !important;
-            padding: 4px 1px !important;       /* Üst ve alttan sağlıklı bir iç boşluk */
+            height: 32px !important;          /* Kutunun kendi yüksekliği daraltıldı */
+            max-height: 32px !important;
+            min-height: 32px !important;
+            padding: 2px 1px !important;      /* İç boşluk minimuma çekildi, yukarı kaydırıldı */
             box-sizing: border-box !important;
             border-radius: 4px !important;
             
             display: flex !important;
-            flex-direction: column !important; /* İkon üstte, yazı altta (orijinal düzen) */
+            flex-direction: column !important; 
             align-items: center !important;
             justify-content: center !important;
-            gap: 2px !important;               /* İkon ile yazı arasındaki dikey boşluk */
+            gap: 1px !important;               /* İkon ile yazı arası boşluk 1px */
             flex-shrink: 0 !important;
-            overflow: visible !important;      /* Yazıların taşarak görünmesini sağlar */
+            overflow: visible !important;      
         }
 
         /* 2. İkon Boyut Sabitleme */
@@ -124,8 +133,8 @@
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
-            width: 15px !important;
-            height: 15px !important;
+            width: 14px !important;
+            height: 14px !important;
             margin: 0 !important;
             padding: 0 !important;
         }
@@ -135,9 +144,9 @@
         .category-icon svg,
         .category-icon i,
         .category-icon span {
-            width: 15px !important;
-            height: 15px !important;
-            font-size: 15px !important;
+            width: 14px !important;
+            height: 14px !important;
+            font-size: 14px !important;
             object-fit: contain !important;
             line-height: 1 !important;
         }
@@ -150,15 +159,16 @@
             visibility: visible !important;
             opacity: 1 !important;
             
-            font-size: 7px !important;         /* Küçük ama okunabilir yazı boyutu */
+            font-size: 7px !important;         
             font-weight: 500 !important;
-            color: #ffffff !important;         /* Yazı rengini beyaza zorlar */
+            color: #ffffff !important;         
             white-space: nowrap !important;   
             line-height: 1 !important;       
             margin: 0 !important;   
             padding: 0 !important;
             text-align: center !important;
         }
+
         /* --- VİDEO ALANI ANA AYARLARI --- */
         .player-main {
             flex-grow: 1;
@@ -175,17 +185,17 @@
             background: #000;
         }
 
-        /* --- DEĞİŞTİRİLEN ALAN: SOLA YANAŞIK KONTROL BAR --- */
+        /* --- SOLA YANAŞIK KONTROL BAR --- */
         #videoControlsBar {
             position: absolute !important;
             bottom: 0 !important;
             left: 0 !important;
             width: 100% !important;
             display: flex !important;
-            justify-content: flex-start !important; /* Ortadan Sola yanaştırıldı */
+            justify-content: flex-start !important; 
             align-items: center !important;
             gap: 8px !important;
-            padding: 6px 15px !important; /* Butonların sol kenara sıfırlanmaması için sol boşluk eklendi */
+            padding: 6px 15px !important; 
             background: rgba(17, 17, 17, 0.75) !important;
             border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
             z-index: 999999 !important;
