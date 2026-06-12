@@ -14,7 +14,7 @@
     <style>
         /* --- SIDEBAR AYARLARI (220px) --- */
         .player-sidebar {
-            width: 220px;
+            width: 160px;
             display: flex;
             flex-direction: column;
             background: #111;
@@ -40,7 +40,7 @@
             border-radius: 4px !important;
             display: flex !important;
             align-items: center !important;
-            gap: 6px !important;                  /* Logo ve yazı arasındaki mesafeyi daralttık */
+            gap: 4px !important;                  /* Logo ve yazı arasındaki mesafeyi daralttık */
         }
 
         /* Kanal Logoları (Küçültüldü) */
@@ -59,13 +59,14 @@
         #channelsSidebarList > * h4,
         #channelsSidebarList > * span,
         #channelsSidebarList > * div {
-            font-size: 10px !important;           /* Yazı boyutunu 11px'ten 10px'e indirdik */
-            font-weight: 500 !important;
-            line-height: 1.2 !important;
-            white-space: nowrap !important;       /* Tek satıra zorlayıp taşmayı önledik */
-            overflow: hidden !important;
-            text-overflow: ellipsis !important;   /* Çok uzun isimlerin sonuna üç nokta koyar */
-        }
+            font-size: 10px !important;           
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;       
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;   
+    flex-grow: 1;                       /* İsmin kalan tüm alanı kaplamasını sağlar */
+}
 
        /* Alt Kategori / Alt Yazı Kısmı */
         #channelsSidebarList > * p,
@@ -77,13 +78,14 @@
             display: block !important;
         }
 
-        /* Favori Yıldız Butonu */
-        #channelsSidebarList > * .fav-btn,
-        #channelsSidebarList > * .star-icon,
-        #channelsSidebarList > * svg {
-            transform: scale(0.75) !important;    /* Yıldız ikonunu biraz daha küçülttük */
-            margin-left: auto !important;         /* En sağa yaslanmasını garantiledik */
-        }
+        /* Favori Yıldız Butonu Boşluğu */
+#channelsSidebarList > * .fav-btn,
+#channelsSidebarList > * .star-icon,
+#channelsSidebarList > * svg {
+    transform: scale(0.72) !important;    /* Yıldızı biraz daha kibarlaştırdık */
+    margin-left: 2px !important;          /* Solundaki isimle arasındaki boşluğu sıfıra yaklaştırdık */
+    flex-shrink: 0 !important;            /* Dar alanda yıldızın ezilmesini önler */
+}
         /* --- ÜST KATEGORİ SECTİON VE CONTAINER AYARLARI --- */
         .player-categories-section {
             background: #111; 
