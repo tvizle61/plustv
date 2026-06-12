@@ -479,7 +479,15 @@
             height: 100vh;
 
         }
-
+/* =======================================================
+           YENİ EKLENEN KISIM: SAĞ/SOL SİYAH BOŞLUKLARI YOK ETME
+           ======================================================= */
+        .video-player, 
+        .iframe-player {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: fill !important; /* Videoyu ekrana tam sığdırır, boşlukları siler */
+        }
     </style>
 
 </head>
