@@ -92,77 +92,74 @@
             overflow-x: auto;                
         }
 
-       /* --- KATEGORİ BUTONLARI VE YAZI AYARI (NİHAİ ÇÖZÜM) --- */
+       /* --- KATEGORİ BUTONLARI YAN YANA DÜZEN (KESİN ÇÖZÜM) --- */
         
-        /* 1. Tüm kutuları (mavi dahil) 40x28 pikselde kilitler */
+        /* 1. Kutuları yan yana düzen yapar ve boyutunu kilitler */
         .player-categories-container div.category-card,
         .player-categories-container [class*="category"],
         .player-categories-container .active,
         .player-categories-container .selected {
-            width: 40px !important;
-            max-width: 40px !important;
-            min-width: 40px !important;
-            height: 28px !important;
-            max-height: 28px !important;
-            min-height: 28px !important;
-            padding: 2px 1px 1px 1px !important;
+            width: 44px !important;          /* Yazıların sığması için genişlik 44px yapıldı */
+            max-width: 44px !important;
+            min-width: 44px !important;
+            height: 22px !important;         /* Yükseklik 22px'e düşürüldü, videoya taşmaz */
+            max-height: 22px !important;
+            min-height: 22px !important;
+            padding: 0 3px !important;       /* Sağdan soldan hafif boşluk */
             box-sizing: border-box !important;
             border-radius: 4px !important;
+            
+            /* İkon ve yazıyı YAN YANA dizer */
             display: flex !important;
-            flex-direction: column !important;
+            flex-direction: row !important;  /* Alt alta yerine yan yana yapar */
             align-items: center !important;
-            justify-content: flex-start !important;
-            gap: 1px !important;
-            flex-shrink: 0 !important;
-            overflow: visible !important;
+            justify-content: center !important;
+            gap: 2px !important;             /* İkon ile yazı arasındaki yan boşluk */
+            overflow: hidden !important;
         }
 
-        /* 2. İkon alanının yüksekliğini düşürür */
+        /* 2. İkon alanı ayarları */
         .category-icon,
         [class*="category-icon"] {
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
-            width: 100% !important;
-            height: 13px !important;
-            max-height: 13px !important;
+            width: 12px !important;
+            height: 12px !important;
+            max-height: 12px !important;
             margin: 0 !important;
             padding: 0 !important;
+            flex-shrink: 0 !important;
         }
 
-        /* 3. İkonun içindeki görselleri 13px'e sığdırır */
+        /* İkon içindeki emoji/resim boyutu */
         .category-icon img,
         .category-icon svg,
         .category-icon i,
         .category-icon span {
-            width: 13px !important;
-            height: 13px !important;
-            font-size: 13px !important;
+            width: 12px !important;
+            height: 12px !important;
+            font-size: 12px !important;
             object-fit: contain !important;
             line-height: 1 !important;
         }
 
-        /* 4. YAZIYI ZORLA EKLEME VE GÖRÜNÜR KILMA ALANI */
+        /* 3. Yanına gelen yazı alanı ayarları */
         .player-categories-container .category-card .category-name,
         .player-categories-container [class*="category"] [class*="name"],
         .category-name {
-            /* Gizleme komutlarını tamamen devre dışı bırakıyoruz */
             display: block !important;
             visibility: visible !important;
             opacity: 1 !important;
-            height: auto !important;
-            width: 100% !important;
             
-            /* Yazı tipi ve hizalama ayarları */
-            font-size: 6.5px !important;
-            font-weight: 500 !important;
-            color: #ffffff !important; /* Yazı rengini beyaza zorla */
+            font-size: 7px !important;       /* Küçük ve okunaklı yazı boyutu */
+            font-weight: 600 !important;     /* Net okunması için biraz kalınlaştırıldı */
+            color: #ffffff !important;       /* Yazı rengi beyaz */
             white-space: nowrap !important;   
             line-height: 1 !important;       
             margin: 0 !important;   
             padding: 0 !important;
-            text-align: center !important;
-            text-transform: none !important;
+            text-align: left !important;
         }
         /* --- VİDEO ALANI ANA AYARLARI --- */
         .player-main {
