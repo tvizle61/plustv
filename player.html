@@ -94,36 +94,36 @@
 
         /* --- ORANTILI KATEGORİ BUTONLARI --- */
         .category-card {
-            padding: 2px !important;         /* İç boşluğu minimuma indirdik, buton kesinlikle büyümez */
-            width: 55px !important;          /* Sabit genişlik */
-            height: 38px !important;         /* Sabit yükseklik */
-            box-sizing: border-box !important;/* Taşmaları önler */
-            border-radius: 5px !important;    
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            justify-content: space-between !important; /* İkonu yukarı, yazıyı aşağı yaslar (maksimum alan açar) */
-            gap: 0px !important;             
-            flex-shrink: 0 !important;
-            overflow: hidden !important;     
-        }
+    padding: 1px !important;
+    width: 40px !important;
+    height: 28px !important;
+    box-sizing: border-box !important;
+    border-radius: 4px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0px !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+}
 
         /* --- BÜYÜTÜLEN İKON / RESİM ALANI (TÜM ELEMENTLER İÇİN) --- */
-        .category-icon {
-            font-size: 24px !important;       /* Eğer düz metin/emoji ise boyutu 24px yapar */
-            line-height: 1 !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            flex: 1 !important;              /* Butonun üst kısmındaki tüm boş alanı kaplar */
-            width: 100% !important;
-            height: 24px !important;
-        }
+       .category-icon {
+    font-size: 16px !important;
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 1 !important;
+    width: 100% !important;
+    height: 16px !important;
+}
 
         /* js ile sonradan yüklenen img, svg, i (font-awesome) veya span etiketleri varsa hepsini büyütür: */
-        .category-icon img,
-        .category-icon svg,
-        .category-icon i,
+        width: 16px !important;
+height: 16px !important;
+font-size: 16px !important;
         .category-icon span {
             width: 24px !important;          /* Genişlik 24px */
             height: 24px !important;         /* Yükseklik 24px */
@@ -136,7 +136,7 @@
 
         /* --- YAZI ALANI --- */
         .category-name {
-            font-size: 9px !important;        
+            font-size: 7px !important;        
             font-weight: 500 !important;
             white-space: nowrap !important;   
             line-height: 1 !important;       
