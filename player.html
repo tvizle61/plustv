@@ -31,7 +31,7 @@
             padding: 6px;
         }
 
-        /* --- KANAL LİSTESİ (MİNİ BOYUT & KESİLMEYEN İSİMLER) --- */
+        /* --- KANAL LİSTESİ --- */
         #channelsSidebarList > * {
             padding: 4px 8px !important;
             margin-bottom: 4px !important;
@@ -63,20 +63,7 @@
             word-break: break-word !important; 
         }
 
-        #channelsSidebarList > * p,
-        #channelsSidebarList > * small,
-        #channelsSidebarList > * .channel-category {
-            font-size: 9px !important;
-            opacity: 0.7;
-        }
-
-        #channelsSidebarList > * .fav-btn,
-        #channelsSidebarList > * .star-icon,
-        #channelsSidebarList > * svg {
-            transform: scale(0.85) !important;
-        }
-
-        /* --- ÜST KATEGORİ SECTİON VE CONTAINER AYARLARI --- */
+        /* --- ÜST KATEGORİ BARININ SIKIŞTIRILMIŞ ALANI --- */
         .player-categories-section {
             background: #111; 
             border-bottom: 1px solid #222;
@@ -88,228 +75,138 @@
             box-sizing: border-box !important;
             margin: 0 !important;
             padding: 0 !important;
+            overflow: visible !important;
         }
 
         .player-categories-container {
             display: flex;
             justify-content: flex-start !important; 
-            gap: 5px !important;              
-            padding: 0px 10px !important;     
+            gap: 4px !important;              
+            padding: 0px 8px !important;     
             margin: 0 !important;
             flex-wrap: nowrap !important;    
             overflow-x: auto;                
             width: 100%;
             box-sizing: border-box !important;
             align-items: center !important;   
+            height: 100% !important;
         }
 
-       <!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="screen-orientation" content="auto">
-    <title>PlusTV - Video Player</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-    <style>
-        /* --- SIDEBAR AYARLARI (220px) --- */
-        .player-sidebar {
-            width: 220px;
-            display: flex;
-            flex-direction: column;
-            background: #111;
-            border-right: 1px solid #222;
-            height: 100vh;
-            flex-shrink: 0;
-        }
-
-        .channels-sidebar-list {
-            flex-grow: 1;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            padding: 6px;
-        }
-
-        <!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="screen-orientation" content="auto">
-    <title>PlusTV - Video Player</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-    <style>
-        /* --- SIDEBAR AYARLARI (220px) --- */
-        .player-sidebar {
-            width: 220px;
-            display: flex;
-            flex-direction: column;
-            background: #111;
-            border-right: 1px solid #222;
-            height: 100vh;
-            flex-shrink: 0;
-        }
-
-        .channels-sidebar-list {
-            flex-grow: 1;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            padding: 6px;
-        }
-
-        /* --- KANAL LİSTESİ (MİNİ BOYUT & KESİLMEYEN İSİMLER) --- */
-        #channelsSidebarList > * {
-            padding: 4px 8px !important;
-            margin-bottom: 4px !important;
-            min-height: 40px !important;
-            border-radius: 6px !important;
-            display: flex !important;
-            align-items: center !important;
-            gap: 8px !important;
-        }
-
-        #channelsSidebarList > * img,
-        #channelsSidebarList > * .channel-logo,
-        #channelsSidebarList > * [class*="logo"] {
-            width: 26px !important;
-            height: 26px !important;
-            min-width: 26px !important;
-            border-radius: 4px !important;
-            object-fit: contain !important;
-        }
-
-        #channelsSidebarList > * .channel-name,
-        #channelsSidebarList > * h4,
-        #channelsSidebarList > * span,
-        #channelsSidebarList > * div {
-            font-size: 11px !important;
-            line-height: 1.3 !important;
-            white-space: normal !important;    
-            text-overflow: clip !important;    
-            word-break: break-word !important; 
-        }
-
-        #channelsSidebarList > * p,
-        #channelsSidebarList > * small,
-        #channelsSidebarList > * .channel-category {
-            font-size: 9px !important;
-            opacity: 0.7;
-        }
-
-        #channelsSidebarList > * .fav-btn,
-        #channelsSidebarList > * .star-icon,
-        #channelsSidebarList > * svg {
-            transform: scale(0.85) !important;
-        }
-
-        /* --- ÜST KATEGORİ SECTİON VE CONTAINER AYARLARI (GARANTİLİ ALAN) --- */
-        .player-categories-section {
-            background: #111; 
-            border-bottom: 1px solid #222;
-            width: 100%;
-            height: 48px !important;          /* Üst barı rahat sığması için 48px yaptık */
-            max-height: 48px !important;
-            display: flex !important;
-            align-items: center !important;   
-            box-sizing: border-box !important;
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-
-        .player-categories-container {
-            display: flex;
-            justify-content: flex-start !important; 
-            gap: 6px !important;              
-            padding: 0px 10px !important;     
-            margin: 0 !important;
-            flex-wrap: nowrap !important;    
-            overflow-x: auto;                
-            width: 100%;
-            box-sizing: border-box !important;
-            align-items: center !important;   
-        }
-
-        /* --- KATEGORİ BUTONLARI VE KESİNLİKLE TAŞMAYAN YAZI DÜZENİ --- */
+        /* --- KATEGORİ BUTONLARI (MİNİMALİST VE SIKIŞTIRILMIŞ YAPISI) --- */
         .player-categories-container div.category-card,
         .player-categories-container [class*="category"],
         .player-categories-container .active,
         .player-categories-container .selected {
-            width: auto !important;                /* Sabit dar genişlik yerine içeriğe göre esnettik */
-            min-width: 52px !important;            /* Yazıların sığabileceği minimum genişlik sağlandı */
-            height: 38px !important;               /* Yüksekliği 38px yaparak yazıların görünmesini garantiledik */
-            max-height: 38px !important;
-            min-height: 38px !important;
-            padding: 4px 6px !important;           /* İçeriyi sıkıştırmayan dengeli iç boşluk */
+            width: 42px !important;
+            max-width: 42px !important;
+            min-width: 42px !important;
+            height: 34px !important;          
+            max-height: 34px !important;
+            min-height: 34px !important;
+            padding: 2px 0px 0px 0px !important; 
             box-sizing: border-box !important;
-            border-radius: 6px !important;
-            background: #222 !important;           /* Arka plan belirginleştirildi */
+            border-radius: 5px !important;
+            background: #1c1c1e !important;
+            border: 1px solid #2c2c2e !important;
             
             display: flex !important;
             flex-direction: column !important; 
             align-items: center !important;
-            justify-content: center !important;    
-            gap: 2px !important;                   /* İkon ile yazı arasına minik emniyet boşluğu */
+            justify-content: flex-start !important; /* Üste yanaştırıp alt tarafta yazıya yer açıyoruz */
             flex-shrink: 0 !important;
-            overflow: visible !important;          /* Yazıların kesilmesini tamamen engeller */
+            overflow: visible !important;      
+            position: relative !important;
         }
 
-        /* Aktif buton rengi belirginliği */
+        /* Aktiflik Renkleri */
         .player-categories-container div.category-card.active,
         .player-categories-container [class*="category"].active {
-            background: #007bff !important;
+            background: #3a7afe !important;
+            border-color: #548eff !important;
         }
 
-        /* İkon Sabitleyici */
+        /* İkonların Küçültülmesi (Yazıya Yer Açmak İçin 12px) */
         .category-icon,
-        [class*="category-icon"] {
-            display: flex !important;
+        [class*="category-icon"],
+        .player-categories-container div.category-card *,
+        .player-categories-container [class*="category"] * {
+            display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            width: 14px !important;
-            height: 14px !important;
-            margin: 0 !important;
+            width: 13px !important;
+            height: 13px !important;
+            font-size: 13px !important;
+            margin: 1px 0 0 0 !important;
             padding: 0 !important;
-        }
-
-        .category-icon img,
-        .category-icon svg,
-        .category-icon i,
-        .category-icon span {
-            width: 14px !important;
-            height: 14px !important;
-            font-size: 14px !important;
-            object-fit: contain !important;
             line-height: 1 !important;
         }
 
-        /* Görünmesi Kesinleştirilen Kategori Yazıları */
-        .player-categories-container .category-card .category-name,
-        .player-categories-container [class*="category"] [class*="name"],
-        .category-name {
+        /* ================================================================= */
+        /* KESİN ÇÖZÜM: JS'NİN SİLEMEDİĞİ, CSS ARKA PLAN YAZI ENJEKSİYONU   */
+        /* ================================================================= */
+        
+        /* Butonun içine görünmez de olsa bir isim alanı ekliyoruz ve her koşulda görünür yapıyoruz */
+        .category-name, 
+        .player-categories-container .category-card .category-name {
             display: block !important;
             visibility: visible !important;
             opacity: 1 !important;
-            
-            font-size: 9px !important;             /* Çok küçük (7px) yerine okunabilir 9px yapıldı */
+            font-size: 7.5px !important;
             font-weight: 600 !important;
-            color: #ffffff !important;         
-            white-space: nowrap !important;   
-            line-height: 1.1 !important;       
-            margin: 0 !important;   
-            padding: 0 !important;
             text-align: center !important;
+            line-height: 1 !important;
+            margin-top: 2px !important;
+            color: #ffffff !important;
+        }
+
+        /* EĞER JAVASCRIPT YAZIYI TAMAMEN SİLİYORSA, KATEGORİ ID/DATA ÖZELLİĞİNE GÖRE ZORLA YAZDIRMA */
+        .player-categories-container [data-category="all"]::after,
+        .player-categories-container [id*="all"]::after { content: "Tümü" !important; }
+        
+        .player-categories-container [data-category*="ulusal"]::after,
+        .player-categories-container [id*="ulusal"]::after { content: "Ulusal" !important; }
+        
+        .player-categories-container [data-category*="belgesel"]::after,
+        .player-categories-container [id*="belgesel"]::after { content: "Belgesel" !important; }
+        
+        .player-categories-container [data-category*="cocuk"]::after,
+        .player-categories-container [id*="cocuk"]::after,
+        .player-categories-container [data-category*="çocuk"]::after,
+        .player-categories-container [id*="çocuk"]::after { content: "Çocuk" !important; }
+        
+        .player-categories-container [data-category*="haber"]::after,
+        .player-categories-container [id*="haber"]::after { content: "Haber" !important; }
+        
+        .player-categories-container [data-category*="muzik"]::after,
+        .player-categories-container [id*="muzik"]::after,
+        .player-categories-container [data-category*="müzik"]::after,
+        .player-categories-container [id*="müzik"]::after { content: "Müzik" !important; }
+        
+        .player-categories-container [data-category*="spor"]::after,
+        .player-categories-container [id*="spor"]::after { content: "Spor" !important; }
+        
+        .player-categories-container [data-category*="youtube"]::after,
+        .player-categories-container [id*="youtube"]::after { content: "Youtube" !important; }
+        
+        .player-categories-container [data-category*="sinema"]::after,
+        .player-categories-container [id*="sinema"]::after { content: "Sinema" !important; }
+
+        /* Zoraki bastığımız bu yazıların butonun alt kısmına kusursuz yerleşmesi için CSS kuralı */
+        .player-categories-container div.category-card::after,
+        .player-categories-container [class*="category"]::after {
+            display: block !important;
+            font-size: 7.5px !important;
+            font-weight: 600 !important;
+            color: #ffffff !important;
+            text-align: center !important;
+            line-height: 1 !important;
+            position: absolute !important;
+            bottom: 3px !important;
+            left: 0 !important;
+            width: 100% !important;
+            white-space: nowrap !important;
+            z-index: 10 !important;
+            pointer-events: none !important;
         }
 
         /* --- VİDEO ALANI ANA AYARLARI --- */
@@ -345,7 +242,6 @@
             box-sizing: border-box !important;
         }
 
-        /* --- MİNİ BUTONLAR --- */
         .player-nav-btn {
             background: #222;
             border: 1px solid rgba(255,255,255,0.1);
@@ -357,26 +253,16 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            transition: all 0.3s ease;
-            user-select: none;
         }
 
-        .player-nav-btn:hover {
-            background: #333;
-            transform: scale(1.02);
-        }
-
-        /* --- MİNİ TAM EKRAN BUTONU --- */
         #fullscreenBtn { 
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
             border: 1px solid rgba(255,255,255,0.2); 
             color: #fff; 
             padding: 5px 16px;
             font-size: 11px;
-            letter-spacing: 0.3px;
             font-weight: 500;
             border-radius: 4px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.4);
         }
 
         .player-content-wrapper {
@@ -430,365 +316,6 @@
                             <div class="placeholder-icon">📺</div>
                             <h2>Bir Kanal Seçin</h2>
                             <p>Sol taraftaki listeden bir kanal seçin</p>
-                            
-                            <p class="brand-name">61 BYD 61</p>
-                        </div>
-                    </div>
-                    
-                    <div class="loading-overlay" id="loadingPlayer">
-                        <div class="spinner"></div>
-                        <p>Yükleniyor...</p>
-                    </div>
-                    
-                    <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
-                    <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
-                
-                    <div id="videoControlsBar">
-                        <button class="player-nav-btn" onclick="changeChannel(-1)">
-                            <span>I⏮</span> Geri
-                        </button>
-                        
-                        <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
-                            <span>⛶</span> Tam Ekran
-                        </button>
-                        
-                        <button class="player-nav-btn" onclick="changeChannel(1)">
-                            İleri <span>⏭I</span>
-                        </button>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
-
-    <script src="player.js"></script>
-    <script>
-        function toggleFullscreen() {
-            const playerElement = document.getElementById("videoContainerPlayer");
-            if (!playerElement) return;
-            if (!document.fullscreenElement) {
-                playerElement.requestFullscreen().catch(err => console.log(err));
-            } else {
-                document.exitFullscreen();
-            }
-        }
-
-        function changeChannel(direction) {
-            const listContainer = document.getElementById('channelsSidebarList');
-            if (!listContainer) return;
-            const channels = Array.from(listContainer.children);
-            if (channels.length === 0) return;
-            let currentIndex = channels.findIndex(ch => ch.classList.contains('active'));
-            let nextIndex = currentIndex + direction;
-            if (nextIndex >= channels.length) nextIndex = 0;
-            else if (nextIndex < 0) nextIndex = channels.length - 1;
-            const targetChannel = channels[nextIndex];
-            if (targetChannel) {
-                targetChannel.click();
-                targetChannel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        }
-    </script>
-</body>
-</html>
-        /* --- VİDEO ALANI ANA AYARLARI --- */
-        .player-main {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            background: #000;
-            height: 100vh;
-        }
-
-        #videoContainerPlayer {
-            position: relative !important;
-            overflow: hidden;
-            flex-grow: 1;
-            background: #000;
-        }
-
-        /* --- SOLA YANAŞIK KONTROL BAR --- */
-        #videoControlsBar {
-            position: absolute !important;
-            bottom: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            display: flex !important;
-            justify-content: flex-start !important; 
-            align-items: center !important;
-            gap: 8px !important;
-            padding: 6px 15px !important; 
-            background: rgba(17, 17, 17, 0.75) !important;
-            border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
-            z-index: 999999 !important;
-            box-sizing: border-box !important;
-        }
-
-        /* --- MİNİ BUTONLAR --- */
-        .player-nav-btn {
-            background: #222;
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
-            padding: 4px 10px;
-            font-size: 11px;
-            border-radius: 4px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            transition: all 0.3s ease;
-            user-select: none;
-        }
-
-        .player-nav-btn:hover {
-            background: #333;
-            transform: scale(1.02);
-        }
-
-        /* --- MİNİ TAM EKRAN BUTONU --- */
-        #fullscreenBtn { 
-            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-            border: 1px solid rgba(255,255,255,0.2); 
-            color: #fff; 
-            padding: 5px 16px;
-            font-size: 11px;
-            letter-spacing: 0.3px;
-            font-weight: 500;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.4);
-        }
-
-        .player-content-wrapper {
-            display: flex;
-            flex-direction: row;
-            height: 100vh;
-        }
-    </style>
-</head>
-<body>
-    <div class="player-page">
-        <div class="player-content-wrapper">
-            <aside class="player-sidebar">
-                <div class="sidebar-header">
-                    <button class="back-btn" id="backBtn" title="Ana Sayfaya Dön">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 12H5M12 19l-7-7 7-7"/>
-                        </svg>
-                        <span>Geri</span>
-                    </button>
-                    <h3 id="sidebarCategoryTitle">Kanallar</h3>
-                    <button class="zoom-toggle-btn" id="zoomToggleBtn" title="Tam ekran">
-                        <svg class="fullscreen-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-                        </svg>
-                    </button>
-                </div>
-                
-                <div class="sidebar-tabs">
-                    <button class="tab-btn active" data-tab="channels">Kanallar</button>
-                    <button class="tab-btn" data-tab="favorites">⭐ Favoriler</button>
-                </div>
-                
-                <div class="channels-sidebar-list" id="channelsSidebarList">
-                </div>
-            </aside>
-
-            <main class="player-main">
-                <section class="player-categories-section">
-                    <div class="player-categories-container">
-                        <div class="category-card" data-category="all">
-                            <div class="category-icon">📺</div>
-                            <div class="category-name">Tümü</div>
-                        </div>
-                    </div>
-                </section>
-
-                <div class="video-container-player" id="videoContainerPlayer">
-                    <div class="video-placeholder-player" id="videoPlaceholderPlayer">
-                        <div class="placeholder-content">
-                            <div class="placeholder-icon">📺</div>
-                            <h2>Bir Kanal Seçin</h2>
-                            <p>Sol taraftaki listeden bir kanal seçin</p>
-                            
-                            <p class="brand-name">61 BYD 61</p>
-                        </div>
-                    </div>
-                    
-                    <div class="loading-overlay" id="loadingPlayer">
-                        <div class="spinner"></div>
-                        <p>Yükleniyor...</p>
-                    </div>
-                    
-                    <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
-                    <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
-                
-                    <div id="videoControlsBar">
-                        <button class="player-nav-btn" onclick="changeChannel(-1)">
-                            <span>I⏮</span> Geri
-                        </button>
-                        
-                        <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
-                            <span>⛶</span> Tam Ekran
-                        </button>
-                        
-                        <button class="player-nav-btn" onclick="changeChannel(1)">
-                            İleri <span>⏭I</span>
-                        </button>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
-
-    <script src="player.js"></script>
-    <script>
-        function toggleFullscreen() {
-            const playerElement = document.getElementById("videoContainerPlayer");
-            if (!playerElement) return;
-            if (!document.fullscreenElement) {
-                playerElement.requestFullscreen().catch(err => console.log(err));
-            } else {
-                document.exitFullscreen();
-            }
-        }
-
-        function changeChannel(direction) {
-            const listContainer = document.getElementById('channelsSidebarList');
-            if (!listContainer) return;
-            const channels = Array.from(listContainer.children);
-            if (channels.length === 0) return;
-            let currentIndex = channels.findIndex(ch => ch.classList.contains('active'));
-            let nextIndex = currentIndex + direction;
-            if (nextIndex >= channels.length) nextIndex = 0;
-            else if (nextIndex < 0) nextIndex = channels.length - 1;
-            const targetChannel = channels[nextIndex];
-            if (targetChannel) {
-                targetChannel.click();
-                targetChannel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        }
-    </script>
-</body>
-</html>
-        /* --- VİDEO ALANI ANA AYARLARI --- */
-        .player-main {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            background: #000;
-            height: 100vh;
-        }
-
-        #videoContainerPlayer {
-            position: relative !important;
-            overflow: hidden;
-            flex-grow: 1;
-            background: #000;
-        }
-
-        /* --- SOLA YANAŞIK KONTROL BAR --- */
-        #videoControlsBar {
-            position: absolute !important;
-            bottom: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            display: flex !important;
-            justify-content: flex-start !important; 
-            align-items: center !important;
-            gap: 8px !important;
-            padding: 6px 15px !important; 
-            background: rgba(17, 17, 17, 0.75) !important;
-            border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
-            z-index: 999999 !important;
-            box-sizing: border-box !important;
-        }
-
-        /* --- MİNİ BUTONLAR --- */
-        .player-nav-btn {
-            background: #222;
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
-            padding: 4px 10px;
-            font-size: 11px;
-            border-radius: 4px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            transition: all 0.3s ease;
-            user-select: none;
-        }
-
-        .player-nav-btn:hover {
-            background: #333;
-            transform: scale(1.02);
-        }
-
-        /* --- MİNİ TAM EKRAN BUTONU --- */
-        #fullscreenBtn { 
-            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-            border: 1px solid rgba(255,255,255,0.2); 
-            color: #fff; 
-            padding: 5px 16px;
-            font-size: 11px;
-            letter-spacing: 0.3px;
-            font-weight: 500;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.4);
-        }
-
-        .player-content-wrapper {
-            display: flex;
-            flex-direction: row;
-            height: 100vh;
-        }
-    </style>
-</head>
-<body>
-    <div class="player-page">
-        <div class="player-content-wrapper">
-            <aside class="player-sidebar">
-                <div class="sidebar-header">
-                    <button class="back-btn" id="backBtn" title="Ana Sayfaya Dön">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 12H5M12 19l-7-7 7-7"/>
-                        </svg>
-                        <span>Geri</span>
-                    </button>
-                    <h3 id="sidebarCategoryTitle">Kanallar</h3>
-                    <button class="zoom-toggle-btn" id="zoomToggleBtn" title="Tam ekran">
-                        <svg class="fullscreen-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-                        </svg>
-                    </button>
-                </div>
-                
-                <div class="sidebar-tabs">
-                    <button class="tab-btn active" data-tab="channels">Kanallar</button>
-                    <button class="tab-btn" data-tab="favorites">⭐ Favoriler</button>
-                </div>
-                
-                <div class="channels-sidebar-list" id="channelsSidebarList">
-                </div>
-            </aside>
-
-            <main class="player-main">
-                <section class="player-categories-section">
-                    <div class="player-categories-container">
-                        <div class="category-card" data-category="all">
-                            <div class="category-icon">📺</div>
-                            <div class="category-name">Tümü</div>
-                        </div>
-                    </div>
-                </section>
-
-                <div class="video-container-player" id="videoContainerPlayer">
-                    <div class="video-placeholder-player" id="videoPlaceholderPlayer">
-                        <div class="placeholder-content">
-                            <div class="placeholder-icon">📺</div>
-                            <h2>Bir Kanal Seçin</h2>
-                            <p>Sol taraftaki listeden bir kanal seçin</p>
-                            
                             <p class="brand-name">61 BYD 61</p>
                         </div>
                     </div>
