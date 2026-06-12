@@ -31,50 +31,47 @@
             padding: 6px;
         }
 
-        /* --- KANAL LİSTESİ DÜZENİ --- */
+        /* --- KANAL LİSTESİ (BAYAĞI KÜÇÜLTÜLMÜŞ MİNİ BOYUT) --- */
         #channelsSidebarList > * {
-            padding: 4px 6px !important;          
-            margin-bottom: 3px !important;        
-            min-height: 32px !important;          
+            padding: 4px 6px !important;          /* İç boşlukları minimuma indirdik */
+            margin-bottom: 3px !important;        /* Kanalların arasındaki boşluğu daralttık */
+            min-height: 32px !important;          /* Yüksekliği 40px'ten 32px'e çekerek bayağı ince yaptık */
             max-height: 32px !important;
             border-radius: 4px !important;
             display: flex !important;
             align-items: center !important;
-            gap: 6px !important;                  
+            gap: 6px !important;                  /* Logo ve yazı arasındaki mesafeyi daralttık */
         }
 
-        /* Kanal Logoları */
+        /* Kanal Logoları (Küçültüldü) */
         #channelsSidebarList > * img,
         #channelsSidebarList > * .channel-logo,
         #channelsSidebarList > * [class*="logo"] {
-            width: 20px !important;               
+            width: 20px !important;               /* Logoları 26px'ten 20px'e düşürdük */
             height: 20px !important;
             min-width: 20px !important;
             border-radius: 3px !important;
             object-fit: contain !important;
         }
 
-        /* Kanal İsimleri */
+        /* Kanal İsimleri (Küçültüldü) */
         #channelsSidebarList > * .channel-name,
         #channelsSidebarList > * h4,
         #channelsSidebarList > * span,
         #channelsSidebarList > * div {
-            font-size: 10px !important;           
+            font-size: 10px !important;           /* Yazı boyutunu 11px'ten 10px'e indirdik */
             font-weight: 500 !important;
             line-height: 1.2 !important;
-            white-space: nowrap !important;       
+            white-space: nowrap !important;       /* Tek satıra zorlayıp taşmayı önledik */
             overflow: hidden !important;
-            text-overflow: ellipsis !important;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
+            text-overflow: ellipsis !important;   /* Çok uzun isimlerin sonuna üç nokta koyar */
         }
 
-        /* Alt Kategori Kısmı */
+       /* Alt Kategori / Alt Yazı Kısmı */
         #channelsSidebarList > * p,
         #channelsSidebarList > * small,
         #channelsSidebarList > * .channel-category {
-            font-size: 8px !important;            
+            font-size: 8px !important;            /* Kategori yazılarını iyice minik yaptık */
             opacity: 0.6;
             margin: 0 !important;
             display: block !important;
@@ -84,10 +81,9 @@
         #channelsSidebarList > * .fav-btn,
         #channelsSidebarList > * .star-icon,
         #channelsSidebarList > * svg {
-            transform: scale(0.75) !important;    
-            margin-left: auto !important;         
+            transform: scale(0.75) !important;    /* Yıldız ikonunu biraz daha küçülttük */
+            margin-left: auto !important;         /* En sağa yaslanmasını garantiledik */
         }
-
         /* --- ÜST KATEGORİ SECTİON VE CONTAINER AYARLARI --- */
         .player-categories-section {
             background: #111; 
@@ -98,13 +94,15 @@
         .player-categories-container {
             display: flex;
             justify-content: flex-start !important; 
-            gap: 5px !important;             
-            padding: 5px 10px !important;    
+            gap: 5px !important;             /* Butonlar arası boşluk daraltıldı */
+            padding: 5px 10px !important;    /* Üst bar yüksekliği buton boyutuyla dengelendi */
             flex-wrap: nowrap !important;    
             overflow-x: auto;                
         }
 
-        /* --- KATEGORİ BUTONLARI --- */
+      /* --- KATEGORİ BUTONLARI DÜZELTME (DİKEY VE ESNEK) --- */
+        
+        /* 1. Genişliği kilitler, yüksekliği içeriğe göre esnek bırakır (Ezilmeyi önler) */
         .player-categories-container div.category-card,
         .player-categories-container [class*="category"],
         .player-categories-container .active,
@@ -112,23 +110,25 @@
             width: 40px !important;
             max-width: 40px !important;
             min-width: 40px !important;
-            height: auto !important;          
+            height: auto !important;          /* Sabit yükseklik kaldırıldı, ezilme kesinlikle biter */
             max-height: none !important;
             min-height: auto !important;
-            padding: 4px 1px !important;       
+            padding: 4px 1px !important;       /* Üst ve alttan sağlıklı bir iç boşluk */
             box-sizing: border-box !important;
             border-radius: 4px !important;
             
             display: flex !important;
-            flex-direction: column !important; 
+            flex-direction: column !important; /* İkon üstte, yazı altta (orijinal düzen) */
             align-items: center !important;
             justify-content: center !important;
-            gap: 2px !important;               
+            gap: 2px !important;               /* İkon ile yazı arasındaki dikey boşluk */
             flex-shrink: 0 !important;
-            overflow: visible !important;      
+            overflow: visible !important;      /* Yazıların taşarak görünmesini sağlar */
         }
 
-        .category-icon, [class*="category-icon"] {
+        /* 2. İkon Boyut Sabitleme */
+        .category-icon,
+        [class*="category-icon"] {
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
@@ -138,7 +138,11 @@
             padding: 0 !important;
         }
 
-        .category-icon img, .category-icon svg, .category-icon i, .category-icon span {
+        /* İkon içindeki emoji veya görseller */
+        .category-icon img,
+        .category-icon svg,
+        .category-icon i,
+        .category-icon span {
             width: 15px !important;
             height: 15px !important;
             font-size: 15px !important;
@@ -146,22 +150,23 @@
             line-height: 1 !important;
         }
 
+        /* 3. Yazı Boyutu ve Görünürlük Kalkanı */
         .player-categories-container .category-card .category-name,
         .player-categories-container [class*="category"] [class*="name"],
         .category-name {
             display: block !important;
             visibility: visible !important;
             opacity: 1 !important;
-            font-size: 7px !important;         
+            
+            font-size: 7px !important;         /* Küçük ama okunabilir yazı boyutu */
             font-weight: 500 !important;
-            color: #ffffff !important;         
+            color: #ffffff !important;         /* Yazı rengini beyaza zorlar */
             white-space: nowrap !important;   
             line-height: 1 !important;       
             margin: 0 !important;   
             padding: 0 !important;
             text-align: center !important;
         }
-
         /* --- VİDEO ALANI ANA AYARLARI --- */
         .player-main {
             flex-grow: 1;
@@ -171,40 +176,37 @@
             height: 100vh;
         }
 
-        /* Video kapsayıcısını dikey esnek (flex) yaparak elemanları alt alta dizdik */
         #videoContainerPlayer {
             position: relative !important;
             overflow: hidden;
             flex-grow: 1;
             background: #000;
-            display: flex !important;
-            flex-direction: column !important;
         }
 
-        /* --- VİDEO BOYUTLANDIRMA (Yayın Üzerine Binmeyi Önleyen Formül) --- */
-        .video-player, 
-        .iframe-player {
-            width: 100% !important;
-            /* Toplam yükseklikten kontrol barının yüksekliğini (40px) düşerek yayının ezilmesini/kapanmasını önler */
-            height: calc(100% - 40px) !important; 
-            object-fit: fill !important; 
-            background: #000;
-        }
-
-        /* --- SABİTLENMİŞ YAYIN ALTI KONTROL BARININ AYARI --- */
+        /* --- AKILLI GİZLENEN KONTROL BAR (YAYININ ÜSTÜNÜ KAPATMAZ) --- */
         #videoControlsBar {
-            position: relative !important; /* Absolute kaldırıldı, video altına çizgisel sabitlendi */
+            position: absolute !important;
+            bottom: 0 !important;
+            left: 0 !important;
             width: 100% !important;
-            height: 40px !important; /* Yükseklik tam kontrol altına alındı */
             display: flex !important;
             justify-content: flex-start !important; 
             align-items: center !important;
             gap: 8px !important;
-            padding: 0 15px !important; 
-            background: #111111 !important;
-            border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+            padding: 6px 15px !important; 
+            background: rgba(17, 17, 17, 0.85) !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
             z-index: 999999 !important;
             box-sizing: border-box !important;
+            
+            /* Animasyonlu Kayma Efekti (Kontrol Barını Aşağıya Gizler) */
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out !important;
+        }
+
+        /* Fare video container alanına geldiğinde kontrol barı yumuşakça yukarı çıkar */
+        #videoContainerPlayer:hover #videoControlsBar {
+            transform: translateY(0);
         }
 
         /* --- MİNİ BUTONLAR --- */
@@ -245,6 +247,15 @@
             display: flex;
             flex-direction: row;
             height: 100vh;
+        }
+        /* =======================================================
+           YENİ EKLENEN KISIM: SAĞ/SOL SİYAH BOŞLUKLARI YOK ETME
+           ======================================================= */
+        .video-player, 
+        .iframe-player {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: fill !important; /* Videoyu ekrana tam sığdırır, boşlukları siler */
         }
     </style>
 </head>
@@ -292,6 +303,7 @@
                             <div class="placeholder-icon">📺</div>
                             <h2>Bir Kanal Seçin</h2>
                             <p>Sol taraftaki listeden bir kanal seçin</p>
+                            
                             <p class="brand-name">61 BYD 61</p>
                         </div>
                     </div>
