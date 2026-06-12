@@ -14,7 +14,7 @@
     <style>
         /* --- SIDEBAR AYARLARI (220px) --- */
         .player-sidebar {
-            width: 160px;
+            width: 200px;
             display: flex;
             flex-direction: column;
             background: #111;
@@ -31,41 +31,43 @@
             padding: 6px;
         }
 
-        /* --- KANAL LİSTESİ (BAYAĞI KÜÇÜLTÜLMÜŞ MİNİ BOYUT) --- */
-        #channelsSidebarList > * {
-            padding: 4px 6px !important;          /* İç boşlukları minimuma indirdik */
-            margin-bottom: 3px !important;        /* Kanalların arasındaki boşluğu daralttık */
-            min-height: 32px !important;          /* Yüksekliği 40px'ten 32px'e çekerek bayağı ince yaptık */
-            max-height: 32px !important;
-            border-radius: 4px !important;
-            display: flex !important;
-            align-items: center !important;
-            gap: 4px !important;                  /* Logo ve yazı arasındaki mesafeyi daralttık */
-        }
+        * --- KANAL SATIRI DÜZENİ (Yıldız Sola Yanaştırıldı) --- */
+#channelsSidebarList > * {
+    padding: 4px 6px !important;        
+    margin-bottom: 3px !important;        
+    min-height: 32px !important;        
+    max-height: 32px !important;
+    border-radius: 4px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important; /* Her şeyi sola yasladık, aradaki boşluk eridi */
+    gap: 6px !important;                   /* Logo, isim ve yıldız arasındaki genel dikey hizalama boşluğu */
+}
 
-        /* Kanal Logoları (Küçültüldü) */
-        #channelsSidebarList > * img,
-        #channelsSidebarList > * .channel-logo,
-        #channelsSidebarList > * [class*="logo"] {
-            width: 20px !important;               /* Logoları 26px'ten 20px'e düşürdük */
-            height: 20px !important;
-            min-width: 20px !important;
-            border-radius: 3px !important;
-            object-fit: contain !important;
-        }
+       /* Kanal Logoları (Orijinal boyutuna sadık kalındı) */
+#channelsSidebarList > * img,
+#channelsSidebarList > * .channel-logo,
+#channelsSidebarList > * [class*="logo"] {
+    width: 20px !important;               
+    height: 20px !important;
+    min-width: 20px !important;
+    border-radius: 3px !important;
+    object-fit: contain !important;
+    flex-shrink: 0 !important;
 
-        /* Kanal İsimleri (Küçültüldü) */
-        #channelsSidebarList > * .channel-name,
-        #channelsSidebarList > * h4,
-        #channelsSidebarList > * span,
-        #channelsSidebarList > * div {
-            font-size: 10px !important;           
+       /* Kanal İsim Alanı (Gereksiz boşluk kaplaması engellendi) */
+#channelsSidebarList > * .channel-name,
+#channelsSidebarList > * h4,
+#channelsSidebarList > * span,
+#channelsSidebarList > * div {
+    font-size: 10px !important;           
     font-weight: 500 !important;
     line-height: 1.2 !important;
     white-space: nowrap !important;       
     overflow: hidden !important;
     text-overflow: ellipsis !important;   
-    flex-grow: 1;                       /* İsmin kalan tüm alanı kaplamasını sağlar */
+    flex-grow: 0 !important;             /* İsmin sağa doğru boş yere uzamasını engelledik */
+    max-width: 120px !important;         /* İsme sınır koyarak yıldızın hemen bitimine gelmesini sağladık */
 }
 
        /* Alt Kategori / Alt Yazı Kısmı */
@@ -78,13 +80,14 @@
             display: block !important;
         }
 
-        /* Favori Yıldız Butonu Boşluğu */
+        * --- FAVORİ YILDIZI (İsmin hemen yanına yapıştırıldı) --- */
 #channelsSidebarList > * .fav-btn,
 #channelsSidebarList > * .star-icon,
 #channelsSidebarList > * svg {
-    transform: scale(0.72) !important;    /* Yıldızı biraz daha kibarlaştırdık */
-    margin-left: 2px !important;          /* Solundaki isimle arasındaki boşluğu sıfıra yaklaştırdık */
-    flex-shrink: 0 !important;            /* Dar alanda yıldızın ezilmesini önler */
+    transform: scale(0.75) !important;    
+    margin-left: 2px !important;          /* İsmin hemen bitimine 2px boşlukla yanaşır */
+    margin-right: auto !important;         /* Sağ tarafı boş bırakarak yıldızı sola iter */
+    flex-shrink: 0 !important;            
 }
         /* --- ÜST KATEGORİ SECTİON VE CONTAINER AYARLARI --- */
         .player-categories-section {
