@@ -92,59 +92,57 @@
             overflow-x: auto;                
         }
 
-       /* --- KATEGORİ BUTONLARI YAN YANA DÜZEN (KESİN ÇÖZÜM) --- */
+      /* --- KATEGORİ BUTONLARI DÜZELTME (DİKEY VE ESNEK) --- */
         
-        /* 1. Kutuları yan yana düzen yapar ve boyutunu kilitler */
+        /* 1. Genişliği kilitler, yüksekliği içeriğe göre esnek bırakır (Ezilmeyi önler) */
         .player-categories-container div.category-card,
         .player-categories-container [class*="category"],
         .player-categories-container .active,
         .player-categories-container .selected {
-            width: 44px !important;          /* Yazıların sığması için genişlik 44px yapıldı */
-            max-width: 44px !important;
-            min-width: 44px !important;
-            height: 22px !important;         /* Yükseklik 22px'e düşürüldü, videoya taşmaz */
-            max-height: 22px !important;
-            min-height: 22px !important;
-            padding: 0 3px !important;       /* Sağdan soldan hafif boşluk */
+            width: 40px !important;
+            max-width: 40px !important;
+            min-width: 40px !important;
+            height: auto !important;          /* Sabit yükseklik kaldırıldı, ezilme kesinlikle biter */
+            max-height: none !important;
+            min-height: auto !important;
+            padding: 4px 1px !important;       /* Üst ve alttan sağlıklı bir iç boşluk */
             box-sizing: border-box !important;
             border-radius: 4px !important;
             
-            /* İkon ve yazıyı YAN YANA dizer */
             display: flex !important;
-            flex-direction: row !important;  /* Alt alta yerine yan yana yapar */
+            flex-direction: column !important; /* İkon üstte, yazı altta (orijinal düzen) */
             align-items: center !important;
             justify-content: center !important;
-            gap: 2px !important;             /* İkon ile yazı arasındaki yan boşluk */
-            overflow: hidden !important;
+            gap: 2px !important;               /* İkon ile yazı arasındaki dikey boşluk */
+            flex-shrink: 0 !important;
+            overflow: visible !important;      /* Yazıların taşarak görünmesini sağlar */
         }
 
-        /* 2. İkon alanı ayarları */
+        /* 2. İkon Boyut Sabitleme */
         .category-icon,
         [class*="category-icon"] {
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
-            width: 12px !important;
-            height: 12px !important;
-            max-height: 12px !important;
+            width: 15px !important;
+            height: 15px !important;
             margin: 0 !important;
             padding: 0 !important;
-            flex-shrink: 0 !important;
         }
 
-        /* İkon içindeki emoji/resim boyutu */
+        /* İkon içindeki emoji veya görseller */
         .category-icon img,
         .category-icon svg,
         .category-icon i,
         .category-icon span {
-            width: 12px !important;
-            height: 12px !important;
-            font-size: 12px !important;
+            width: 15px !important;
+            height: 15px !important;
+            font-size: 15px !important;
             object-fit: contain !important;
             line-height: 1 !important;
         }
 
-        /* 3. Yanına gelen yazı alanı ayarları */
+        /* 3. Yazı Boyutu ve Görünürlük Kalkanı */
         .player-categories-container .category-card .category-name,
         .player-categories-container [class*="category"] [class*="name"],
         .category-name {
@@ -152,14 +150,14 @@
             visibility: visible !important;
             opacity: 1 !important;
             
-            font-size: 7px !important;       /* Küçük ve okunaklı yazı boyutu */
-            font-weight: 600 !important;     /* Net okunması için biraz kalınlaştırıldı */
-            color: #ffffff !important;       /* Yazı rengi beyaz */
+            font-size: 7px !important;         /* Küçük ama okunabilir yazı boyutu */
+            font-weight: 500 !important;
+            color: #ffffff !important;         /* Yazı rengini beyaza zorlar */
             white-space: nowrap !important;   
             line-height: 1 !important;       
             margin: 0 !important;   
             padding: 0 !important;
-            text-align: left !important;
+            text-align: center !important;
         }
         /* --- VİDEO ALANI ANA AYARLARI --- */
         .player-main {
