@@ -92,9 +92,9 @@
             overflow-x: auto;                
         }
 
-        /* --- KATEGORİ BUTONLARINI KÖKTEN KİLİTLEME (KESİN ÇÖZÜM) --- */
+        /* --- KATEGORİ BUTONLARI VE YAZI AYARI (KESİN ÇÖZÜM) --- */
         
-        /* 1. Mavi kutu dahil, ismi veya sınıfı ne olursa olsun tüm kartları 40x28 yapar */
+        /* 1. Tüm kutuları (mavi dahil) 40x28 pikselde kilitler */
         .player-categories-container div.category-card,
         .player-categories-container [class*="category"],
         .player-categories-container .active,
@@ -105,51 +105,54 @@
             height: 28px !important;
             max-height: 28px !important;
             min-height: 28px !important;
-            padding: 1px !important;
+            padding: 2px 1px 1px 1px !important; /* Üstten ve alttan boşluklar minimize edildi */
             box-sizing: border-box !important;
             border-radius: 4px !important;
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;
-            justify-content: space-between !important;
-            gap: 0px !important;
+            justify-content: flex-start !important; /* Elemanları yukarıdan aşağı sırayla dizer */
+            gap: 1px !important; /* İkon ve yazı arasındaki boşluk 1px */
             flex-shrink: 0 !important;
-            overflow: hidden !important;
+            overflow: visible !important; /* Taşsa bile yazının görünmesini sağlar */
         }
 
-        /* 2. İkon alanını kilitler */
+        /* 2. İkon alanının yüksekliğini yazıya yer açmak için düşürdük */
         .category-icon,
         [class*="category-icon"] {
-            font-size: 16px !important;
-            line-height: 1 !important;
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
-            flex: 1 !important;
             width: 100% !important;
-            height: 16px !important;
-            max-height: 16px !important;
+            height: 13px !important; /* Yükseklik 16px'den 13px'e çekildi */
+            max-height: 13px !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
-        /* 3. İkonun içindeki resim/emoji elementlerini kilitler */
+        /* 3. İkonun içindeki görselleri 13px'e sığdırır */
         .category-icon img,
         .category-icon svg,
         .category-icon i,
         .category-icon span {
-            width: 16px !important;
-            height: 16px !important;
-            font-size: 16px !important;
+            width: 13px !important;  /* Görsel boyutu küçüldü */
+            height: 13px !important;
+            font-size: 13px !important;
             object-fit: contain !important;
+            line-height: 1 !important;
         }
 
-        /* 4. Yazı alanını kilitler */
+        /* 4. Yazı alanını görünür ve sığabilir yapar */
         .category-name,
         [class*="category-name"] {
-            font-size: 7px !important;        
+            font-size: 6.5px !important; /* Çok hafif küçültüldü ki 40px genişliğe sığsın */
             font-weight: 500 !important;
             white-space: nowrap !important;   
             line-height: 1 !important;       
-            margin-bottom: 2px !important;   
+            margin: 0 !important;   
+            padding: 0 !important;
+            display: block !important;
+            text-align: center !important;
         }
 
         /* --- VİDEO ALANI ANA AYARLARI --- */
