@@ -92,11 +92,20 @@
             overflow-x: auto;                
         }
 
-        /* --- ORANTILI KATEGORİ BUTONLARI (SABİTLENMİŞ BOYUT) --- */
-        .category-card {
+        /* --- KATEGORİ BUTONLARINI KÖKTEN KİLİTLEME (KESİN ÇÖZÜM) --- */
+        
+        /* 1. Mavi kutu dahil, ismi veya sınıfı ne olursa olsun tüm kartları 40x28 yapar */
+        .player-categories-container div.category-card,
+        .player-categories-container [class*="category"],
+        .player-categories-container .active,
+        .player-categories-container .selected {
+            width: 40px !important;
+            max-width: 40px !important;
+            min-width: 40px !important;
+            height: 28px !important;
+            max-height: 28px !important;
+            min-height: 28px !important;
             padding: 1px !important;
-            width: 40px !important;          /* Tüm butonların genişliği */
-            height: 28px !important;         /* Tüm butonların yüksekliği */
             box-sizing: border-box !important;
             border-radius: 4px !important;
             display: flex !important;
@@ -108,16 +117,9 @@
             overflow: hidden !important;
         }
 
-        /* MAVİ SEÇİLİ KUTUNUN BÜYÜMESİNİ ENGELLEN ALAN (Dış kutuyu 40x28'e zorlar) */
-        .category-card.active, 
-        .category-card[class*="active"], 
-        .category-card[style*="width"] {
-            width: 40px !important;          /* Mavi kutunun genişliği */
-            height: 28px !important;         /* Mavi kutunun yüksekliği */
-        }
-
-        /* --- BÜYÜTÜLEN İKON / RESİM ALANI --- */
-        .category-icon {
+        /* 2. İkon alanını kilitler */
+        .category-icon,
+        [class*="category-icon"] {
             font-size: 16px !important;
             line-height: 1 !important;
             display: flex !important;
@@ -126,9 +128,10 @@
             flex: 1 !important;
             width: 100% !important;
             height: 16px !important;
+            max-height: 16px !important;
         }
 
-        /* İçerideki tüm resim, svg ve ikonların boyutunu 16px yapar */
+        /* 3. İkonun içindeki resim/emoji elementlerini kilitler */
         .category-icon img,
         .category-icon svg,
         .category-icon i,
@@ -137,13 +140,11 @@
             height: 16px !important;
             font-size: 16px !important;
             object-fit: contain !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
         }
 
-        /* --- YAZI ALANI --- */
-        .category-name {
+        /* 4. Yazı alanını kilitler */
+        .category-name,
+        [class*="category-name"] {
             font-size: 7px !important;        
             font-weight: 500 !important;
             white-space: nowrap !important;   
