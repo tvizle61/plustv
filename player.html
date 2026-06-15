@@ -335,7 +335,7 @@
         const fakeIframe = document.getElementById('iframePlayer');
         const realYtDiv = document.getElementById('ytActualPlayer');
 
-        // URL içerisinden YouTube Video ID'sini çeken sihirli fonksiyon
+        // URL içerisinden YouTube Video ID'sini çeken fonksiyon
         function extractYouTubeId(url) {
             if (!url) return null;
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -343,7 +343,7 @@
             return (match && match[2].length === 11) ? match[2] : null;
         }
 
-        // Değişim Gözlemcisi: player.js ne zaman gizli iframe'e link yüklese biz onu yakalayacağız
+        // Değişim Gözlemcisi: player.js ne zaman gizli iframe'e link yüklese yakalarız
         const bridgeObserver = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 if (mutation.type === "attributes" && mutation.attributeName === "src") {
@@ -351,15 +351,12 @@
                     const ytId = extractYouTubeId(interceptedUrl);
                     
                     if (ytId) {
-                        // player.js'in yüklemeye çalıştığı iframe'i durdur ve gizle
                         fakeIframe.style.display = 'none';
                         fakeIframe.setAttribute('src', ''); 
 
-                        // Gerçek YouTube motorunu devreye sok ve göster
                         realYtDiv.style.display = 'block';
                         playWithYouTubeAPI(ytId);
                     } else {
-                        // Eğer yüklenen şey YouTube değilse, gerçek YouTube kutusunu gizle
                         realYtDiv.style.display = 'none';
                         if (ytPlayerInstance && typeof ytPlayerInstance.stopVideo === 'function') {
                             ytPlayerInstance.stopVideo();
@@ -371,19 +368,28 @@
 
         bridgeObserver.observe(fakeIframe, { attributes: true });
 
-        // YouTube API Hazır Olduğunda İlk Yapılandırma
         function onYouTubeIframeAPIReady() {
-            // API hazır, ilk istek geldiğinde nesne oluşturulacak
+            // API global hazırlığı
         }
 
-        // Videoyu resmi API ile başlatan ana fonksiyon
+        // Otomatik başlatmayı garanti eden API fonksiyonu
         function playWithYouTubeAPI(videoId) {
             if (ytPlayerInstance && typeof ytPlayerInstance.loadVideoById === 'function') {
+                // Mevcut oynatıcıya yeni video ID'sini yükle ve oynatmayı zorla
                 ytPlayerInstance.loadVideoById({
                     videoId: videoId,
                     startSeconds: 0
                 });
+                
+                // Bazı tarayıcı gecikmeleri için yedek oynatma tetikleyicisi
+                setTimeout(() => {
+                    try {
+                        ytPlayerInstance.playVideo();
+                    } catch(e) { console.log(e); }
+                }, 300);
+
             } else {
+                // Oynatıcı ilk kez oluşturulurken
                 ytPlayerInstance = new YT.Player('ytActualPlayer', {
                     height: '100%',
                     width: '100%',
@@ -393,9 +399,20 @@
                         'playsinline': 1,
                         'controls': 1,
                         'rel': 0,
-                        'modestbranding': 1
+                        'modestbranding': 1,
+                        'mute': 1 // Kritik: Tarayıcı engelini aşmak için başlangıçta sessiz (muted) olarak zorlanır
                     },
                     events: {
+                        'onReady': function(event) {
+                            event.target.playVideo();
+                            // Video başladıktan kısa bir süre sonra sesi açmayı dene (tarayıcı izni varsa ses açılır)
+                            setTimeout(() => {
+                                try {
+                                    event.target.unMute();
+                                    event.target.setVolume(100);
+                                } catch(e) {}
+                            }, 500);
+                        },
                         'onStateChange': function(event) {
                             // Durum 0: Video Bitti (YT.PlayerState.ENDED)
                             if (event.data === 0) {
@@ -408,7 +425,7 @@
             }
         }
 
-        // Normal MP4/M3U8 kanalları bittiğinde sonraki kanala geçme dinleyicisi
+        // Normal MP4/M3U8 kanalları bittiğinde tetiklenen yapı
         document.getElementById('videoPlayer').addEventListener('ended', function() {
             console.log("Normal video bitti! Sonraki kanala geçiliyor...");
             changeChannel(1);
