@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
 
     <style>
         /* --- SIDEBAR AYARLARI (220px) --- */
@@ -215,7 +216,7 @@
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 3px !important;                   
+            gap: 3px !important;                    
             user-select: none;
             height: 20px !important;               /* Buton yüksekliği alttan ve üstten kısılarak 20px yapıldı */
             line-height: 1 !important;
@@ -300,7 +301,8 @@
                         </div>
                         
                         <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
-                        <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
+                        
+                        <div id="iframePlayer" class="iframe-player" style="display: none;"></div>
                     </div>
                 
                     <div id="videoControlsBar">
@@ -324,31 +326,9 @@
 
     <script src="player.js"></script>
     <script>
-        function toggleFullscreen() {
-            const playerElement = document.getElementById("videoContainerPlayer");
-            if (!playerElement) return;
-            if (!document.fullscreenElement) {
-                playerElement.requestFullscreen().catch(err => console.log(err));
-            } else {
-                document.exitFullscreen();
-            }
-        }
+        // --- YouTube API ve Otomatik Atlatma Entegrasyonu ---
+        let ytPlayer = null;
 
-        function changeChannel(direction) {
-            const listContainer = document.getElementById('channelsSidebarList');
-            if (!listContainer) return;
-            const channels = Array.from(listContainer.children);
-            if (channels.length === 0) return;
-            let currentIndex = channels.findIndex(ch => ch.classList.contains('active'));
-            let nextIndex = currentIndex + direction;
-            if (nextIndex >= channels.length) nextIndex = 0;
-            else if (nextIndex < 0) nextIndex = channels.length - 1;
-            const targetChannel = channels[nextIndex];
-            if (targetChannel) {
-                targetChannel.click();
-                targetChannel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        }
-    </script>
-</body>
-</html>
+        // YouTube API hazır olduğunda tetiklenir
+        function onYouTubeIframeAPIReady() {
+            // İlk başta player nesnesini kuruyoruz ancak
