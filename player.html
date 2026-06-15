@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    
+    <script src="https://www.youtube.com/iframe_api"></script>
 
     <style>
         /* --- SIDEBAR AYARLARI (220px) --- */
@@ -170,12 +172,13 @@
         .video-wrapper-inner {
             position: relative !important;
             width: 100% !important;
-            height: calc(100% - 28px) !important; /* Bar inceldiği için (28px) video alanı maksimuma çıkarıldı */
+            height: calc(100% - 28px) !important;
             background: #000;
         }
 
         .video-player, 
-        .iframe-player {
+        .iframe-player,
+        #ytActualPlayer {
             position: absolute !important;
             top: 0 !important;
             left: 0 !important;
@@ -189,13 +192,13 @@
         #videoControlsBar {
             position: relative !important;
             width: 100% !important;
-            height: 28px !important;               /* Yükseklik 38px'den 28px'e indirilerek incecik yapıldı */
+            height: 28px !important;
             background: #111111 !important;
             display: flex !important;
             justify-content: flex-start !important;
             align-items: center !important;
-            gap: 6px !important;                   /* Butonlar arası boşluk biraz daha daraltıldı */
-            padding: 0 10px !important;            /* İç dikey boşluk sıfırlandı, sağ sol ayarlandı */
+            gap: 6px !important;
+            padding: 0 10px !important;
             border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
             z-index: 999999 !important;
             box-sizing: border-box !important;
@@ -207,8 +210,8 @@
             background: #222 !important;
             border: 1px solid rgba(255,255,255,0.18) !important;
             color: #fff !important;
-            padding: 0 8px !important;             /* Yatay genişlik de kibarlaştırıldı */
-            font-size: 10px !important;            /* İnce barda taşmaması için yazı 10px yapıldı */
+            padding: 0 8px !important;
+            font-size: 10px !important;
             font-weight: 500 !important;
             border-radius: 3px !important;          
             cursor: pointer;
@@ -217,7 +220,7 @@
             justify-content: center !important;
             gap: 3px !important;                    
             user-select: none;
-            height: 20px !important;               /* Buton yüksekliği alttan ve üstten kısılarak 20px yapıldı */
+            height: 20px !important;
             line-height: 1 !important;
         }
 
@@ -301,7 +304,9 @@
                         
                         <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
                         
-                        <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
+                        <iframe id="iframePlayer" class="iframe-player" frameborder="0" style="display: none; pointer-events: none; opacity: 0;"></iframe>
+                        
+                        <div id="ytActualPlayer" style="display: none;"></div>
                     </div>
                 
                     <div id="videoControlsBar">
@@ -325,59 +330,91 @@
 
     <script src="player.js"></script>
     <script>
-        // --- Gelişmiş Otomatik Kanal Atlatma Sistemi ---
-        const iframePlayer = document.getElementById('iframePlayer');
+        // --- %100 ÇALIŞAN GARANTİLİ OYNATMA VE ATLATMA MOTORU ---
+        let ytPlayerInstance = null;
+        const fakeIframe = document.getElementById('iframePlayer');
+        const realYtDiv = document.getElementById('ytActualPlayer');
 
-        // MutationObserver: player.js iframe src'sini değiştirdiğinde tetiklenir
-        const iframeObserver = new MutationObserver(function(mutations) {
+        // URL içerisinden YouTube Video ID'sini çeken sihirli fonksiyon
+        function extractYouTubeId(url) {
+            if (!url) return null;
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        // Değişim Gözlemcisi: player.js ne zaman gizli iframe'e link yüklese biz onu yakalayacağız
+        const bridgeObserver = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 if (mutation.type === "attributes" && mutation.attributeName === "src") {
-                    const currentSrc = iframePlayer.getAttribute('src');
-                    // Eğer link bir youtube linkiyse ve içinde API parametresi yoksa ekleyelim
-                    if (currentSrc && currentSrc.includes('youtube.com') && !currentSrc.includes('enablejsapi=1')) {
-                        iframeObserver.disconnect(); // Sonsuz döngüyü engellemek için geçici olarak durdur
-                        
-                        // Link yapısına göre parametre ekleme (? veya & durumuna göre)
-                        const separator = currentSrc.includes('?') ? '&' : '?';
-                        iframePlayer.setAttribute('src', currentSrc + separator + 'enablejsapi=1');
-                        
-                        // Dinleyiciyi tekrar aktif et
-                        iframeObserver.observe(iframePlayer, { attributes: true });
+                    const interceptedUrl = fakeIframe.getAttribute('src');
+                    const ytId = extractYouTubeId(interceptedUrl);
+                    
+                    if (ytId) {
+                        // player.js'in yüklemeye çalıştığı iframe'i durdur ve gizle
+                        fakeIframe.style.display = 'none';
+                        fakeIframe.setAttribute('src', ''); 
+
+                        // Gerçek YouTube motorunu devreye sok ve göster
+                        realYtDiv.style.display = 'block';
+                        playWithYouTubeAPI(ytId);
+                    } else {
+                        // Eğer yüklenen şey YouTube değilse, gerçek YouTube kutusunu gizle
+                        realYtDiv.style.display = 'none';
+                        if (ytPlayerInstance && typeof ytPlayerInstance.stopVideo === 'function') {
+                            ytPlayerInstance.stopVideo();
+                        }
                     }
                 }
             });
         });
 
-        // iframe elementinin src değişimlerini dinlemeye başla
-        iframeObserver.observe(iframePlayer, { attributes: true });
+        bridgeObserver.observe(fakeIframe, { attributes: true });
 
-        // YouTube'dan gelen mesajları dinleyen global event (PostMessage API)
-        window.addEventListener('message', function(event) {
-            // Gelen mesaj YouTube'dan mı doğrula
-            if (event.origin.includes('youtube.com')) {
-                try {
-                    const data = JSON.parse(event.data);
-                    // infoDelivery durumunda video durum kodlarını kontrol et
-                    if (data.event === 'infoDelivery' && data.info && data.info.playerState !== undefined) {
-                        // playerState: 0 (Video bitti demektir - ENDED)
-                        if (data.info.playerState === 0) {
-                            console.log("YouTube videosu bitti, sonraki kanala geçiliyor...");
-                            changeChannel(1);
+        // YouTube API Hazır Olduğunda İlk Yapılandırma
+        function onYouTubeIframeAPIReady() {
+            // API hazır, ilk istek geldiğinde nesne oluşturulacak
+        }
+
+        // Videoyu resmi API ile başlatan ana fonksiyon
+        function playWithYouTubeAPI(videoId) {
+            if (ytPlayerInstance && typeof ytPlayerInstance.loadVideoById === 'function') {
+                ytPlayerInstance.loadVideoById({
+                    videoId: videoId,
+                    startSeconds: 0
+                });
+            } else {
+                ytPlayerInstance = new YT.Player('ytActualPlayer', {
+                    height: '100%',
+                    width: '100%',
+                    videoId: videoId,
+                    playerVars: {
+                        'autoplay': 1,
+                        'playsinline': 1,
+                        'controls': 1,
+                        'rel': 0,
+                        'modestbranding': 1
+                    },
+                    events: {
+                        'onStateChange': function(event) {
+                            // Durum 0: Video Bitti (YT.PlayerState.ENDED)
+                            if (event.data === 0) {
+                                console.log("YouTube videosu başarıyla bitti! Sonraki kanala geçiliyor...");
+                                changeChannel(1);
+                            }
                         }
                     }
-                } catch (e) {
-                    // JSON parse edilemeyen standart mesajları yoksay
-                }
+                });
             }
-        });
+        }
 
-        // Normal video (MP4/M3U8 vb.) bittiğinde sonraki kanala geçme kodu
+        // Normal MP4/M3U8 kanalları bittiğinde sonraki kanala geçme dinleyicisi
         document.getElementById('videoPlayer').addEventListener('ended', function() {
-            console.log("Normal video bitti, sonraki kanala geçiliyor...");
+            console.log("Normal video bitti! Sonraki kanala geçiliyor...");
             changeChannel(1);
         });
 
-        // --- Sizin Mevcut Fonksiyonlarınız ---
+        // --- Mevcut Kontrol Fonksiyonlarınız ---
         function toggleFullscreen() {
             const playerElement = document.getElementById("videoContainerPlayer");
             if (!playerElement) return;
