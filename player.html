@@ -10,7 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script src="https://www.youtube.com/iframe_api"></script>
 
     <style>
         /* --- SIDEBAR AYARLARI (220px) --- */
@@ -302,7 +301,7 @@
                         
                         <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
                         
-                        <div id="iframePlayer" class="iframe-player" style="display: none;"></div>
+                        <iframe id="iframePlayer" class="iframe-player" frameborder="0" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking; encrypted-media; clipboard-write" title="PlusTV" style="display: none;"></iframe>
                     </div>
                 
                     <div id="videoControlsBar">
@@ -326,80 +325,59 @@
 
     <script src="player.js"></script>
     <script>
-        // --- YouTube API ve Otomatik Atlatma Entegrasyonu ---
-        let ytPlayer = null;
+        // --- Gelişmiş Otomatik Kanal Atlatma Sistemi ---
+        const iframePlayer = document.getElementById('iframePlayer');
 
-        // YouTube API hazır olduğunda tetiklenir
-        function onYouTubeIframeAPIReady() {
-            // İlk başta player nesnesini kuruyoruz ancak boş bırakıyoruz.
-            // player.js dosyanız iframePlayer nesnesinin src'sini değiştirmek yerine 
-            // ytPlayer.loadVideoById() kullanırsa mükemmel çalışır.
-            // Mevcut yapıyı bozmamak için bir MutationObserver (Değişim gözlemcisi) ekliyoruz.
-        }
-
-        // İnceleme Alanı: iframePlayer elementine src atandığında bunu yakalayıp API'ye bağlayacağız
-        const iframeTarget = document.getElementById('iframePlayer');
-        const observer = new MutationObserver(function(mutations) {
+        // MutationObserver: player.js iframe src'sini değiştirdiğinde tetiklenir
+        const iframeObserver = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 if (mutation.type === "attributes" && mutation.attributeName === "src") {
-                    const currentSrc = iframeTarget.getAttribute('src');
-                    if (currentSrc && currentSrc.includes('youtube.com')) {
-                        // YouTube video ID'sini linkten ayıklayalım
-                        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-                        const match = currentSrc.match(regExp);
-                        if (match && match[2].length == 11) {
-                            const videoId = match[2];
-                            initYouTubePlayer(videoId);
-                        }
+                    const currentSrc = iframePlayer.getAttribute('src');
+                    // Eğer link bir youtube linkiyse ve içinde API parametresi yoksa ekleyelim
+                    if (currentSrc && currentSrc.includes('youtube.com') && !currentSrc.includes('enablejsapi=1')) {
+                        iframeObserver.disconnect(); // Sonsuz döngüyü engellemek için geçici olarak durdur
+                        
+                        // Link yapısına göre parametre ekleme (? veya & durumuna göre)
+                        const separator = currentSrc.includes('?') ? '&' : '?';
+                        iframePlayer.setAttribute('src', currentSrc + separator + 'enablejsapi=1');
+                        
+                        // Dinleyiciyi tekrar aktif et
+                        iframeObserver.observe(iframePlayer, { attributes: true });
                     }
                 }
             });
         });
 
-        // iframePlayer elementinin nitelik değişimlerini dinle
-        observer.observe(iframeTarget, { attributes: true });
+        // iframe elementinin src değişimlerini dinlemeye başla
+        iframeObserver.observe(iframePlayer, { attributes: true });
 
-        function initYouTubePlayer(videoId) {
-            if (ytPlayer) {
+        // YouTube'dan gelen mesajları dinleyen global event (PostMessage API)
+        window.addEventListener('message', function(event) {
+            // Gelen mesaj YouTube'dan mı doğrula
+            if (event.origin.includes('youtube.com')) {
                 try {
-                    ytPlayer.loadVideoById(videoId);
-                    return;
-                } catch(e) { console.log("YT Player hatası, yeniden oluşturuluyor...", e); }
-            }
-
-            // Eğer player nesnesi yoksa veya hata verdiyse sıfırdan kur
-            ytPlayer = new YT.Player('iframePlayer', {
-                height: '100%',
-                width: '100%',
-                videoId: videoId,
-                playerVars: {
-                    'autoplay': 1,
-                    'playsinline': 1,
-                    'controls': 1,
-                    'rel': 0
-                },
-                events: {
-                    'onStateChange': onPlayerStateChange
+                    const data = JSON.parse(event.data);
+                    // infoDelivery durumunda video durum kodlarını kontrol et
+                    if (data.event === 'infoDelivery' && data.info && data.info.playerState !== undefined) {
+                        // playerState: 0 (Video bitti demektir - ENDED)
+                        if (data.info.playerState === 0) {
+                            console.log("YouTube videosu bitti, sonraki kanala geçiliyor...");
+                            changeChannel(1);
+                        }
+                    }
+                } catch (e) {
+                    // JSON parse edilemeyen standart mesajları yoksay
                 }
-            });
-        }
-
-        // Video durum değişikliklerini dinleyen fonksiyon
-        function onPlayerStateChange(event) {
-            // YT.PlayerState.ENDED değeri 0'dır (Video bittiğinde tetiklenir)
-            if (event.data === YT.PlayerState.ENDED) {
-                console.log("YouTube videosu bitti. Sonraki kanala geçiliyor...");
-                changeChannel(1); // Sonraki kanala atla
             }
-        }
+        });
 
-        // Normal MP4/HLS videolar bittiğinde sonraki kanala geçmesi için standart dinleyici
+        // Normal video (MP4/M3U8 vb.) bittiğinde sonraki kanala geçme kodu
         document.getElementById('videoPlayer').addEventListener('ended', function() {
-            console.log("Normal/HLS video bitti. Sonraki kanala geçiliyor...");
+            console.log("Normal video bitti, sonraki kanala geçiliyor...");
             changeChannel(1);
         });
 
-        // --- Mevcut Fonksiyonlarınız ---
+        // --- Sizin Mevcut Fonksiyonlarınız ---
         function toggleFullscreen() {
             const playerElement = document.getElementById("videoContainerPlayer");
             if (!playerElement) return;
