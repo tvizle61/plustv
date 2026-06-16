@@ -10,13 +10,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <style>
-        /* --- SIDEBAR AYARLARI (220px) --- */
+        /* --- SIDEBAR ANA AYARLARI --- */
         .player-sidebar {
-            width: 220px;
+            width: 240px; /* Biraz daha rahat bir yerleşim için 240px yapıldı */
             display: flex;
             flex-direction: column;
             background: #111;
@@ -25,14 +24,14 @@
             flex-shrink: 0;
         }
 
-        /* --- İŞARETLEDİĞİN ÜST KISIMLARIN DARALTILMASI --- */
+        /* --- ÜST KISIMLARIN GENİŞLETİLMESİ (RAHATLATILDI) --- */
         .sidebar-header {
-            height: 32px !important; /* Dikey olarak daraltıldı */
-            min-height: 32px !important;
+            height: 52px !important; /* Dikey olarak genişletildi */
+            min-height: 52px !important;
             display: flex !important;
             align-items: center !important;
             justify-content: space-between !important;
-            padding: 0 8px !important;
+            padding: 0 14px !important;
             border-bottom: 1px solid #222;
             box-sizing: border-box !important;
         }
@@ -43,19 +42,19 @@
             color: #fff !important;
             display: flex !important;
             align-items: center !important;
-            gap: 4px !important;
+            gap: 6px !important;
             cursor: pointer;
-            padding: 2px 4px !important;
-            font-size: 11px !important;
+            padding: 6px 10px !important;
+            font-size: 13px !important; /* Yazı boyutu büyütüldü */
         }
 
         .back-btn svg {
-            width: 14px !important; /* Ok simgesi küçültüldü */
-            height: 14px !important;
+            width: 18px !important; /* Ok simgesi büyütüldü */
+            height: 18px !important;
         }
 
         #sidebarCategoryTitle {
-            font-size: 11px !important; /* Başlık fontu dengelendi */
+            font-size: 14px !important; /* Başlık fontu dengelendi */
             margin: 0 !important;
             font-weight: 600 !important;
             color: #ccc;
@@ -66,21 +65,21 @@
             border: none !important;
             color: #fff !important;
             cursor: pointer;
-            padding: 2px !important;
+            padding: 6px !important;
             display: flex !important;
             align-items: center !important;
         }
 
         .zoom-toggle-btn svg {
-            width: 14px !important; /* Tam ekran simgesi küçültüldü */
-            height: 14px !important;
+            width: 18px !important; /* Tam ekran simgesi büyütüldü */
+            height: 18px !important;
         }
 
-        /* Sekme Butonlarının (Kanallar / Favoriler) Daraltılması */
+        /* Sekme Butonları (Kanallar / Favoriler) */
         .sidebar-tabs {
             display: flex !important;
-            height: 26px !important; /* Dikey yüksekliği azaltıldı */
-            min-height: 26px !important;
+            height: 40px !important; /* Yükseklik artırıldı */
+            min-height: 40px !important;
             border-bottom: 1px solid #222;
             background: #151515;
             box-sizing: border-box !important;
@@ -91,7 +90,7 @@
             background: transparent !important;
             border: none !important;
             color: #888 !important;
-            font-size: 10px !important; /* Yazı boyutu küçültüldü */
+            font-size: 13px !important; /* Okunabilirlik için büyütüldü */
             font-weight: 600 !important;
             cursor: pointer;
             display: flex !important;
@@ -107,35 +106,33 @@
             background: #222 !important;
         }
 
-        /* ----------------------------------------------- */
-
+        /* --- KANAL LİSTESİ (GENİŞLETİLMİŞ BOYUT) --- */
         .channels-sidebar-list {
             flex-grow: 1;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            padding: 6px;
+            padding: 10px; /* İç boşluklar artırıldı */
         }
 
-        /* --- KANAL LİSTESİ (MİNİ BOYUT) --- */
         #channelsSidebarList > * {
-            padding: 4px 6px !important;
-            margin-bottom: 3px !important;
-            min-height: 32px !important;
-            max-height: 32px !important;
-            border-radius: 4px !important;
+            padding: 10px 12px !important; /* Eleman içi alanlar genişletildi */
+            margin-bottom: 6px !important;
+            min-height: 48px !important;  /* Tıklama alanı rahatlatıldı */
+            max-height: 48px !important;
+            border-radius: 6px !important;
             display: flex !important;
             align-items: center !important;
-            gap: 6px !important;
+            gap: 10px !important;
         }
 
         #channelsSidebarList > * img,
         #channelsSidebarList > * .channel-logo,
         #channelsSidebarList > * [class*="logo"] {
-            width: 20px !important;
-            height: 20px !important;
-            min-width: 20px !important;
-            border-radius: 3px !important;
+            width: 28px !important; /* Logolar belirginleştirildi */
+            height: 28px !important;
+            min-width: 28px !important;
+            border-radius: 4px !important;
             object-fit: contain !important;
         }
 
@@ -143,9 +140,9 @@
         #channelsSidebarList > * h4,
         #channelsSidebarList > * span,
         #channelsSidebarList > * div {
-            font-size: 10px !important;
+            font-size: 13px !important; /* Yazı fontu büyütüldü */
             font-weight: 500 !important;
-            line-height: 1.2 !important;
+            line-height: 1.3 !important;
             white-space: nowrap !important;
             overflow: hidden !important;
             text-overflow: ellipsis !important;
@@ -154,16 +151,16 @@
         #channelsSidebarList > * p,
         #channelsSidebarList > * small,
         #channelsSidebarList > * .channel-category {
-            font-size: 8px !important;
+            font-size: 10px !important;
             opacity: 0.6;
-            margin: 0 !important;
+            margin: 2px 0 0 0 !important;
             display: block !important;
         }
 
         #channelsSidebarList > * .fav-btn,
         #channelsSidebarList > * .star-icon,
         #channelsSidebarList > * svg {
-            transform: scale(0.75) !important;
+            transform: scale(1.0) !important; /* Yıldız boyutu normale çekildi */
             margin-left: auto !important;
         }
 
@@ -172,8 +169,8 @@
             background: #111; 
             border-bottom: 1px solid #222;
             width: 100%;
-            height: 44px !important;
-            max-height: 44px !important;
+            height: 56px !important; /* Üst kategori alanı dikeyde rahatlatıldı */
+            max-height: 56px !important;
             display: flex !important;
             align-items: center !important;
             box-sizing: border-box !important;
@@ -183,8 +180,8 @@
         .player-categories-container {
             display: flex !important;
             justify-content: flex-start !important; 
-            gap: 5px !important;
-            padding: 0px 10px !important; 
+            gap: 8px !important;
+            padding: 0px 14px !important; 
             flex-wrap: nowrap !important;    
             overflow-x: auto !important;
             -webkit-overflow-scrolling: touch;
@@ -199,17 +196,17 @@
         .player-categories-container .selected,
         .player-categories-container [class*="active"],
         .player-categories-container [class*="selected"] {
-            height: 32px !important;
-            max-height: 32px !important;
-            min-height: 32px !important;
-            padding: 0px 6px !important;
+            height: 38px !important; /* Buton yükseklikleri artırıldı */
+            max-height: 38px !important;
+            min-height: 38px !important;
+            padding: 0px 12px !important;
             box-sizing: border-box !important;
             border-radius: 6px !important;
             display: inline-flex !important;
             flex-direction: row !important; 
             align-items: center !important;
             justify-content: flex-start !important;
-            gap: 4px !important;
+            gap: 6px !important;
             width: auto !important; 
             min-width: max-content !important;
             flex-shrink: 0 !important;
@@ -221,18 +218,18 @@
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            width: 14px !important; 
-            height: 14px !important;
+            width: 18px !important; 
+            height: 18px !important;
             margin: 0 !important;
             padding: 0 !important;
-            font-size: 12px !important; 
+            font-size: 15px !important; 
             flex-shrink: 0 !important;
         }
 
         .category-icon img, .category-icon svg, .category-icon i, .category-icon span {
-            width: 14px !important;
-            height: 14px !important;
-            font-size: 12px !important;
+            width: 18px !important;
+            height: 18px !important;
+            font-size: 15px !important;
             object-fit: contain !important;
         }
 
@@ -249,11 +246,11 @@
             justify-content: flex-start !important;
             visibility: visible !important;
             opacity: 1 !important;
-            font-size: 11px !important;
+            font-size: 13px !important; /* Kategori yazı boyutu artırıldı */
             font-weight: 600 !important;
             color: #ffffff !important;
             white-space: nowrap !important;   
-            line-height: 32px !important;       
+            line-height: 38px !important;       
             text-align: left !important;
             width: auto !important;
             height: 100% !important;
@@ -284,7 +281,7 @@
         .video-wrapper-inner {
             position: relative !important;
             width: 100% !important;
-            height: calc(100% - 24px) !important; 
+            height: calc(100% - 44px) !important; /* Alt bar 44px yüksekliğe göre ayarlandı */
             background: #000;
         }
 
@@ -300,17 +297,17 @@
             z-index: 1 !important;
         }
 
-        /* --- ALTTAN KONTROL ŞERİDİ BAR --- */
+        /* --- ALTTAN KONTROL ŞERİDİ BAR (ORİJİNAL GENİŞ BOYUTUNA DÖNDÜRÜLDÜ) --- */
         #videoControlsBar {
             position: relative !important;
             width: 100% !important;
-            height: 24px !important; 
+            height: 44px !important; /* Eski orijinal yüksekliğe çekildi */
             background: #111111 !important;
             display: flex !important;
             justify-content: flex-start !important;
             align-items: center !important;
-            gap: 7px !important;
-            padding: 0 11px !important;
+            gap: 10px !important;
+            padding: 0 15px !important;
             border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
             z-index: 999999 !important;
             box-sizing: border-box !important;
@@ -323,16 +320,16 @@
             color: #fff !important;
             padding: 0 16px !important;
             min-width: 90px !important;
-            font-size: 9px !important; 
+            font-size: 12px !important; /* Buton içi font boyutu düzeltildi */
             font-weight: 600 !important;
-            border-radius: 3px !important;          
+            border-radius: 4px !important;          
             cursor: pointer;
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 4px !important;                    
+            gap: 6px !important;                    
             user-select: none;
-            height: 18px !important; 
+            height: 28px !important; /* Buton yükseklikleri eski haline getirildi */
             line-height: 1 !important;
             white-space: nowrap !important;
         }
@@ -367,14 +364,14 @@
             <aside class="player-sidebar">
                 <div class="sidebar-header">
                     <button class="back-btn" id="backBtn" title="Ana Sayfaya Dön">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M19 12H5M12 19l-7-7 7-7"/>
                         </svg>
                         <span>Geri</span>
                     </button>
                     <h3 id="sidebarCategoryTitle">Kanallar</h3>
                     <button class="zoom-toggle-btn" id="zoomToggleBtn" title="Tam ekran">
-                        <svg class="fullscreen-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg class="fullscreen-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
                         </svg>
                     </button>
