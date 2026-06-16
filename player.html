@@ -196,13 +196,13 @@
         #videoControlsBar {
             position: relative !important;
             width: 100% !important;
-            height: 28px !important;
+            height: 35px !important;
             background: #111111 !important;
             display: flex !important;
             justify-content: flex-start !important;
             align-items: center !important;
-            gap: 6px !important;
-            padding: 0 10px !important;
+            gap: 7px !important;
+            padding: 0 11px !important;
             border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
             z-index: 999999 !important;
             box-sizing: border-box !important;
@@ -211,20 +211,20 @@
 
         /* --- DİKEYDE MAKSİMUM DARALTILMIŞ MİNİ BUTONLAR --- */
         .player-nav-btn {
-            background: #222 !important;
-            border: 1px solid rgba(255,255,255,0.18) !important;
+            background: #2a2a2a !important; /* Arka planı biraz daha belirgin yaptık */
+    border: 1px solid rgba(255,255,255,0.25) !important;
             color: #fff !important;
-            padding: 0 8px !important;
-            font-size: 10px !important;
-            font-weight: 500 !important;
-            border-radius: 3px !important;          
+            padding: 0 12px !important;
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            border-radius: 4x !important;          
             cursor: pointer;
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 3px !important;                    
+            gap: 4px !important;                    
             user-select: none;
-            height: 20px !important;
+            height: 27px !important;
             line-height: 1 !important;
         }
 
@@ -232,10 +232,16 @@
         #fullscreenBtn { 
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
             border: 1px solid rgba(255,255,255,0.2) !important; 
-            padding: 0 12px !important;            
-            box-shadow: 0 1px 14px rgba(0,0,0,0.4) !important;
+            padding: 0 16px !important;            
+            box-shadow: 0 2px 5px rgba(0,0,0,0.4) !important;
         }
-
+/* Video wrapper yüksekliğini yeni bar yüksekliğine göre otomatik ayarlıyoruz */
+.video-wrapper-inner {
+    position: relative !important;
+    width: 100% !important;
+    height: calc(100% - 35px) !important; /* 28px olan değeri bar yüksekliğiyle eşitledik */
+    background: #000;
+}
         .player-content-wrapper {
             display: flex;
             flex-direction: row;
