@@ -25,6 +25,90 @@
             flex-shrink: 0;
         }
 
+        /* --- İŞARETLEDİĞİN ÜST KISIMLARIN DARALTILMASI --- */
+        .sidebar-header {
+            height: 32px !important; /* Dikey olarak daraltıldı */
+            min-height: 32px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            padding: 0 8px !important;
+            border-bottom: 1px solid #222;
+            box-sizing: border-box !important;
+        }
+
+        .back-btn {
+            background: transparent !important;
+            border: none !important;
+            color: #fff !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 4px !important;
+            cursor: pointer;
+            padding: 2px 4px !important;
+            font-size: 11px !important;
+        }
+
+        .back-btn svg {
+            width: 14px !important; /* Ok simgesi küçültüldü */
+            height: 14px !important;
+        }
+
+        #sidebarCategoryTitle {
+            font-size: 11px !important; /* Başlık fontu dengelendi */
+            margin: 0 !important;
+            font-weight: 600 !important;
+            color: #ccc;
+        }
+
+        .zoom-toggle-btn {
+            background: transparent !important;
+            border: none !important;
+            color: #fff !important;
+            cursor: pointer;
+            padding: 2px !important;
+            display: flex !important;
+            align-items: center !important;
+        }
+
+        .zoom-toggle-btn svg {
+            width: 14px !important; /* Tam ekran simgesi küçültüldü */
+            height: 14px !important;
+        }
+
+        /* Sekme Butonlarının (Kanallar / Favoriler) Daraltılması */
+        .sidebar-tabs {
+            display: flex !important;
+            height: 26px !important; /* Dikey yüksekliği azaltıldı */
+            min-height: 26px !important;
+            border-bottom: 1px solid #222;
+            background: #151515;
+            box-sizing: border-box !important;
+        }
+
+        .tab-btn {
+            flex: 1 !important;
+            background: transparent !important;
+            border: none !important;
+            color: #888 !important;
+            font-size: 10px !important; /* Yazı boyutu küçültüldü */
+            font-weight: 600 !important;
+            cursor: pointer;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            height: 100% !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .tab-btn.active {
+            color: #fff !important;
+            background: #222 !important;
+        }
+
+        /* ----------------------------------------------- */
+
         .channels-sidebar-list {
             flex-grow: 1;
             overflow-y: auto;
@@ -83,13 +167,13 @@
             margin-left: auto !important;
         }
 
-        /* --- ÜST KATEGORİ ALANI (DAHA KÜÇÜK VE DARALTILMIŞ BOYUT) --- */
+        /* --- ÜST KATEGORİ ALANI --- */
         .player-categories-section {
             background: #111; 
             border-bottom: 1px solid #222;
             width: 100%;
-            height: 32px !important; /* Yükseklik 44px'den 32px'e düşürüldü */
-            max-height: 32px !important;
+            height: 44px !important;
+            max-height: 44px !important;
             display: flex !important;
             align-items: center !important;
             box-sizing: border-box !important;
@@ -99,8 +183,8 @@
         .player-categories-container {
             display: flex !important;
             justify-content: flex-start !important; 
-            gap: 4px !important; /* Boşluklar biraz daha sıkılaştırıldı */
-            padding: 0px 8px !important; 
+            gap: 5px !important;
+            padding: 0px 10px !important; 
             flex-wrap: nowrap !important;    
             overflow-x: auto !important;
             -webkit-overflow-scrolling: touch;
@@ -109,19 +193,18 @@
             width: 100% !important;
         }
 
-        /* Butonları dikey ve yatayda küçülten kural */
         .player-categories-container .category-card,
         .player-categories-container div[class*="category"],
         .player-categories-container .active,
         .player-categories-container .selected,
         .player-categories-container [class*="active"],
         .player-categories-container [class*="selected"] {
-            height: 24px !important; /* Buton yüksekliği 32px'den 24px'e düşürüldü */
-            max-height: 24px !important;
-            min-height: 24px !important;
-            padding: 0px 5px !important; /* Sağ ve sol iç boşluk azatıldı */
+            height: 32px !important;
+            max-height: 32px !important;
+            min-height: 32px !important;
+            padding: 0px 6px !important;
             box-sizing: border-box !important;
-            border-radius: 4px !important;
+            border-radius: 6px !important;
             display: inline-flex !important;
             flex-direction: row !important; 
             align-items: center !important;
@@ -138,22 +221,21 @@
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            width: 12px !important; /* İkon boyutu 14px'den 12px'e çekildi */
-            height: 12px !important;
+            width: 14px !important; 
+            height: 14px !important;
             margin: 0 !important;
             padding: 0 !important;
-            font-size: 10px !important; 
+            font-size: 12px !important; 
             flex-shrink: 0 !important;
         }
 
         .category-icon img, .category-icon svg, .category-icon i, .category-icon span {
-            width: 12px !important;
-            height: 12px !important;
-            font-size: 10px !important;
+            width: 14px !important;
+            height: 14px !important;
+            font-size: 12px !important;
             object-fit: contain !important;
         }
 
-        /* Yazı Boyutları */
         .player-categories-container .category-name,
         .player-categories-container .active .category-name,
         .player-categories-container .selected .category-name,
@@ -167,11 +249,11 @@
             justify-content: flex-start !important;
             visibility: visible !important;
             opacity: 1 !important;
-            font-size: 10px !important; /* Yazı fontu 11px'den 10px'e düşürüldü */
+            font-size: 11px !important;
             font-weight: 600 !important;
             color: #ffffff !important;
             white-space: nowrap !important;   
-            line-height: 24px !important;       
+            line-height: 32px !important;       
             text-align: left !important;
             width: auto !important;
             height: 100% !important;
@@ -202,7 +284,7 @@
         .video-wrapper-inner {
             position: relative !important;
             width: 100% !important;
-            height: calc(100% - 44px) !important; 
+            height: calc(100% - 24px) !important; 
             background: #000;
         }
 
@@ -222,44 +304,47 @@
         #videoControlsBar {
             position: relative !important;
             width: 100% !important;
-            height: 44px !important;
+            height: 24px !important; 
             background: #111111 !important;
             display: flex !important;
             justify-content: flex-start !important;
             align-items: center !important;
-            gap: 8px !important;
-            padding: 0 12px !important;
+            gap: 7px !important;
+            padding: 0 11px !important;
             border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
             z-index: 999999 !important;
             box-sizing: border-box !important;
             flex-shrink: 0 !important;
         }
 
-        /* --- ALTTAN İNCE MİNİ BUTONLAR --- */
         .player-nav-btn {
             background: #2a2a2a !important;
             border: 1px solid rgba(255,255,255,0.25) !important;
             color: #fff !important;
-            padding: 0 14px !important;
-            font-size: 11px !important;
-            font-weight: 700 !important;
-            border-radius: 5px !important;          
+            padding: 0 16px !important;
+            min-width: 90px !important;
+            font-size: 9px !important; 
+            font-weight: 600 !important;
+            border-radius: 3px !important;          
             cursor: pointer;
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 5px !important;                    
+            gap: 4px !important;                    
             user-select: none;
-            height: 32px !important;
+            height: 18px !important; 
             line-height: 1 !important;
+            white-space: nowrap !important;
         }
 
         #fullscreenBtn { 
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
-            border: 1px solid rgba(255,255,255,0.3) !important; 
-            padding: 0 18px !important;            
-            box-shadow: 0 2px 6px rgba(0,0,0,0.5) !important;
+            border: 1px solid rgba(255,255,255,0.2) !important; 
+            padding: 0 20px !important;
+            min-width: 120px !important;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.4) !important;
         }
+
         .player-content-wrapper {
             display: flex;
             flex-direction: row;
