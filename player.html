@@ -235,12 +235,13 @@
             flex-shrink: 0 !important;
         }
 
-        /* --- ALTTAN İNCE MİNİ BUTONLAR --- */
+        /* --- ALTTAN İNCE MİNİ BUTONLAR (GENİŞLİKLERİ ARTIRILDI) --- */
         .player-nav-btn {
             background: #2a2a2a !important;
             border: 1px solid rgba(255,255,255,0.25) !important;
             color: #fff !important;
-            padding: 0 8px !important; 
+            padding: 0 16px !important; /* Sağ ve sol iç boşluk genişletildi */
+            min-width: 90px !important; /* Butonlara minimum ideal genişlik verildi */
             font-size: 9px !important; 
             font-weight: 600 !important;
             border-radius: 3px !important;          
@@ -248,16 +249,18 @@
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 3px !important;                    
+            gap: 4px !important;                    
             user-select: none;
             height: 18px !important; 
             line-height: 1 !important;
+            white-space: nowrap !important;
         }
 
         #fullscreenBtn { 
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
             border: 1px solid rgba(255,255,255,0.2) !important; 
-            padding: 0 16px !important;            
+            padding: 0 20px !important; /* Tam ekran butonu için daha geniş dolgu */
+            min-width: 120px !important; /* Tam ekran butonunun genişliği artırıldı */
             box-shadow: 0 2px 5px rgba(0,0,0,0.4) !important;
         }
 
