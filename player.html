@@ -202,7 +202,7 @@
         .video-wrapper-inner {
             position: relative !important;
             width: 100% !important;
-            height: calc(100% - 24px) !important; 
+            height: calc(100% - 44px) !important; 
             background: #000;
         }
 
@@ -220,50 +220,46 @@
 
         /* --- ALTTAN KONTROL ŞERİDİ BAR --- */
         #videoControlsBar {
-            position: relative !important;
-            width: 100% !important;
-            height: 24px !important; 
-            background: #111111 !important;
-            display: flex !important;
-            justify-content: flex-start !important;
-            align-items: center !important;
-            gap: 7px !important;
-            padding: 0 11px !important;
-            border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
-            z-index: 999999 !important;
-            box-sizing: border-box !important;
-            flex-shrink: 0 !important;
-        }
+    position: relative !important;
+    width: 100% !important;
+    height: 44px !important; /* Butonların rahat sığması için yüksekliği 28px'den 44px'e çıkardık */
+    background: #111111 !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 0 12px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+    z-index: 999999 !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+}
 
         /* --- ALTTAN İNCE MİNİ BUTONLAR (GENİŞLİKLERİ ARTIRILDI) --- */
         .player-nav-btn {
-            background: #2a2a2a !important;
-            border: 1px solid rgba(255,255,255,0.25) !important;
-            color: #fff !important;
-            padding: 0 16px !important; /* Sağ ve sol iç boşluk genişletildi */
-            min-width: 90px !important; /* Butonlara minimum ideal genişlik verildi */
-            font-size: 9px !important; 
-            font-weight: 600 !important;
-            border-radius: 3px !important;          
-            cursor: pointer;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 4px !important;                    
-            user-select: none;
-            height: 18px !important; 
-            line-height: 1 !important;
-            white-space: nowrap !important;
-        }
+    background: #2a2a2a !important; /* Arka planı biraz daha belirgin yaptık */
+    border: 1px solid rgba(255,255,255,0.25) !important;
+    color: #fff !important;
+    padding: 0 14px !important; /* Sağ sol iç boşluğu artırarak butonu genişlettik */
+    font-size: 11px !important; /* Yazı boyutunu hafif büyüttük */
+    font-weight: 700 !important; /* Yazıları kalın (Bold) yaptık */
+    border-radius: 5px !important;          
+    cursor: pointer;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;                    
+    user-select: none;
+    height: 32px !important; /* Buton dikey yüksekliğini 20px'den 32px'e çıkararak kalınlaştırdık */
+    line-height: 1 !important;
+}
 
         #fullscreenBtn { 
-            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
-            border: 1px solid rgba(255,255,255,0.2) !important; 
-            padding: 0 20px !important; /* Tam ekran butonu için daha geniş dolgu */
-            min-width: 120px !important; /* Tam ekran butonunun genişliği artırıldı */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.4) !important;
-        }
-
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
+    border: 1px solid rgba(255,255,255,0.3) !important; 
+    padding: 0 18px !important;            
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5) !important;
+}
         .player-content-wrapper {
             display: flex;
             flex-direction: row;
