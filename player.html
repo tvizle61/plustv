@@ -83,83 +83,86 @@
             margin-left: auto !important;
         }
 
-    /* --- ÜST KATEGORİ AYARLARI (MAKSİMUM DARALTILDI) --- */
-.player-categories-section {
-    background: #111; 
-    border-bottom: 1px solid #222;
-    width: 100%;
-    height: 22px !important; /* Üst siyah bandın toplam yüksekliğini 22px'e sabitledik */
-    max-height: 22px !important;
-    display: flex !important;
-    align-items: center !important;
-}
+        /* --- ÜST KATEGORİ ALANI (İSTEDİĞİNİZ GİBİ DARALTILDI) --- */
+        .player-categories-section {
+            background: #111; 
+            border-bottom: 1px solid #222;
+            width: 100%;
+            height: 34px !important; /* Üst siyah bandın dikey kalınlığı ideal seviyeye daraltıldı */
+            max-height: 34px !important;
+            display: flex !important;
+            align-items: center !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+        }
 
-.player-categories-container {
-    display: flex !important;
-    justify-content: flex-start !important; 
-    gap: 4px !important;
-    padding: 0px 6px !important; /* Dikey iç boşluğu tamamen sıfırladık */
-    flex-wrap: nowrap !important;    
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch;
-    align-items: center !important;
-    height: 100% !important;
-}
+        .player-categories-container {
+            display: flex !important;
+            justify-content: flex-start !important; 
+            gap: 5px !important;
+            padding: 0px 8px !important; 
+            flex-wrap: nowrap !important;    
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch;
+            align-items: center !important;
+            height: 100% !important;
+            width: 100% !important;
+        }
 
-.player-categories-container div.category-card,
-.player-categories-container [class*="category"],
-.player-categories-container .active,
-.player-categories-container .selected {
-    width: 38px !important;
-    max-width: 38px !important;
-    min-width: 38px !important;
-    height: 18px !important; /* Buton yüksekliğini dikey hizaya sığması için 18px yaptık */
-    max-height: 18px !important;
-    padding: 0 !important;
-    box-sizing: border-box !important;
-    border-radius: 3px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 0px !important;
-    overflow: hidden !important;
-}
+        /* Orijinal buton formunu bozmadan ölçekleyen güvenli seçici */
+        .player-categories-container .category-card,
+        .player-categories-container div[class*="category"],
+        .player-categories-container .active,
+        .player-categories-container .selected {
+            height: 26px !important; /* Butonların dikey yüksekliği 26px yapıldı */
+            max-height: 26px !important;
+            min-height: 26px !important;
+            padding: 2px 6px !important; 
+            box-sizing: border-box !important;
+            border-radius: 4px !important;
+            display: inline-flex !important;
+            flex-direction: row !important; /* İkon ve yazı yan yana düzgün dursun */
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 4px !important;
+            width: auto !important; /* Genişlik serbest bırakıldı, butonlar artık kaybolmaz */
+            min-width: max-content !important;
+            white-space: nowrap !important;
+        }
 
-.category-icon, [class*="category-icon"] {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 10px !important; /* İkonu biraz daha minyonlaştırdık */
-    height: 10px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    font-size: 9px !important; /* Emojiyi 9px'e çekerek yazıya yer açtık */
-    line-height: 1 !important;
-}
+        .category-icon, [class*="category-icon"] {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 12px !important; 
+            height: 12px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            font-size: 11px !important; 
+            line-height: 1 !important;
+        }
 
-.category-icon img, .category-icon svg, .category-icon i, .category-icon span {
-    width: 10px !important;
-    height: 10px !important;
-    font-size: 9px !important;
-    object-fit: contain !important;
-}
+        .category-icon img, .category-icon svg, .category-icon i, .category-icon span {
+            width: 12px !important;
+            height: 12px !important;
+            font-size: 11px !important;
+            object-fit: contain !important;
+        }
 
-.category-name {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    font-size: 6.5px !important; /* Yazı boyutunu araç ekranında taşmayacak kıvama getirdik */
-    font-weight: bold !important;
-    color: #ffffff !important;
-    white-space: nowrap !important;   
-    line-height: 1 !important;       
-    text-align: center !important;
-    width: 100% !important;
-    margin-top: -1px !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important; 
-}
+        .category-name {
+            display: inline-block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            font-size: 9px !important; /* Araç ekranında rahat okunacak mini font */
+            font-weight: 600 !important;
+            color: #ffffff !important;
+            white-space: nowrap !important;   
+            line-height: 1 !important;       
+            text-align: center !important;
+            width: auto !important;
+            margin: 0 !important;
+        }
+
         /* --- VİDEO ALANI ANA AYARLARI --- */
         .player-main {
             flex-grow: 1;
@@ -184,7 +187,7 @@
         .video-wrapper-inner {
             position: relative !important;
             width: 100% !important;
-            height: calc(100% - 28px) !important;
+            height: calc(100% - 24px) !important; /* Alt bar yüksekliği tam olarak düşüldü */
             background: #000;
         }
 
@@ -200,41 +203,41 @@
             z-index: 1 !important;
         }
 
-       /* --- ALTTAN VE ÜSTTEN İYİCE İNCELTİLMİŞ ŞERİT BAR (GÜNCELLENDİ) --- */
-#videoControlsBar {
-    position: relative !important;
-    width: 100% !important;
-    height: 24px !important; /* Alt barın kalınlığını 35px'den 24px'e düşürdük */
-    background: #111111 !important;
-    display: flex !important;
-    justify-content: flex-start !important;
-    align-items: center !important;
-    gap: 7px !important;
-    padding: 0 11px !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
-    z-index: 999999 !important;
-    box-sizing: border-box !important;
-    flex-shrink: 0 !important;
-}
+        /* --- ALTTAN VE ÜSTTEN İYİCE İNCELTİLMİŞ ŞERİT BAR --- */
+        #videoControlsBar {
+            position: relative !important;
+            width: 100% !important;
+            height: 24px !important; 
+            background: #111111 !important;
+            display: flex !important;
+            justify-content: flex-start !important;
+            align-items: center !important;
+            gap: 7px !important;
+            padding: 0 11px !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+            z-index: 999999 !important;
+            box-sizing: border-box !important;
+            flex-shrink: 0 !important;
+        }
 
-       /* --- ALTTAN İNCE MİNİ BUTONLAR (GÜNCELLENDİ) --- */
-.player-nav-btn {
-    background: #2a2a2a !important;
-    border: 1px solid rgba(255,255,255,0.25) !important;
-    color: #fff !important;
-    padding: 0 8px !important; /* Butonların yan boşluklarını daralttık */
-    font-size: 9px !important; /* Alt yazı fontunu 9px yaptık */
-    font-weight: 600 !important;
-    border-radius: 3px !important;          
-    cursor: pointer;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 3px !important;                    
-    user-select: none;
-    height: 18px !important; /* Buton yüksekliğini 27px'den 18px'e çektik */
-    line-height: 1 !important;
-}
+        /* --- ALTTAN İNCE MİNİ BUTONLAR --- */
+        .player-nav-btn {
+            background: #2a2a2a !important;
+            border: 1px solid rgba(255,255,255,0.25) !important;
+            color: #fff !important;
+            padding: 0 8px !important; 
+            font-size: 9px !important; 
+            font-weight: 600 !important;
+            border-radius: 3px !important;          
+            cursor: pointer;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 3px !important;                    
+            user-select: none;
+            height: 18px !important; 
+            line-height: 1 !important;
+        }
 
         /* İNCE TAM EKRAN BUTONU */
         #fullscreenBtn { 
@@ -243,13 +246,7 @@
             padding: 0 16px !important;            
             box-shadow: 0 2px 5px rgba(0,0,0,0.4) !important;
         }
-/* Video wrapper yüksekliğini yeni bar yüksekliğine göre otomatik ayarlıyoruz */
-.video-wrapper-inner {
-    position: relative !important;
-    width: 100% !important;
-    height: calc(100% - 24px) !important; /* 28px olan değeri bar yüksekliğiyle eşitledik */
-    background: #000;
-}
+
         .player-content-wrapper {
             display: flex;
             flex-direction: row;
@@ -353,7 +350,6 @@
         const fakeIframe = document.getElementById('iframePlayer');
         const realYtDiv = document.getElementById('ytActualPlayer');
 
-        // URL içerisinden YouTube Video ID'sini çeken fonksiyon
         function extractYouTubeId(url) {
             if (!url) return null;
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -361,7 +357,6 @@
             return (match && match[2].length === 11) ? match[2] : null;
         }
 
-        // Değişim Gözlemcisi: player.js ne zaman gizli iframe'e link yüklese yakalarız
         const bridgeObserver = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 if (mutation.type === "attributes" && mutation.attributeName === "src") {
@@ -390,16 +385,13 @@
             // API global hazırlığı
         }
 
-        // Otomatik başlatmayı garanti eden API fonksiyonu
         function playWithYouTubeAPI(videoId) {
             if (ytPlayerInstance && typeof ytPlayerInstance.loadVideoById === 'function') {
-                // Mevcut oynatıcıya yeni video ID'sini yükle ve oynatmayı zorla
                 ytPlayerInstance.loadVideoById({
                     videoId: videoId,
                     startSeconds: 0
                 });
                 
-                // Bazı tarayıcı gecikmeleri için yedek oynatma tetikleyicisi
                 setTimeout(() => {
                     try {
                         ytPlayerInstance.playVideo();
@@ -407,7 +399,6 @@
                 }, 300);
 
             } else {
-                // Oynatıcı ilk kez oluşturulurken
                 ytPlayerInstance = new YT.Player('ytActualPlayer', {
                     height: '100%',
                     width: '100%',
@@ -418,12 +409,11 @@
                         'controls': 1,
                         'rel': 0,
                         'modestbranding': 1,
-                        'mute': 1 // Kritik: Tarayıcı engelini aşmak için başlangıçta sessiz (muted) olarak zorlanır
+                        'mute': 1 
                     },
                     events: {
                         'onReady': function(event) {
                             event.target.playVideo();
-                            // Video başladıktan kısa bir süre sonra sesi açmayı dene (tarayıcı izni varsa ses açılır)
                             setTimeout(() => {
                                 try {
                                     event.target.unMute();
@@ -432,9 +422,8 @@
                             }, 500);
                         },
                         'onStateChange': function(event) {
-                            // Durum 0: Video Bitti (YT.PlayerState.ENDED)
                             if (event.data === 0) {
-                                console.log("YouTube videosu başarıyla bitti! Sonraki kanala geçiliyor...");
+                                console.log("YouTube videosu bitti! Sonraki kanala geçiliyor...");
                                 changeChannel(1);
                             }
                         }
@@ -443,13 +432,11 @@
             }
         }
 
-        // Normal MP4/M3U8 kanalları bittiğinde tetiklenen yapı
         document.getElementById('videoPlayer').addEventListener('ended', function() {
             console.log("Normal video bitti! Sonraki kanala geçiliyor...");
             changeChannel(1);
         });
 
-        // --- Mevcut Kontrol Fonksiyonlarınız ---
         function toggleFullscreen() {
             const playerElement = document.getElementById("videoContainerPlayer");
             if (!playerElement) return;
