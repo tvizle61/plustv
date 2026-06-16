@@ -25,9 +25,9 @@
             flex-shrink: 0;
         }
 
-        /* --- İŞARETLEDİĞİN ÜST KISIMLARIN DARALTILMASI --- */
+        /* --- ÜST KISIMLARIN DARALTILMASI --- */
         .sidebar-header {
-            height: 32px !important; /* Dikey olarak daraltıldı */
+            height: 32px !important; 
             min-height: 32px !important;
             display: flex !important;
             align-items: center !important;
@@ -50,12 +50,12 @@
         }
 
         .back-btn svg {
-            width: 14px !important; /* Ok simgesi küçültüldü */
+            width: 14px !important; 
             height: 14px !important;
         }
 
         #sidebarCategoryTitle {
-            font-size: 11px !important; /* Başlık fontu dengelendi */
+            font-size: 11px !important; 
             margin: 0 !important;
             font-weight: 600 !important;
             color: #ccc;
@@ -72,15 +72,15 @@
         }
 
         .zoom-toggle-btn svg {
-            width: 14px !important; /* Tam ekran simgesi küçültüldü */
+            width: 14px !important; 
             height: 14px !important;
         }
 
-        /* Sekme Butonlarının (Kanallar / Favoriler) Daraltılması */
+        /* --- GENİŞLETİLEN SEKME BUTONLARI (Kanallar / Favoriler) --- */
         .sidebar-tabs {
             display: flex !important;
-            height: 26px !important; /* Dikey yüksekliği azaltıldı */
-            min-height: 26px !important;
+            height: 38px !important; /* Yükseklik 26px'den 38px'e çıkarılarak genişletildi */
+            min-height: 38px !important;
             border-bottom: 1px solid #222;
             background: #151515;
             box-sizing: border-box !important;
@@ -91,7 +91,7 @@
             background: transparent !important;
             border: none !important;
             color: #888 !important;
-            font-size: 10px !important; /* Yazı boyutu küçültüldü */
+            font-size: 12px !important; /* Yazı boyutu 10px'den 12px'e çıkarılarak büyütüldü */
             font-weight: 600 !important;
             cursor: pointer;
             display: flex !important;
@@ -117,7 +117,7 @@
             padding: 6px;
         }
 
-        /* --- KANAL LİSTESİ (MİNİ BOYUT) --- */
+        /* --- KANAL LİSTESİ (MİNİ BOYUT - DOKUNULMADI) --- */
         #channelsSidebarList > * {
             padding: 4px 6px !important;
             margin-bottom: 3px !important;
