@@ -284,7 +284,7 @@
         .video-wrapper-inner {
             position: relative !important;
             width: 100% !important;
-            height: calc(100% - 24px) !important; 
+            height: calc(100% - 44px) !important; /* Alt bar yüksekliği 44px olduğu için burayı güncelledik */
             background: #000;
         }
 
@@ -300,48 +300,54 @@
             z-index: 1 !important;
         }
 
-        /* --- ALTTAN KONTROL ŞERİDİ BAR --- */
+        /* --- ESKİ HALİNE GETİRİLEN BÜYÜK ALTTAN KONTROL ŞERİDİ BAR --- */
         #videoControlsBar {
             position: relative !important;
             width: 100% !important;
-            height: 24px !important; 
+            height: 44px !important; /* Rahat dokunmatik alan için tekrar 44px yapıldı */
             background: #111111 !important;
             display: flex !important;
             justify-content: flex-start !important;
             align-items: center !important;
-            gap: 7px !important;
-            padding: 0 11px !important;
+            gap: 10px !important;
+            padding: 0 15px !important;
             border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
             z-index: 999999 !important;
             box-sizing: border-box !important;
             flex-shrink: 0 !important;
         }
 
+        /* --- GERİ VE İLERİ BUTONLARININ BÜYÜTÜLMÜŞ ESKİ HALİ --- */
         .player-nav-btn {
             background: #2a2a2a !important;
             border: 1px solid rgba(255,255,255,0.25) !important;
             color: #fff !important;
-            padding: 0 16px !important;
-            min-width: 90px !important;
-            font-size: 9px !important; 
+            padding: 0 20px !important;
+            min-width: 100px !important;
+            font-size: 14px !important; /* Yazılar kolay okunsun diye büyütüldü */
             font-weight: 600 !important;
-            border-radius: 3px !important;          
+            border-radius: 6px !important;         
             cursor: pointer;
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 4px !important;                    
+            gap: 6px !important;                    
             user-select: none;
-            height: 18px !important; 
+            height: 34px !important; /* Butonların yüksekliği belirginleştirildi */
             line-height: 1 !important;
             white-space: nowrap !important;
         }
 
+        .player-nav-btn span {
+            font-size: 16px !important; /* İkonlar belirginleştirildi */
+        }
+
+        /* --- TAM EKRAN BUTONUNUN ESKİ BÜYÜK HALİ --- */
         #fullscreenBtn { 
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
             border: 1px solid rgba(255,255,255,0.2) !important; 
-            padding: 0 20px !important;
-            min-width: 120px !important;
+            padding: 0 24px !important;
+            min-width: 140px !important;
             box-shadow: 0 2px 5px rgba(0,0,0,0.4) !important;
         }
 
