@@ -83,12 +83,12 @@
             margin-left: auto !important;
         }
 
-        /* --- ÜST KATEGORİ ALANI (EZİLMEYİ ÖNLER) --- */
+        /* --- ÜST KATEGORİ ALANI --- */
         .player-categories-section {
             background: #111; 
             border-bottom: 1px solid #222;
             width: 100%;
-            height: 44px !important; /* Daralmayı önlemek için ideal dikey kalınlık */
+            height: 44px !important;
             max-height: 44px !important;
             display: flex !important;
             align-items: center !important;
@@ -99,7 +99,7 @@
         .player-categories-container {
             display: flex !important;
             justify-content: flex-start !important; 
-            gap: 8px !important; /* Butonlar arası nefes alma mesafesi */
+            gap: 8px !important;
             padding: 0px 10px !important; 
             flex-wrap: nowrap !important;    
             overflow-x: auto !important;
@@ -109,14 +109,14 @@
             width: 100% !important;
         }
 
-        /* Aktif/Seçili butonlar dahil kartların büzülmesini ve kaybolmasını önleyen ana kural */
+        /* Kartların büzülmesini önleyen ana kural */
         .player-categories-container .category-card,
         .player-categories-container div[class*="category"],
         .player-categories-container .active,
         .player-categories-container .selected,
         .player-categories-container [class*="active"],
         .player-categories-container [class*="selected"] {
-            height: 32px !important; /* Dokunmatik ekranlar için ideal yükseklik */
+            height: 32px !important;
             max-height: 32px !important;
             min-height: 32px !important;
             padding: 0px 12px !important; 
@@ -128,8 +128,8 @@
             justify-content: center !important;
             gap: 6px !important;
             width: auto !important; 
-            min-width: max-content !important; /* İçeriğe göre genişliği zorlar */
-            flex-shrink: 0 !important; /* Butonun hiçbir senaryoda daralmasına izin vermez */
+            min-width: max-content !important;
+            flex-shrink: 0 !important;
             white-space: nowrap !important;
         }
 
@@ -143,7 +143,6 @@
             margin: 0 !important;
             padding: 0 !important;
             font-size: 12px !important; 
-            line-height: 1 !important;
             flex-shrink: 0 !important;
         }
 
@@ -154,7 +153,7 @@
             object-fit: contain !important;
         }
 
-        /* Seçili/Aktif Durumlar Dahil Yazıların Görünür Kalmasını Sağlayan Kural */
+        /* Dikeyde Kayma ve Kaybolmayı Düzelten Güncellenmiş Yazı Kuralı */
         .player-categories-container .category-name,
         .player-categories-container .active .category-name,
         .player-categories-container .selected .category-name,
@@ -163,17 +162,21 @@
         .player-categories-container [class*="selected"] span,
         .player-categories-container [class*="active"] div,
         .player-categories-container [class*="selected"] div {
-            display: inline-block !important;
+            display: inline-flex !important; /* Blok yerine esnek dikey hizalama yapıldı */
+            align-items: center !important; /* Dikeyde kusursuz ortalar */
+            justify-content: center !important;
             visibility: visible !important;
             opacity: 1 !important;
-            font-size: 11px !important; /* Okunabilirliği artırıldı */
+            font-size: 11px !important;
             font-weight: 600 !important;
             color: #ffffff !important;
             white-space: nowrap !important;   
-            line-height: 1 !important;       
+            line-height: 32px !important; /* Yükseklik ile eşitlenerek yukarı kayma engellendi */       
             text-align: center !important;
             width: auto !important;
+            height: 100% !important; /* Kartın yüksekliğine sadık kalır */
             margin: 0 !important;
+            padding: 0 !important;
             flex-shrink: 0 !important;
         }
 
@@ -186,7 +189,6 @@
             height: 100vh;
         }
 
-        /* TAM EKRAN YAPILACAK ANA KUTU */
         #videoContainerPlayer {
             position: relative !important;
             flex-grow: 1;
@@ -197,7 +199,6 @@
             overflow: hidden !important;
         }
 
-        /* VİDEONUN KENDİ KUTUSU */
         .video-wrapper-inner {
             position: relative !important;
             width: 100% !important;
@@ -253,7 +254,6 @@
             line-height: 1 !important;
         }
 
-        /* İNCE TAM EKRAN BUTONU */
         #fullscreenBtn { 
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
             border: 1px solid rgba(255,255,255,0.2) !important; 
@@ -359,7 +359,6 @@
 
     <script src="player.js"></script>
     <script>
-        // --- %100 ÇALIŞAN GARANTİLİ OYNATMA VE ATLATMA MOTORU ---
         let ytPlayerInstance = null;
         const fakeIframe = document.getElementById('iframePlayer');
         const realYtDiv = document.getElementById('ytActualPlayer');
