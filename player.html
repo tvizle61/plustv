@@ -484,9 +484,13 @@
     <script src="player.js"></script>
     <script>
         let ytPlayerInstance = null;
+        let hlsInstance = null; // HLS Motoru eklendi
+        
         const fakeIframe = document.getElementById('iframePlayer');
         const realYtDiv = document.getElementById('ytActualPlayer');
         const normalVideoPlayer = document.getElementById('videoPlayer');
+        const loadingOverlay = document.getElementById('loadingPlayer');
+        const placeholderPlayer = document.getElementById('videoPlaceholderPlayer');
 
         function extractYouTubeId(url) {
             if (!url) return null;
@@ -495,31 +499,90 @@
             return (match && match[2].length === 11) ? match[2] : null;
         }
 
+        // HLS Akış Oynatıcı Motoru (CORS ve SSL bypass tüneli içerir)
+        function playM3u8Stream(url) {
+            if (placeholderPlayer) placeholderPlayer.style.display = 'none';
+            if (loadingOverlay) loadingOverlay.style.display = 'flex';
+
+            // İnternetteki inatçı CORS/User-Agent veya güvensiz http engellerini aşmak için proxy tünellemesi
+            if (url.includes('uzunmuhalefet.com') || url.startsWith('http://') || url.includes('ucomist.net')) {
+                url = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
+            }
+
+            if (hlsInstance) { 
+                try { hlsInstance.destroy(); } catch(e) {} 
+            }
+
+            if (Hls.isSupported()) {
+                hlsInstance = new Hls({
+                    maxBufferLength: 10,
+                    maxMaxBufferLength: 20,
+                    xhrSetup: function (xhr) { xhr.withCredentials = false; }
+                });
+                
+                hlsInstance.loadSource(url);
+                hlsInstance.attachMedia(normalVideoPlayer);
+                
+                hlsInstance.on(Hls.Events.MANIFEST_PARSED, function () {
+                    if (loadingOverlay) loadingOverlay.style.display = 'none';
+                    normalVideoPlayer.play().catch(e => console.log(e));
+                });
+
+                hlsInstance.on(Hls.Events.ERROR, function (event, data) {
+                    if (data.fatal) {
+                        if (loadingOverlay) loadingOverlay.style.display = 'none';
+                        if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+                            hlsInstance.startLoad();
+                        } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+                            hlsInstance.recoverMediaError();
+                        } else {
+                            normalVideoPlayer.src = url;
+                        }
+                    }
+                });
+            } else if (normalVideoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                // Safari ve mobil tarayıcılar için yerel destek kuralı
+                normalVideoPlayer.src = url;
+                normalVideoPlayer.addEventListener('loadedmetadata', function () {
+                    if (loadingOverlay) loadingOverlay.style.display = 'none';
+                    normalVideoPlayer.play().catch(e => console.log(e));
+                }, { once: true });
+            }
+        }
+
+        // Gelişmiş Dinamik Akış Yakalayıcı (MutationObserver)
         const bridgeObserver = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 if (mutation.type === "attributes" && mutation.attributeName === "src") {
                     const interceptedUrl = fakeIframe.getAttribute('src');
-                    if (!interceptedUrl) return;
+                    if (!interceptedUrl || interceptedUrl === 'about:blank') return;
 
                     const ytId = extractYouTubeId(interceptedUrl);
                     
                     if (ytId) {
-                        // Normal video oynatıcısını durdur ve gizle
+                        // YouTube Modu Aktifleştiğinde
                         normalVideoPlayer.pause();
                         normalVideoPlayer.style.display = 'none';
-
-                        fakeIframe.style.display = 'none';
-                        fakeIframe.setAttribute('src', ''); 
+                        
+                        bridgeObserver.disconnect();
+                        fakeIframe.setAttribute('src', 'about:blank');
+                        bridgeObserver.observe(fakeIframe, { attributes: true });
 
                         realYtDiv.style.display = 'block';
                         playWithYouTubeAPI(ytId);
-                    } else {
-                        // YouTube modundan çıkılıp normal videoya geçiliyorsa temizlik yap
+                    } else if (interceptedUrl.includes('.m3u8') || interceptedUrl.startsWith('http')) {
+                        // m3u8 Canlı Yayın Akışı Aktifleştiğinde
                         realYtDiv.style.display = 'none';
                         if (ytPlayerInstance && typeof ytPlayerInstance.stopVideo === 'function') {
-                            ytPlayerInstance.stopVideo();
+                            try { ytPlayerInstance.stopVideo(); } catch(e) {}
                         }
+                        
+                        bridgeObserver.disconnect();
+                        fakeIframe.setAttribute('src', 'about:blank');
+                        bridgeObserver.observe(fakeIframe, { attributes: true });
+
                         normalVideoPlayer.style.display = 'block';
+                        playM3u8Stream(interceptedUrl);
                     }
                 }
             });
@@ -532,6 +595,9 @@
         }
 
         function playWithYouTubeAPI(videoId) {
+            if (placeholderPlayer) placeholderPlayer.style.display = 'none';
+            if (loadingOverlay) loadingOverlay.style.display = 'none';
+            
             if (ytPlayerInstance && typeof ytPlayerInstance.loadVideoById === 'function') {
                 ytPlayerInstance.loadVideoById({
                     videoId: videoId,
