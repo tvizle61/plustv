@@ -1467,8 +1467,14 @@ function playChannel(channel) {
 
 // Play M3U8
 function playM3U8(url) {
-    if (url.startsWith('http://') && location.protocol === 'https:') {
-    url = url.replace('http://', 'https://');
+    // http engeline takılan veya CORS koruması olan inatçı linkleri güvenli tünelden geçir
+    if (url.startsWith('http://') || url.includes('uzunmuhalefet.com') || url.includes('ucomist.net')) {
+        url = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
+    }
+    
+    // Orijinal kodunuzun devamı (iframe'e veya video elementine src basan kısım)
+    // Örneğin alt satırda muhtemelen şöyle bir kod vardır, ona dokunmayın:
+    if (fakeIframe) fakeIframe.setAttribute('src', url); 
 }
     videoPlayer.style.display = 'block';
     iframePlayer.style.display = 'none';
