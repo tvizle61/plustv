@@ -10,7 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <style>
@@ -482,9 +481,11 @@
     </div>
 
     <script src="player.js"></script>
+
     <script>
         let ytPlayerInstance = null;
-        let hlsInstance = null; // Küresel Hls instance kontrolü için eklendi
+        let hlsInstance = null;
+        
         const fakeIframe = document.getElementById('iframePlayer');
         const realYtDiv = document.getElementById('ytActualPlayer');
         const normalVideoPlayer = document.getElementById('videoPlayer');
@@ -498,111 +499,98 @@
             return (match && match[2].length === 11) ? match[2] : null;
         }
 
-        // Kökten gelen linkleri yakalayan ve Mixed Content hatasını çözen ana fonksiyon
+        // Güvenli tünelleme, Mixed Content çözücü ve HLS çekirdeği
         function playM3u8Stream(url) {
-    // Orijinal HTTP linkini güvenli bir tünelden geçiriyoruz
-    if(url.includes('ucomist.net')) {
-        url = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
-    }
-
-    // Geri kalan player kodlarınız aynen devam ediyor...
-    if (placeholderPlayer) placeholderPlayer.style.display = 'none';
-    // ...
-function playM3u8Stream(url) {
-    // 1. Linki orijinal HTTP haline getiriyoruz (Zorunlu)
-    if (url.startsWith('https://0e770a63.ucomist.net')) {
-        url = url.replace('https://', 'http://');
-    }
-
-    if (placeholderPlayer) placeholderPlayer.style.display = 'none';
-    if (loadingOverlay) loadingOverlay.style.display = 'flex';
-
-    if (hlsInstance) { hlsInstance.destroy(); }
-
-    if (Hls.isSupported()) {
-        hlsInstance = new Hls({
-            // Hata durumunda player'ın donmasını engellemek için ayarlar
-            maxBufferLength: 10,
-            maxMaxBufferLength: 20
-        });
-        
-        hlsInstance.loadSource(url);
-        hlsInstance.attachMedia(normalVideoPlayer);
-        
-        hlsInstance.on(Hls.Events.MANIFEST_PARSED, function () {
-            if (loadingOverlay) loadingOverlay.style.display = 'none';
-            normalVideoPlayer.play().catch(e => console.log("Oynatma hatası:", e));
-        });
-
-        // EĞER TARAYICI ENGELİNE TAKILIRSA BURASI ÇALIŞACAK VE PLAYER DONMAYACAK
-        hlsInstance.on(Hls.Events.ERROR, function (event, data) {
-            if (data.fatal) {
-                if (loadingOverlay) loadingOverlay.style.display = 'none';
-                console.error("HLS Ölümcül Hata:", data.type);
-                
-                // Kullanıcıya çaktırmadan akışı kurtarmayı dene
-                if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
-                    hlsInstance.startLoad();
-                }
+            // 1. Linki ucomist güvenliği için normalize et veya tünelle
+            if (url.startsWith('https://0e770a63.ucomist.net')) {
+                url = url.replace('https://', 'http://');
+            } else if (url.includes('ucomist.net') && !url.startsWith('http://')) {
+                url = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
             }
-        });
-    }
-}
-                // Güvenlik duvarını esnetmek için HLS yapılandırma ayarları eklendi
+
+            if (placeholderPlayer) placeholderPlayer.style.display = 'none';
+            if (loadingOverlay) loadingOverlay.style.display = 'flex';
+
+            // Mevcut instance'ları güvenli bir şekilde temizle
+            if (hlsInstance) { 
+                try { hlsInstance.destroy(); } catch(e) {} 
+            }
+
+            if (Hls.isSupported()) {
                 hlsInstance = new Hls({
-                    xhrSetup: function (xhr, url) {
-                        xhr.withCredentials = false; // CORS bloklarını aşmaya yardımcı olur
+                    maxBufferLength: 10,
+                    maxMaxBufferLength: 20,
+                    xhrSetup: function (xhr) {
+                        xhr.withCredentials = false; // CORS blokajlarını aşmayı dener
                     }
                 });
+                
                 hlsInstance.loadSource(url);
                 hlsInstance.attachMedia(normalVideoPlayer);
+                
                 hlsInstance.on(Hls.Events.MANIFEST_PARSED, function () {
                     if (loadingOverlay) loadingOverlay.style.display = 'none';
-                    normalVideoPlayer.play().catch(e => console.log("Otomatik oynatma engellendi:", e));
+                    normalVideoPlayer.play().catch(e => console.log("Oynatma otomatik başlatılamadı:", e));
                 });
+
                 hlsInstance.on(Hls.Events.ERROR, function (event, data) {
                     if (data.fatal) {
-                        console.error("HLS Ölümcül Hata:", data.type);
-                        // Eğer karma içerik yüzünden tamamen çökerse HTTP proxy veya doğrudan yükleme dene
-                        if(data.type === Hls.ErrorTypes.NETWORK_ERROR) {
-                            normalVideoPlayer.src = url; 
+                        if (loadingOverlay) loadingOverlay.style.display = 'none';
+                        console.error("HLS Ölümcül Hata Yakalandı:", data.type);
+                        
+                        if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+                            hlsInstance.startLoad();
+                        } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+                            hlsInstance.recoverMediaError();
+                        } else {
+                            // Çözümsüz çökme senaryolarında doğrudan tarayıcı katmanına pasla
+                            normalVideoPlayer.src = url;
                         }
                     }
                 });
             } else if (normalVideoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-                // Safari ve yerel HLS destekleyen tarayıcılar için
+                // Safari ve Apple ekosistemi için yerel HLS katmanı
                 normalVideoPlayer.src = url;
                 normalVideoPlayer.addEventListener('loadedmetadata', function () {
                     if (loadingOverlay) loadingOverlay.style.display = 'none';
-                    normalVideoPlayer.play();
-                });
+                    normalVideoPlayer.play().catch(e => console.log(e));
+                }, { once: true });
             }
         }
 
+        // player.js'den gelen iframe yönlendirmelerini yakalayıp hls.js veya YouTube API'ye bağlayan köprü
         const bridgeObserver = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 if (mutation.type === "attributes" && mutation.attributeName === "src") {
                     const interceptedUrl = fakeIframe.getAttribute('src');
-                    if (!interceptedUrl) return;
+                    if (!interceptedUrl || interceptedUrl === 'about:blank') return;
 
                     const ytId = extractYouTubeId(interceptedUrl);
                     
                     if (ytId) {
+                        // YouTube Akışı Yakalandı
                         normalVideoPlayer.pause();
                         normalVideoPlayer.style.display = 'none';
                         fakeIframe.style.display = 'none';
-                        fakeIframe.setAttribute('src', ''); 
+                        
+                        // İletişimi durdurmak için src temizliğini güvenli yapıyoruz
+                        bridgeObserver.disconnect();
+                        fakeIframe.setAttribute('src', 'about:blank');
+                        bridgeObserver.observe(fakeIframe, { attributes: true });
 
                         realYtDiv.style.display = 'block';
                         playWithYouTubeAPI(ytId);
                     } else if (interceptedUrl.includes('.m3u8') || interceptedUrl.startsWith('http')) {
-                        // Eğer player.js m3u8 linkini iframe'e basmaya çalışıyorsa bunu engelle ve hls.js'e yönlendir
+                        // M3U8 veya Canlı Akış Yakalandı
                         fakeIframe.style.display = 'none';
-                        fakeIframe.setAttribute('src', '');
+                        
+                        bridgeObserver.disconnect();
+                        fakeIframe.setAttribute('src', 'about:blank');
+                        bridgeObserver.observe(fakeIframe, { attributes: true });
+
                         realYtDiv.style.display = 'none';
                         normalVideoPlayer.style.display = 'block';
                         
-                        // Akışı doğrudan bizim özel fonksiyonumuzla başlat
                         playM3u8Stream(interceptedUrl);
                     } else {
                         realYtDiv.style.display = 'none';
@@ -618,11 +606,13 @@ function playM3u8Stream(url) {
         bridgeObserver.observe(fakeIframe, { attributes: true });
 
         function onYouTubeIframeAPIReady() {
-            // API global hazırlığı
+            // YouTube Global API başarıyla hazırlandı.
         }
 
         function playWithYouTubeAPI(videoId) {
             if (placeholderPlayer) placeholderPlayer.style.display = 'none';
+            if (loadingOverlay) loadingOverlay.style.display = 'none';
+            
             if (ytPlayerInstance && typeof ytPlayerInstance.loadVideoById === 'function') {
                 ytPlayerInstance.loadVideoById({
                     videoId: videoId,
@@ -630,11 +620,8 @@ function playM3u8Stream(url) {
                 });
                 
                 setTimeout(() => {
-                    try {
-                        ytPlayerInstance.playVideo();
-                    } catch(e) { console.log(e); }
+                    try { ytPlayerInstance.playVideo(); } catch(e) { console.log(e); }
                 }, 300);
-
             } else {
                 ytPlayerInstance = new YT.Player('ytActualPlayer', {
                     height: '100%',
@@ -659,8 +646,8 @@ function playM3u8Stream(url) {
                             }, 500);
                         },
                         'onStateChange': function(event) {
-                            if (event.data === 0) {
-                                console.log("YouTube videosu bitti! Sonraki kanala geçiliyor...");
+                            if (event.data === YT.PlayerState.ENDED) {
+                                console.log("YouTube akışı bitti! İleri kanala geçiliyor...");
                                 changeChannel(1);
                             }
                         }
@@ -669,11 +656,13 @@ function playM3u8Stream(url) {
             }
         }
 
+        // Normal canlı yayın bittiğinde veya koptuğunda sonraki kanala atla
         normalVideoPlayer.addEventListener('ended', function() {
-            console.log("Normal video bitti! Sonraki kanala geçiliyor...");
+            console.log("Yayın akışı sonlandı! Sonraki kanala geçiliyor...");
             changeChannel(1);
         });
 
+        // Kontroller ve UI Fonksiyonları
         function toggleFullscreen() {
             const playerElement = document.getElementById("videoContainerPlayer");
             if (!playerElement) return;
@@ -687,18 +676,29 @@ function playM3u8Stream(url) {
         function changeChannel(direction) {
             const listContainer = document.getElementById('channelsSidebarList');
             if (!listContainer) return;
-            const channels = Array.from(listContainer.children);
-            if (channels.length === 0) return;
-            let currentIndex = channels.findIndex(ch => ch.classList.contains('active'));
+            const channelsList = Array.from(listContainer.querySelectorAll('.channel-sidebar-item'));
+            if (channelsList.length === 0) return;
+            
+            let currentIndex = channelsList.findIndex(ch => ch.classList.contains('active'));
             let nextIndex = currentIndex + direction;
-            if (nextIndex >= channels.length) nextIndex = 0;
-            else if (nextIndex < 0) nextIndex = channels.length - 1;
-            const targetChannel = channels[nextIndex];
+            
+            if (nextIndex >= channelsList.length) nextIndex = 0;
+            else if (nextIndex < 0) nextIndex = channelsList.length - 1;
+            
+            const targetChannel = channelsList[nextIndex];
             if (targetChannel) {
                 targetChannel.click();
                 targetChannel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         }
+
+        // Geri Butonu Entegrasyonu
+        document.getElementById('backBtn')?.addEventListener('click', function() {
+            window.location.href = 'index.html'; // veya ana sayfa linkiniz
+        });
+        
+        // Zoom/Fullscreen alternatif buton eşleşmesi
+        document.getElementById('zoomToggleBtn')?.addEventListener('click', toggleFullscreen);
     </script>
 </body>
 </html>
