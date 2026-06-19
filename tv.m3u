@@ -24,10 +24,7 @@ https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/atv/atv_1080p.m3u8
 https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/atv/atv_480p.m3u8
 #EXTINF:0 CUID="2" tvg-name="9. ATV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Atv_logo_2010.svg/3840px-Atv_logo_2010.svg.png" group-title="Ulusal", 9.ATV
 https://zeus324232.cfd/xatv/index.m3u8
-#EXTINF:0 CUID="2" tvg-name="9. ATV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Atv_logo_2010.svg/3840px-Atv_logo_2010.svg.png" group-title="Ulusal", 9.ATV
-https://streams.uzunmuhalefet.com/stream/c8758555-8581-4dec-9a46-ebcfaf9ace0a.m3u8
-#EXTINF:0 CUID="2" tvg-name="9. ATV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Atv_logo_2010.svg/3840px-Atv_logo_2010.svg.png" group-title="Ulusal", 9.ATV-
-https://api.allorigins.win/raw?url=https://streams.uzunmuhalefet.com/stream/c8758555-8581-4dec-9a46-ebcfaf9ace0a.m3u8
+
 #EXTINF:0 CUID="4" tvg-name="10.NOW TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/NOW_TV_%28Turkey%29_wordmark-red.svg/960px-NOW_TV_%28Turkey%29_wordmark-red.png" group-title="Ulusal", 10.NOW TV
 https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8
 #EXTINF:-1 tvg-id="bein_sport" tvg-name="BeIN Sport 1" tvg-language="Turkish" tvg-country="TR" tvg-logo="https://seeklogo.com/images/B/bein-sports-1-logo-4E5E4AE6B8-seeklogo.com.png" group-title="BeINSports",BeIN Sport 1
@@ -1248,3 +1245,55 @@ http://0e770a63.ucomist.net/iptv/3HYPASK67VVUSL/7355/index.m3u8
 http://0e770a63.ucomist.net/iptv/3HYPASK67VVUSL/2007/index.m3u8
 #EXTINF:-1, group-title="Yurt Dışı",V SPORT
 http://0e770a63.ucomist.net/iptv/3HYPASK67VVUSL/2229/index.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",beIN SporTS 1
+https://netSpor.tecostream.xyz/bs1.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",beIN SporTS 2
+https://netSpor.tecostream.xyz/bs2.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",beIN SporTS 3
+https://netSpor.tecostream.xyz/bs3.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",beIN SporTS 4
+https://netSpor.tecostream.xyz/bs4.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",beIN SporTS 5
+https://netSpor.tecostream.xyz/bs5.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",S Sport
+https://netSpor.tecostream.xyz/ss1.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",S Sport 2
+https://netSpor.tecostream.xyz/ss2.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Tivibu Spor
+https://netSpor.tecostream.xyz/ts.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Tivibu Spor 1
+https://netSpor.tecostream.xyz/ts1.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Tivibu Spor 2
+https://netSpor.tecostream.xyz/ts2.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Tivibu Spor 3
+https://netSpor.tecostream.xyz/ts3.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Tivibu Spor 4
+https://netSpor.tecostream.xyz/ts4.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Smart Spor
+https://netSpor.tecostream.xyz/sm1.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Smart Spor 2
+https://netSpor.tecostream.xyz/sm2.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",EuroSport 1
+https://netSpor.tecostream.xyz/es1.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",EuroSport 1
+https://netSpor.tecostream.xyz/es2.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Cbs Sport
+https://netSpor.tecostream.xyz/cbcs.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Exxen
+https://netSpor.tecostream.xyz/exn.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Exxen 1
+https://netSpor.tecostream.xyz/exn1.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Exxen 2
+https://netSpor.tecostream.xyz/exn2.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Exxen 3
+https://netSpor.tecostream.xyz/exn3.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Exxen 4
+https://netSpor.tecostream.xyz/exn4.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Exxen 5
+https://netSpor.tecostream.xyz/exn5.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Exxen 6
+https://netSpor.tecostream.xyz/exn6.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Exxen 7
+https://netSpor.tecostream.xyz/exn7.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/kadirsener1/tvmyeni/refs/heads/main/bg.JPG" group-title="Spor",Exxen 8
+https://netSpor.tecostream.xyz/exn8.m3u8
