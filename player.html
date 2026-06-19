@@ -499,21 +499,27 @@
         }
 
         // Kökten gelen linkleri yakalayan ve Mixed Content hatasını çözen ana fonksiyon
-        function playM3u8Stream(url) {
-            // Eğer github.io üzerindeysek ve link düz HTTP ise HTTPS'e zorlamayı dene
-            if (window.location.protocol === 'https:' && url.startsWith('http://')) {
-                // Alternatif olarak doğrudan akışı hls.js ile çalıştırmayı dene
-                console.log("Güvensiz HTTP akışı tespit edildi, bypass deneniyor:", url);
-            }
+   function playM3u8Stream(url) {
+    // Başına ücretsiz bir CORS proxy köprüsü ekliyoruz
+    // Bu sayede HTTPS site üzerinden HTTP link güvenli bir tünelden akar
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/"; 
+    const bypassUrl = url.startsWith('http://') ? proxyUrl + url : url;
 
-            if (placeholderPlayer) placeholderPlayer.style.display = 'none';
-            if (loadingOverlay) loadingOverlay.style.display = 'flex';
+    if (placeholderPlayer) placeholderPlayer.style.display = 'none';
+    if (loadingOverlay) loadingOverlay.style.display = 'flex';
 
-            if (hlsInstance) {
-                hlsInstance.destroy();
-            }
+    if (hlsInstance) { hlsInstance.destroy(); }
 
-            if (Hls.isSupported()) {
+    if (Hls.isSupported()) {
+        hlsInstance = new Hls();
+        hlsInstance.loadSource(bypassUrl); // Proxy'li linki yüklüyoruz
+        hlsInstance.attachMedia(normalVideoPlayer);
+        hlsInstance.on(Hls.Events.MANIFEST_PARSED, function () {
+            if (loadingOverlay) loadingOverlay.style.display = 'none';
+            normalVideoPlayer.play().catch(e => console.log(e));
+        });
+    }
+}
                 // Güvenlik duvarını esnetmek için HLS yapılandırma ayarları eklendi
                 hlsInstance = new Hls({
                     xhrSetup: function (xhr, url) {
