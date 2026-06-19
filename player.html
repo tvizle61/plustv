@@ -499,6 +499,15 @@
         }
 
         // Kökten gelen linkleri yakalayan ve Mixed Content hatasını çözen ana fonksiyon
+        function playM3u8Stream(url) {
+    // Orijinal HTTP linkini güvenli bir tünelden geçiriyoruz
+    if(url.includes('ucomist.net')) {
+        url = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
+    }
+
+    // Geri kalan player kodlarınız aynen devam ediyor...
+    if (placeholderPlayer) placeholderPlayer.style.display = 'none';
+    // ...
 function playM3u8Stream(url) {
     // 1. Linki orijinal HTTP haline getiriyoruz (Zorunlu)
     if (url.startsWith('https://0e770a63.ucomist.net')) {
