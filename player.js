@@ -1467,9 +1467,16 @@ function playChannel(channel) {
 
 // Play M3U8
 function playM3U8(url) {
-    if (url.startsWith('http://') && location.protocol === 'https:') {
-    url = url.replace('http://', 'https://');
-}
+    // KÜÇÜK AMA ÖNEMLİ DOKUNUŞ: Eğer link ucomist.net ise HTTPS'e çevirme engeli koyuyoruz.
+    // Diğer kanallar normal sisteminde dönmeye devam eder.
+    if (url && url.includes('ucomist.net')) {
+        if (url.startsWith('https://')) {
+            url = url.replace('https://', 'http://');
+        }
+    } else if (url.startsWith('http://') && location.protocol === 'https:') {
+        url = url.replace('http://', 'https://');
+    }
+
     videoPlayer.style.display = 'block';
     iframePlayer.style.display = 'none';
     if (currentChannel && videoPlayer) {
@@ -1484,7 +1491,6 @@ function playM3U8(url) {
     setupVideoControls();
     
     if (typeof Hls === 'undefined') {
-        // Hata mesajı kaldırıldı - sessiz çalış
         console.warn('HLS.js yüklenemedi');
         loadingPlayer.classList.remove('active');
         return;
@@ -1511,20 +1517,19 @@ function playM3U8(url) {
         
         const hls = new Hls({
             enableWorker: true,
-            lowLatencyMode: true, // Enable for faster loading
+            lowLatencyMode: true,
             debug: false,
-            maxBufferLength: 30, // Reduced buffer for faster start
+            maxBufferLength: 30,
             maxMaxBufferLength: 60,
-            maxBufferSize: 60 * 1000 * 1000, // 30MB max buffer (reduced for faster start)
-            startLevel: 0, // Auto start level
-            capLevelToPlayerSize: false, // Auto adjust quality
-            startFragPrefetch: true, // Prefetch first fragment
-            testBandwidth: false, // Disable bandwidth testing for faster start
-            progressive: false, // Use HLS.js instead of native
+            maxBufferSize: 60 * 1000 * 1000,
+            startLevel: 0,
+            capLevelToPlayerSize: false,
+            startFragPrefetch: true,
+            testBandwidth: false,
+            progressive: false,
             xhrSetup: function(xhr, url) {
                 xhr.withCredentials = false;
-                // Set timeout for faster failure detection
-                xhr.timeout = 10000; // 8 seconds timeout
+                xhr.timeout = 10000;
             }
         });
         
@@ -1545,7 +1550,6 @@ function playM3U8(url) {
         // Loading'i daha erken kaldırmak için fragment loading event'lerini dinle
         let firstFragmentLoaded = false;
         hls.on(Hls.Events.FRAG_LOADED, () => {
-            // İlk fragment yüklendiğinde loading'i kaldır
             if (!firstFragmentLoaded && loadingPlayer && loadingPlayer.classList.contains('active')) {
                 firstFragmentLoaded = true;
                 loadingPlayer.classList.remove('active');
@@ -1554,10 +1558,20 @@ function playM3U8(url) {
         });
         
         hls.on(Hls.Events.LEVEL_LOADED, () => {
-            // Level yüklendiğinde de loading'i kaldır (fallback)
             if (loadingPlayer && loadingPlayer.classList.contains('active')) {
                 loadingPlayer.classList.remove('active');
                 if (videoPlaceholderPlayer) videoPlaceholderPlayer.style.display = 'none';
+            }
+        });
+
+        // EKSTRA: Kanal çöktüğünde veya engellendiğinde player'ın kilitlenip kalmasını önler
+        hls.on(Hls.Events.ERROR, function (event, data) {
+            if (data.fatal) {
+                console.warn('Kanal yüklenemedi, donma engellendi:', data.type);
+                if (loadingPlayer && loadingPlayer.classList.contains('active')) {
+                    loadingPlayer.classList.remove('active');
+                }
+                hls.destroy();
             }
         });
         
