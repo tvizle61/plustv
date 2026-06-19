@@ -1535,12 +1535,32 @@ function playM3U8(url) {
         videoPlayer.src = '';
         videoPlayer.load();
         
+        // URL'deki hatalı HTTPS'i çalışan kanallar gibi HTTP'ye çeviriyoruz
+        if (url && url.startsWith('https://0e770a63.ucomist.net')) {
+            url = url.replace('https://', 'http://');
+        }
+
+        // HLS Oynatıcı Ayarları ve Donma Engelleme
+        hls.config.manifestLoadingTimeOut = 5000;
+        hls.config.manifestLoadingMaxRetry = 1;
+
         // HLS'yi yükle
         hls.loadSource(url);
         hls.attachMedia(videoPlayer);
         
         let manifestParsed = false;
         let timeout;
+
+        // Eğer kanal tamamen çökmüşse veya açılmıyorsa player'ın kilitlenmesini önle
+        hls.on(Hls.Events.ERROR, function (event, data) {
+            if (data.fatal) {
+                console.error("Yayın yüklenemedi, donma engellendi:", data.type);
+                if (typeof loadingOverlay !== 'undefined' && loadingOverlay) {
+                    loadingOverlay.style.display = 'none';
+                }
+                hls.destroy();
+            }
+        });
         
         // Loading'i daha erken kaldırmak için fragment loading event'lerini dinle
         let firstFragmentLoaded = false;
