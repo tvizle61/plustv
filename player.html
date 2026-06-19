@@ -499,11 +499,11 @@
         }
 
         // Kökten gelen linkleri yakalayan ve Mixed Content hatasını çözen ana fonksiyon
-   function playM3u8Stream(url) {
-    // Başına ücretsiz bir CORS proxy köprüsü ekliyoruz
-    // Bu sayede HTTPS site üzerinden HTTP link güvenli bir tünelden akar
-    const proxyUrl = "https://cors-anywhere.herokuapp.com/"; 
-    const bypassUrl = url.startsWith('http://') ? proxyUrl + url : url;
+function playM3u8Stream(url) {
+    // 1. Linki orijinal HTTP haline getiriyoruz (Zorunlu)
+    if (url.startsWith('https://0e770a63.ucomist.net')) {
+        url = url.replace('https://', 'http://');
+    }
 
     if (placeholderPlayer) placeholderPlayer.style.display = 'none';
     if (loadingOverlay) loadingOverlay.style.display = 'flex';
@@ -511,12 +511,31 @@
     if (hlsInstance) { hlsInstance.destroy(); }
 
     if (Hls.isSupported()) {
-        hlsInstance = new Hls();
-        hlsInstance.loadSource(bypassUrl); // Proxy'li linki yüklüyoruz
+        hlsInstance = new Hls({
+            // Hata durumunda player'ın donmasını engellemek için ayarlar
+            maxBufferLength: 10,
+            maxMaxBufferLength: 20
+        });
+        
+        hlsInstance.loadSource(url);
         hlsInstance.attachMedia(normalVideoPlayer);
+        
         hlsInstance.on(Hls.Events.MANIFEST_PARSED, function () {
             if (loadingOverlay) loadingOverlay.style.display = 'none';
-            normalVideoPlayer.play().catch(e => console.log(e));
+            normalVideoPlayer.play().catch(e => console.log("Oynatma hatası:", e));
+        });
+
+        // EĞER TARAYICI ENGELİNE TAKILIRSA BURASI ÇALIŞACAK VE PLAYER DONMAYACAK
+        hlsInstance.on(Hls.Events.ERROR, function (event, data) {
+            if (data.fatal) {
+                if (loadingOverlay) loadingOverlay.style.display = 'none';
+                console.error("HLS Ölümcül Hata:", data.type);
+                
+                // Kullanıcıya çaktırmadan akışı kurtarmayı dene
+                if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+                    hlsInstance.startLoad();
+                }
+            }
         });
     }
 }
