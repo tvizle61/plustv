@@ -484,15 +484,65 @@
     <script src="player.js"></script>
     <script>
         let ytPlayerInstance = null;
+        let hlsInstance = null; // Küresel Hls instance kontrolü için eklendi
         const fakeIframe = document.getElementById('iframePlayer');
         const realYtDiv = document.getElementById('ytActualPlayer');
         const normalVideoPlayer = document.getElementById('videoPlayer');
+        const loadingOverlay = document.getElementById('loadingPlayer');
+        const placeholderPlayer = document.getElementById('videoPlaceholderPlayer');
 
         function extractYouTubeId(url) {
             if (!url) return null;
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             const match = url.match(regExp);
             return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        // Kökten gelen linkleri yakalayan ve Mixed Content hatasını çözen ana fonksiyon
+        function playM3u8Stream(url) {
+            // Eğer github.io üzerindeysek ve link düz HTTP ise HTTPS'e zorlamayı dene
+            if (window.location.protocol === 'https:' && url.startsWith('http://')) {
+                // Alternatif olarak doğrudan akışı hls.js ile çalıştırmayı dene
+                console.log("Güvensiz HTTP akışı tespit edildi, bypass deneniyor:", url);
+            }
+
+            if (placeholderPlayer) placeholderPlayer.style.display = 'none';
+            if (loadingOverlay) loadingOverlay.style.display = 'flex';
+
+            if (hlsInstance) {
+                hlsInstance.destroy();
+            }
+
+            if (Hls.isSupported()) {
+                // Güvenlik duvarını esnetmek için HLS yapılandırma ayarları eklendi
+                hlsInstance = new Hls({
+                    xhrSetup: function (xhr, url) {
+                        xhr.withCredentials = false; // CORS bloklarını aşmaya yardımcı olur
+                    }
+                });
+                hlsInstance.loadSource(url);
+                hlsInstance.attachMedia(normalVideoPlayer);
+                hlsInstance.on(Hls.Events.MANIFEST_PARSED, function () {
+                    if (loadingOverlay) loadingOverlay.style.display = 'none';
+                    normalVideoPlayer.play().catch(e => console.log("Otomatik oynatma engellendi:", e));
+                });
+                hlsInstance.on(Hls.Events.ERROR, function (event, data) {
+                    if (data.fatal) {
+                        console.error("HLS Ölümcül Hata:", data.type);
+                        // Eğer karma içerik yüzünden tamamen çökerse HTTP proxy veya doğrudan yükleme dene
+                        if(data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+                            normalVideoPlayer.src = url; 
+                        }
+                    }
+                });
+            } else if (normalVideoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                // Safari ve yerel HLS destekleyen tarayıcılar için
+                normalVideoPlayer.src = url;
+                normalVideoPlayer.addEventListener('loadedmetadata', function () {
+                    if (loadingOverlay) loadingOverlay.style.display = 'none';
+                    normalVideoPlayer.play();
+                });
+            }
         }
 
         const bridgeObserver = new MutationObserver(function(mutations) {
@@ -504,17 +554,23 @@
                     const ytId = extractYouTubeId(interceptedUrl);
                     
                     if (ytId) {
-                        // Normal video oynatıcısını durdur ve gizle
                         normalVideoPlayer.pause();
                         normalVideoPlayer.style.display = 'none';
-
                         fakeIframe.style.display = 'none';
                         fakeIframe.setAttribute('src', ''); 
 
                         realYtDiv.style.display = 'block';
                         playWithYouTubeAPI(ytId);
+                    } else if (interceptedUrl.includes('.m3u8') || interceptedUrl.startsWith('http')) {
+                        // Eğer player.js m3u8 linkini iframe'e basmaya çalışıyorsa bunu engelle ve hls.js'e yönlendir
+                        fakeIframe.style.display = 'none';
+                        fakeIframe.setAttribute('src', '');
+                        realYtDiv.style.display = 'none';
+                        normalVideoPlayer.style.display = 'block';
+                        
+                        // Akışı doğrudan bizim özel fonksiyonumuzla başlat
+                        playM3u8Stream(interceptedUrl);
                     } else {
-                        // YouTube modundan çıkılıp normal videoya geçiliyorsa temizlik yap
                         realYtDiv.style.display = 'none';
                         if (ytPlayerInstance && typeof ytPlayerInstance.stopVideo === 'function') {
                             ytPlayerInstance.stopVideo();
@@ -532,6 +588,7 @@
         }
 
         function playWithYouTubeAPI(videoId) {
+            if (placeholderPlayer) placeholderPlayer.style.display = 'none';
             if (ytPlayerInstance && typeof ytPlayerInstance.loadVideoById === 'function') {
                 ytPlayerInstance.loadVideoById({
                     videoId: videoId,
