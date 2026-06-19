@@ -7,7 +7,7 @@ let activeTab = 'channels';
 let activeTimeouts = []; // Track all timeouts for cleanup
 let hlsInstance = null; // Track HLS instance
 let allCategories = new Set(); // Tüm kategorileri tutmak için
-const m3uFiles = ['tv.m3u']; // Yüklenecek M3U dosyaları
+const m3uFiles = ['tv.m3u', 'tv1.m3u']; // Yüklenecek M3U dosyaları
 
 // Zoom state
 let zoomLevel = 1.0; // 1.0 = normal, 0.9 = %90, 0.85 = %85, 0.8 = %80
