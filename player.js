@@ -984,3 +984,199 @@ function normalizeCategory(category) {
         .replace(/I/g, 'ı')
         .toLowerCase();
 }
+// ============================================================================
+// PLUS TV - GÜVENLİ MEDYA KÖPRÜSÜ MOTORU ( player.js ENTEGRASYONU )
+// ============================================================================
+(function() {
+    // Sayfa yüklenince elementleri yakala ve hazırla
+    window.addEventListener('DOMContentLoaded', () => {
+        const fakeIframe = document.getElementById('iframePlayer') || document.querySelector('iframe');
+        const videoContainer = document.getElementById('videoContainerPlayer') || document.querySelector('.video-container-player') || document.querySelector('.player-main');
+        
+        if (!fakeIframe || !videoContainer) {
+            console.error("PlusTV Köprüsü: Gerekli HTML elementleri bulunamadı. Orijinal HTML yapısını kontrol edin.");
+            return;
+        }
+
+        // 1. HTML Oynatıcı Elementlerini Dinamik Oluştur (HTML'i bozmamak için)
+        let normalVideoPlayer = document.getElementById('videoPlayer');
+        if (!normalVideoPlayer) {
+            normalVideoPlayer = document.createElement('video');
+            normalVideoPlayer.id = 'videoPlayer';
+            normalVideoPlayer.className = 'video-player';
+            normalVideoPlayer.autoplay = true;
+            normalVideoPlayer.controls = false; // Orijinal alt bar butonları için kapalı
+            normalVideoPlayer.style.cssText = "position:absolute; top:0; left:0; width:100%; height:100%; object-fit:fill; z-index:2; display:none; background:#000;";
+            fakeIframe.parentNode.insertBefore(normalVideoPlayer, fakeIframe);
+        }
+
+        let realYtDiv = document.getElementById('ytActualPlayer');
+        if (!realYtDiv) {
+            realYtDiv = document.createElement('div');
+            realYtDiv.id = 'ytActualPlayer';
+            realYtDiv.style.cssText = "position:absolute; top:0; left:0; width:100%; height:100%; z-index:2; display:none; background:#000;";
+            fakeIframe.parentNode.insertBefore(realYtDiv, fakeIframe);
+        }
+
+        let loadingOverlay = document.getElementById('loadingPlayer');
+        if (!loadingOverlay) {
+            loadingOverlay = document.createElement('div');
+            loadingOverlay.id = 'loadingPlayer';
+            loadingOverlay.style.cssText = "position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; flex-direction:column; align-items:center; justify-content:center; z-index:99; color:#fff; font-family:sans-serif;";
+            loadingOverlay.innerHTML = '<div style="width:40px; height:40px; border:4px solid rgba(255,255,255,0.1); border-left-color:#007bff; border-radius:50%; animation: spin 1s linear infinite; margin-bottom:10px;"></div><p>Yükleniyor...</p>';
+            
+            // Spinner animasyonu ekle
+            if (!document.getElementById('plusTvSpinnerStyle')) {
+                const style = document.createElement('style');
+                style.id = 'plusTvSpinnerStyle';
+                style.innerHTML = "@keyframes spin { to { transform: rotate(360deg); } }";
+                document.head.appendChild(style);
+            }
+            fakeIframe.parentNode.insertBefore(loadingOverlay, fakeIframe);
+        }
+
+        const placeholderPlayer = document.getElementById('videoPlaceholderPlayer');
+
+        let ytPlayerInstance = null;
+        let hlsInstance = null;
+
+        // YouTube ID Ayıklayıcı
+        function extractYouTubeId(url) {
+            if (!url) return null;
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        // M3U8 Akış Oynatıcı (SSL Hatası Çözümlü)
+        function playM3u8Stream(url) {
+            // Görseldeki ERR_CERT_COMMON_NAME_INVALID hatasını engellemek için HTTP'ye köprüle
+            if (url.startsWith('https://0e770a63.ucomist.net')) {
+                url = url.replace('https://', 'http://');
+            } else if (url.includes('ucomist.net') && !url.startsWith('http://')) {
+                url = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
+            }
+
+            if (placeholderPlayer) placeholderPlayer.style.opacity = '0';
+            loadingOverlay.style.display = 'flex';
+
+            if (hlsInstance) { 
+                try { hlsInstance.destroy(); } catch(e) {} 
+            }
+
+            if (typeof Hls !== 'undefined' && Hls.isSupported()) {
+                hlsInstance = new Hls({
+                    maxBufferLength: 10,
+                    maxMaxBufferLength: 20,
+                    xhrSetup: function (xhr) { xhr.withCredentials = false; }
+                });
+                
+                hlsInstance.loadSource(url);
+                hlsInstance.attachMedia(normalVideoPlayer);
+                
+                hlsInstance.on(Hls.Events.MANIFEST_PARSED, function () {
+                    loadingOverlay.style.display = 'none';
+                    normalVideoPlayer.play().catch(e => console.log("Otomatik oynatma engellendi:", e));
+                });
+
+                hlsInstance.on(Hls.Events.ERROR, function (event, data) {
+                    if (data.fatal) {
+                        loadingOverlay.style.display = 'none';
+                        if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+                            hlsInstance.startLoad();
+                        } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+                            hlsInstance.recoverMediaError();
+                        } else {
+                            normalVideoPlayer.src = url;
+                        }
+                    }
+                });
+            } else if (normalVideoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                normalVideoPlayer.src = url;
+                normalVideoPlayer.addEventListener('loadedmetadata', function () {
+                    loadingOverlay.style.display = 'none';
+                    normalVideoPlayer.play().catch(e => console.log(e));
+                }, { once: true });
+            }
+        }
+
+        // YouTube Oynatıcı Motoru
+        function playWithYouTubeAPI(videoId) {
+            if (placeholderPlayer) placeholderPlayer.style.opacity = '0';
+            loadingOverlay.style.display = 'none';
+            
+            if (ytPlayerInstance && typeof ytPlayerInstance.loadVideoById === 'function') {
+                ytPlayerInstance.loadVideoById({ videoId: videoId, startSeconds: 0 });
+                setTimeout(() => {
+                    try { ytPlayerInstance.playVideo(); } catch(e) {}
+                }, 300);
+            } else if (typeof YT !== 'undefined' && YT.Player) {
+                ytPlayerInstance = new YT.Player('ytActualPlayer', {
+                    height: '100%', width: '100%', videoId: videoId,
+                    playerVars: { 'autoplay': 1, 'playsinline': 1, 'controls': 1, 'rel': 0, 'mute': 1 },
+                    events: {
+                        'onReady': function(event) {
+                            event.target.playVideo();
+                            setTimeout(() => {
+                                try { event.target.unMute(); event.target.setVolume(100); } catch(e) {}
+                            }, 500);
+                        },
+                        'onStateChange': function(event) {
+                            if (event.data === YT.PlayerState.ENDED) {
+                                if (typeof changeChannel === 'function') changeChannel(1);
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // 2. Element İzleme Köprüsü (MutationObserver)
+        const bridgeObserver = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === "attributes" && mutation.attributeName === "src") {
+                    const interceptedUrl = fakeIframe.getAttribute('src');
+                    if (!interceptedUrl || interceptedUrl === 'about:blank') return;
+
+                    const ytId = extractYouTubeId(interceptedUrl);
+                    
+                    if (ytId) {
+                        // YouTube Modu Aktif
+                        normalVideoPlayer.pause();
+                        normalVideoPlayer.style.display = 'none';
+                        fakeIframe.style.cssText += "display:none !important; opacity:0 !important; pointer-events:none !important;";
+                        
+                        bridgeObserver.disconnect();
+                        fakeIframe.setAttribute('src', 'about:blank');
+                        bridgeObserver.observe(fakeIframe, { attributes: true });
+
+                        realYtDiv.style.display = 'block';
+                        playWithYouTubeAPI(ytId);
+                    } else if (interceptedUrl.includes('.m3u8') || interceptedUrl.startsWith('http')) {
+                        // HLS (.m3u8) Modu Aktif
+                        if (ytPlayerInstance && typeof ytPlayerInstance.pauseVideo === 'function') {
+                            try { ytPlayerInstance.pauseVideo(); } catch(e) {}
+                        }
+                        realYtDiv.style.display = 'none';
+                        fakeIframe.style.cssText += "display:none !important; opacity:0 !important; pointer-events:none !important;";
+                        
+                        bridgeObserver.disconnect();
+                        fakeIframe.setAttribute('src', 'about:blank');
+                        bridgeObserver.observe(fakeIframe, { attributes: true });
+
+                        normalVideoPlayer.style.display = 'block';
+                        playM3u8Stream(interceptedUrl);
+                    }
+                }
+            });
+        });
+
+        // İzleyiciyi başlat
+        bridgeObserver.observe(fakeIframe, { attributes: true });
+
+        // Normal yayın biterse sonraki kanala geç
+        normalVideoPlayer.addEventListener('ended', function() {
+            if (typeof changeChannel === 'function') changeChannel(1);
+        });
+    });
+})();
