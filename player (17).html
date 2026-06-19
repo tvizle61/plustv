@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="screen-orientation" content="auto">
+    <title>PlusTV - Video Player</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <style>
+        /* --- SIDEBAR AYARLARI (220px) --- */
+        .player-sidebar {
+            width: 220px;
+            display: flex;
+            flex-direction: column;
+            background: #111;
+            border-right: 1px solid #222;
+            height: 100vh;
+            flex-shrink: 0;
+        }
+
+        /* --- ÜST KISIMLARIN DARALTILMASI --- */
+        .sidebar-header {
+            height: 32px !important; 
+            min-height: 32px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            padding: 0 8px !important;
+            border-bottom: 1px solid #222;
+            box-sizing: border-box !important;
+        }
+
+        .back-btn {
+            background: transparent !important;
+            border: none !important;
+            color: #fff !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 4px !important;
+            cursor: pointer;
+            padding: 2px 4px !important;
+            font-size: 11px !important;
+        }
+
+        .back-btn svg {
+            width: 14px !important; 
+            height: 14px !important;
+        }
+
+        #sidebarCategoryTitle {
+            font-size: 11px !important; 
+            margin: 0 !important;
+            font-weight: 600 !important;
+            color: #ccc;
+        }
+
+        .zoom-toggle-btn {
+            background: transparent !important;
+            border: none !important;
+            color: #fff !important;
+            cursor: pointer;
+            padding: 2px !important;
+            display: flex !important;
+            align-items: center !important;
+        }
+
+        .zoom-toggle-btn svg {
+            width: 14px !important; 
+            height: 14px !important;
+        }
+
+        /* --- DAHA DA GENİŞLETİLEN SEKME BUTONLARI --- */
+        .sidebar-tabs {
+            display: flex !important;
+            height: 48px !important; 
+            min-height: 48px !important;
+            border-bottom: 1px solid #222;
+            background: #151515;
+            box-sizing: border-box !important;
+        }
+
+        .tab-btn {
+            flex: 1 !important;
+            background: transparent !important;
+            border: none !important;
+            color: #888 !important;
+            font-size: 13px !important; 
+            font-weight: 600 !important;
+            cursor: pointer;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            height: 100% !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .tab-btn.active {
+            color: #fff !important;
+            background: #222 !important;
+        }
+
+        /* ----------------------------------------------- */
+
+        .channels-sidebar-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            padding: 6px;
+        }
+
+        /* --- KANAL LİSTESİ (MİNİ BOYUT) --- */
+        #channelsSidebarList > * {
+            padding: 4px 6px !important;
+            margin-bottom: 3px !important;
+            min-height: 32px !important;
+            max-height: 32px !important;
+            border-radius: 4px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+
+        #channelsSidebarList > * img,
+        #channelsSidebarList > * .channel-logo,
+        #channelsSidebarList > * [class*="logo"] {
+            width: 20px !important;
+            height: 20px !important;
+            min-width: 20px !important;
+            border-radius: 3px !important;
+            object-fit: contain !important;
+        }
+
+        #channelsSidebarList > * .channel-name,
+        #channelsSidebarList > * h4,
+        #channelsSidebarList > * span,
+        #channelsSidebarList > * div {
+            font-size: 10px !important;
+            font-weight: 500 !important;
+            line-height: 1.2 !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+
+        #channelsSidebarList > * p,
+        #channelsSidebarList > * small,
+        #channelsSidebarList > * .channel-category {
+            font-size: 8px !important;
+            opacity: 0.6;
+            margin: 0 !important;
+            display: block !important;
+        }
+
+        #channelsSidebarList > * .fav-btn,
+        #channelsSidebarList > * .star-icon,
+        #channelsSidebarList > * svg {
+            transform: scale(0.75) !important;
+            margin-left: auto !important;
+        }
+
+        /* --- ÜST KATEGORİ ALANI --- */
+        .player-categories-section {
+            background: #111; 
+            border-bottom: 1px solid #222;
+            width: 100%;
+            height: 44px !important;
+            max-height: 44px !important;
+            display: flex !important;
+            align-items: center !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+        }
+
+        .player-categories-container {
+            display: flex !important;
+            justify-content: flex-start !important; 
+            gap: 5px !important;
+            padding: 0px 10px !important; 
+            flex-wrap: nowrap !important;    
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch;
+            align-items: center !important;
+            height: 100% !important;
+            width: 100% !important;
+        }
+
+        .player-categories-container .category-card,
+        .player-categories-container div[class*="category"],
+        .player-categories-container .active,
+        .player-categories-container .selected,
+        .player-categories-container [class*="active"],
+        .player-categories-container [class*="selected"] {
+            height: 32px !important;
+            max-height: 32px !important;
+            min-height: 32px !important;
+            padding: 0px 6px !important;
+            box-sizing: border-box !important;
+            border-radius: 6px !important;
+            display: inline-flex !important;
+            flex-direction: row !important; 
+            align-items: center !important;
+            justify-content: flex-start !important;
+            gap: 4px !important;
+            width: auto !important; 
+            min-width: max-content !important;
+            flex-shrink: 0 !important;
+            white-space: nowrap !important;
+        }
+
+        /* İkon Ayarları */
+        .category-icon, [class*="category-icon"] {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 14px !important; 
+            height: 14px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            font-size: 12px !important; 
+            flex-shrink: 0 !important;
+        }
+
+        .category-icon img, .category-icon svg, .category-icon i, .category-icon span {
+            width: 14px !important;
+            height: 14px !important;
+            font-size: 12px !important;
+            object-fit: contain !important;
+        }
+
+        .player-categories-container .category-name,
+        .player-categories-container .active .category-name,
+        .player-categories-container .selected .category-name,
+        .player-categories-container div[class*="category"] .category-name,
+        .player-categories-container [class*="active"] span,
+        .player-categories-container [class*="selected"] span,
+        .player-categories-container [class*="active"] div,
+        .player-categories-container [class*="selected"] div {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            color: #ffffff !important;
+            white-space: nowrap !important;   
+            line-height: 32px !important;       
+            text-align: left !important;
+            width: auto !important;
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            flex-shrink: 0 !important;
+        }
+
+        /* --- VİDEO ALANI ANA AYARLARI --- */
+        .player-main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background: #000;
+            height: 100vh;
+        }
+
+        .video-container-player {
+            position: relative !important;
+            flex-grow: 1;
+            background: #000;
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+            overflow: hidden !important;
+        }
+
+        .video-wrapper-inner {
+            position: relative !important;
+            width: 100% !important;
+            height: calc(100% - 44px) !important; 
+            background: #000;
+        }
+
+        .video-player, 
+        .iframe-player,
+        #ytActualPlayer {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: fill !important;
+            z-index: 1 !important;
+        }
+
+        /* --- ESKİ HALİNE GETİRİLEN BÜYÜK ALTTAN KONTROL ŞERİDİ BAR --- */
+        #videoControlsBar {
+            position: relative !important;
+            width: 100% !important;
+            height: 44px !important; 
+            background: #111111 !important;
+            display: flex !important;
+            justify-content: flex-start !important;
+            align-items: center !important;
+            gap: 10px !important;
+            padding: 0 15px !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+            z-index: 999999 !important;
+            box-sizing: border-box !important;
+            flex-shrink: 0 !important;
+        }
+
+        /* --- GERİ VE İLERİ BUTONLARININ BÜYÜTÜLMÜŞ ESKİ HALİ --- */
+        .player-nav-btn {
+            background: #2a2a2a !important;
+            border: 1px solid rgba(255,255,255,0.25) !important;
+            color: #fff !important;
+            padding: 0 20px !important;
+            min-width: 100px !important;
+            font-size: 14px !important; 
+            font-weight: 600 !important;
+            border-radius: 6px !important;         
+            cursor: pointer;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 6px !important;                    
+            user-select: none;
+            height: 34px !important; 
+            line-height: 1 !important;
+            white-space: nowrap !important;
+        }
+
+        .player-nav-btn span {
+            font-size: 16px !important; 
+        }
+
+        /* --- TAM EKRAN BUTONUNUN ESKİ BÜYÜK HALİ --- */
+        #fullscreenBtn { 
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
+            border: 1px solid rgba(255,255,255,0.2) !important; 
+            padding: 0 24px !important;
+            min-width: 140px !important;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.4) !important;
+        }
+
+        .player-content-wrapper {
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+        }
+
+        .video-placeholder-player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+        }
+        
+        /* Placeholder iç ayarları */
+        .placeholder-content h2 { margin: 10px 0 5px 0; font-size: 18px; }
+        .placeholder-content p { margin: 0; opacity: 0.7; font-size: 13px; }
+        .placeholder-content .brand-name { margin-top: 15px; font-weight: bold; color: #007bff; }
+        .placeholder-icon { font-size: 40px; }
+
+        /* Loading Spinner */
+        .loading-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 4;
+            color: #fff;
+        }
+        .spinner {
+            width: 40px; height: 40px;
+            border: 4px solid rgba(255,255,255,0.1);
+            border-left-color: #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 10px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="player-page">
+        <div class="player-content-wrapper">
+            <aside class="player-sidebar">
+                <div class="sidebar-header">
+                    <button class="back-btn" id="backBtn" title="Ana Sayfaya Dön">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        <span>Geri</span>
+                    </button>
+                    <h3 id="sidebarCategoryTitle">Kanallar</h3>
+                    <button class="zoom-toggle-btn" id="zoomToggleBtn" title="Tam ekran">
+                        <svg class="fullscreen-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="sidebar-tabs">
+                    <button class="tab-btn active" data-tab="channels">Kanallar</button>
+                    <button class="tab-btn" data-tab="favorites">⭐ Favoriler</button>
+                </div>
+                
+                <div class="channels-sidebar-list" id="channelsSidebarList">
+                </div>
+            </aside>
+
+            <main class="player-main">
+                <section class="player-categories-section">
+                    <div class="player-categories-container">
+                        <div class="category-card" data-category="all">
+                            <div class="category-icon">📺</div>
+                            <div class="category-name">Tümü</div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="video-container-player" id="videoContainerPlayer">
+                    <div class="video-wrapper-inner">
+                        <div class="video-placeholder-player" id="videoPlaceholderPlayer">
+                            <div class="placeholder-content">
+                                <div class="placeholder-icon">📺</div>
+                                <h2>Bir Kanal Seçin</h2>
+                                <p>Sol taraftaki listeden bir kanal seçin</p>
+                                <p class="brand-name">61 BYD 61</p>
+                            </div>
+                        </div>
+                        
+                        <div class="loading-overlay" id="loadingPlayer">
+                            <div class="spinner"></div>
+                            <p>Yükleniyor...</p>
+                        </div>
+                        
+                        <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
+                        
+                        <iframe id="iframePlayer" class="iframe-player" frameborder="0" style="display: none; pointer-events: none; opacity: 0;"></iframe>
+                        
+                        <div id="ytActualPlayer" style="display: none;"></div>
+                    </div>
+                
+                    <div id="videoControlsBar">
+                        <button class="player-nav-btn" onclick="changeChannel(-1)">
+                            <span>I&#x23EE;</span> Geri
+                        </button>
+                        
+                        <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
+                            <span>&#x26F6;</span> Tam Ekran
+                        </button>
+                        
+                        <button class="player-nav-btn" onclick="changeChannel(1)">
+                            İleri <span>&#x23ED;I</span>
+                        </button>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="player.js"></script>
+    <script>
+        let ytPlayerInstance = null;
+        const fakeIframe = document.getElementById('iframePlayer');
+        const realYtDiv = document.getElementById('ytActualPlayer');
+        const normalVideoPlayer = document.getElementById('videoPlayer');
+
+        function extractYouTubeId(url) {
+            if (!url) return null;
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        const bridgeObserver = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === "attributes" && mutation.attributeName === "src") {
+                    const interceptedUrl = fakeIframe.getAttribute('src');
+                    if (!interceptedUrl) return;
+
+                    const ytId = extractYouTubeId(interceptedUrl);
+                    
+                    if (ytId) {
+                        // Normal video oynatıcısını durdur ve gizle
+                        normalVideoPlayer.pause();
+                        normalVideoPlayer.style.display = 'none';
+
+                        fakeIframe.style.display = 'none';
+                        fakeIframe.setAttribute('src', ''); 
+
+                        realYtDiv.style.display = 'block';
+                        playWithYouTubeAPI(ytId);
+                    } else {
+                        // YouTube modundan çıkılıp normal videoya geçiliyorsa temizlik yap
+                        realYtDiv.style.display = 'none';
+                        if (ytPlayerInstance && typeof ytPlayerInstance.stopVideo === 'function') {
+                            ytPlayerInstance.stopVideo();
+                        }
+                        normalVideoPlayer.style.display = 'block';
+                    }
+                }
+            });
+        });
+
+        bridgeObserver.observe(fakeIframe, { attributes: true });
+
+        function onYouTubeIframeAPIReady() {
+            // API global hazırlığı
+        }
+
+        function playWithYouTubeAPI(videoId) {
+            if (ytPlayerInstance && typeof ytPlayerInstance.loadVideoById === 'function') {
+                ytPlayerInstance.loadVideoById({
+                    videoId: videoId,
+                    startSeconds: 0
+                });
+                
+                setTimeout(() => {
+                    try {
+                        ytPlayerInstance.playVideo();
+                    } catch(e) { console.log(e); }
+                }, 300);
+
+            } else {
+                ytPlayerInstance = new YT.Player('ytActualPlayer', {
+                    height: '100%',
+                    width: '100%',
+                    videoId: videoId,
+                    playerVars: {
+                        'autoplay': 1,
+                        'playsinline': 1,
+                        'controls': 1,
+                        'rel': 0,
+                        'modestbranding': 1,
+                        'mute': 1 
+                    },
+                    events: {
+                        'onReady': function(event) {
+                            event.target.playVideo();
+                            setTimeout(() => {
+                                try {
+                                    event.target.unMute();
+                                    event.target.setVolume(100);
+                                } catch(e) {}
+                            }, 500);
+                        },
+                        'onStateChange': function(event) {
+                            if (event.data === 0) {
+                                console.log("YouTube videosu bitti! Sonraki kanala geçiliyor...");
+                                changeChannel(1);
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        normalVideoPlayer.addEventListener('ended', function() {
+            console.log("Normal video bitti! Sonraki kanala geçiliyor...");
+            changeChannel(1);
+        });
+
+        function toggleFullscreen() {
+            const playerElement = document.getElementById("videoContainerPlayer");
+            if (!playerElement) return;
+            if (!document.fullscreenElement) {
+                playerElement.requestFullscreen().catch(err => console.log(err));
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function changeChannel(direction) {
+            const listContainer = document.getElementById('channelsSidebarList');
+            if (!listContainer) return;
+            const channels = Array.from(listContainer.children);
+            if (channels.length === 0) return;
+            let currentIndex = channels.findIndex(ch => ch.classList.contains('active'));
+            let nextIndex = currentIndex + direction;
+            if (nextIndex >= channels.length) nextIndex = 0;
+            else if (nextIndex < 0) nextIndex = channels.length - 1;
+            const targetChannel = channels[nextIndex];
+            if (targetChannel) {
+                targetChannel.click();
+                targetChannel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+    </script>
+</body>
+</html>
