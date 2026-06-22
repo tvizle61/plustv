@@ -3,7 +3,7 @@ let channels = [];
 let currentCategory = 'all';
 let currentView = localStorage.getItem('channelView') || 'list'; // 'large', 'small', 'list'
 let allCategories = new Set(); // Tüm kategorileri tutmak için
-const m3uFiles = ['tv.m3u']; // Yüklenecek M3U dosyaları
+const m3uFiles = ['tv.m3u', 'tv1.m3u']; // Yüklenecek M3U dosyaları
 
 // DOM Elements
 let searchInput;
