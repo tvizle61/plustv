@@ -85,8 +85,6 @@ https://tv-trtspor1.medya.trt.com.tr/master.m3u8
 https://zeus324232.cfd/xaspor/index.m3u8
 #EXTINF:-1 tvg-id="Cnn Türk" tvg-name="Cnn Türk" group-title="HABER" tvg-logo="https://tvlogolar.xyz/europa/turkey/cnn-turk-tr.png", Cnn Türk
 https://dmxtl.testworkery0.workers.dev/izle/cnnturkhd.m3u8
-#EXTINF:-1 tvg-id="Cnn Türk" tvg-name="Cnn Türk" group-title="HABER" tvg-logo="https://tvlogolar.xyz/europa/turkey/cnn-turk-tr.png", Cnn Türk-
-http://vipru.linetv.net:8004/stream/YWxhZHlufHxSMkZpY25sek1qQXhNQT09/6970/index.m3u8
 
 #EXTINF:-1 tvg-id="TV100.tr" tvg-logo="https://raw.githubusercontent.com/ghokun/tv/main/bin/logo/TV100.tr.png" group-title="Haber",TV 100
 https://tv100-live.daioncdn.net/tv100/tv100_1080p.m3u8
