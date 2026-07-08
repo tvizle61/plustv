@@ -284,7 +284,7 @@
         .video-wrapper-inner {
             position: relative !important;
             width: 100% !important;
-            height: calc(100% - 24px) !important; 
+            height: 100% !important; /* Alt bar kaldırıldığı için sıfıra sıfır 100% yapıldı */
             background: #000;
         }
 
@@ -300,49 +300,50 @@
             z-index: 1 !important;
         }
 
-        /* --- ALTTAN KONTROL ŞERİDİ BAR --- */
+        /* --- SOL BARA TAŞINAN YENİ KONTROL PANELİ AYARLARI --- */
         #videoControlsBar {
-            position: relative !important;
             width: 100% !important;
             height: 44px !important; 
-            background: #111111 !important;
+            background: #151515 !important;
             display: flex !important;
-            justify-content: flex-start !important;
+            justify-content: space-between !important;
             align-items: center !important;
-            gap: 8px !important;
-            padding: 0 12px !important;
-            border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
-            z-index: 999999 !important;
+            gap: 4px !important;
+            padding: 4px 6px !important;
+            border-top: 1px solid #222 !important;
             box-sizing: border-box !important;
             flex-shrink: 0 !important;
         }
 
+        /* Küçültülmüş Buton Stilleri */
         .player-nav-btn {
+            flex: 1 !important;
             background: #2a2a2a !important;
-            border: 1px solid rgba(255,255,255,0.25) !important;
+            border: 1px solid rgba(255,255,255,0.15) !important;
             color: #fff !important;
-            padding: 0 30px !important;
-            min-width: 160px !important;
-            font-size: 14px !important; 
-            font-weight: 700 !important;
-            border-radius: 6px !important;          
+            padding: 0 4px !important;
+            min-width: 0 !important; /* Esnek küçülme için sıfırlandı */
+            font-size: 11px !important; /* Yazı boyutu küçültüldü */
+            font-weight: 600 !important;
+            border-radius: 4px !important;          
             cursor: pointer;
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 6px !important;                    
+            gap: 2px !important;                    
             user-select: none;
-            height: 34px !important; 
+            height: 32px !important; 
             line-height: 1 !important;
             white-space: nowrap !important;
         }
 
+        /* Tam Ekran Buton Özel Rengi */
         #fullscreenBtn { 
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
-            border: 1px solid rgba(255,255,255,0.2) !important; 
-            padding: 0 20px !important;
-            min-width: 120px !important;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.4) !important;
+            border: 1px solid rgba(255,255,255,0.15) !important; 
+            padding: 0 4px !important;
+            min-width: 0 !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4) !important;
         }
 
         .player-content-wrapper {
@@ -387,6 +388,20 @@
                 
                 <div class="channels-sidebar-list" id="channelsSidebarList">
                 </div>
+
+                <div id="videoControlsBar">
+                    <button class="player-nav-btn" onclick="changeChannel(-1)">
+                        <span>I&#x23EE;</span> Geri
+                    </button>
+                    
+                    <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
+                        <span>&#x26F6;</span> Tam Ekran
+                    </button>
+                    
+                    <button class="player-nav-btn" onclick="changeChannel(1)">
+                        İleri <span>&#x23ED;I</span>
+                    </button>
+                </div>
             </aside>
 
             <main class="player-main">
@@ -421,21 +436,6 @@
                         
                         <div id="ytActualPlayer" style="display: none;"></div>
                     </div>
-                
-                    <div id="videoControlsBar">
-                        <button class="player-nav-btn" onclick="changeChannel(-1)">
-                            <span>I&#x23EE;</span> Geri
-                        </button>
-                        
-                        <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
-                            <span>&#x26F6;</span> Tam Ekran
-                        </button>
-                        
-                        <button class="player-nav-btn" onclick="changeChannel(1)">
-                            İleri <span>&#x23ED;I</span>
-                        </button>
-                    </div>
-
                 </div>
             </main>
         </div>
