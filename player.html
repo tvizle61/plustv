@@ -79,7 +79,7 @@
         /* --- DAHA DA GENİŞLETİLEN SEKME BUTONLARI --- */
         .sidebar-tabs {
             display: flex !important;
-            height: 68px !important;
+            height: 68px !important; /* Yükseklik daha rahat bir dokunuş/görünüm için 48px yapıldı */
             min-height: 68px !important;
             border-bottom: 1px solid #222;
             background: #151515;
@@ -91,7 +91,7 @@
             background: transparent !important;
             border: none !important;
             color: #888 !important;
-            font-size: 18px !important;
+            font-size: 18px !important; /* Yazı boyutu buton genişliğine uygun olarak 13px'e çıkarıldı */
             font-weight: 600 !important;
             cursor: pointer;
             display: flex !important;
@@ -107,6 +107,8 @@
             background: #222 !important;
         }
 
+        /* ----------------------------------------------- */
+
         .channels-sidebar-list {
             flex-grow: 1;
             overflow-y: auto;
@@ -115,7 +117,7 @@
             padding: 6px;
         }
 
-        /* --- KANAL LİSTESİ --- */
+        /* --- KANAL LİSTESİ (MİNİ BOYUT - DOKUNULMADI) --- */
         #channelsSidebarList > * {
             padding: 4px 6px !important;
             margin-bottom: 3px !important;
@@ -214,6 +216,7 @@
             white-space: nowrap !important;
         }
 
+        /* İkon Ayarları */
         .category-icon, [class*="category-icon"] {
             display: inline-flex !important;
             align-items: center !important;
@@ -281,7 +284,7 @@
         .video-wrapper-inner {
             position: relative !important;
             width: 100% !important;
-            height: 100% !important;
+            height: 100% !important; /* Alt bar kaldırıldığı için sıfıra sıfır 100% yapıldı */
             background: #000;
         }
 
@@ -297,7 +300,7 @@
             z-index: 1 !important;
         }
 
-        /* --- NORMAL MOD: SOL BAR ALTINDAKİ KONTROL PANELİ --- */
+        /* --- SOL BARA TAŞINAN YENİ KONTROL PANELİ AYARLARI --- */
         #videoControlsBar {
             width: 100% !important;
             height: 44px !important; 
@@ -310,17 +313,17 @@
             border-top: 1px solid #222 !important;
             box-sizing: border-box !important;
             flex-shrink: 0 !important;
-            transition: all 0.2s ease;
         }
 
+        /* Küçültülmüş Buton Stilleri */
         .player-nav-btn {
             flex: 1 !important;
             background: #2a2a2a !important;
             border: 1px solid rgba(255,255,255,0.15) !important;
             color: #fff !important;
             padding: 0 4px !important;
-            min-width: 0 !important;
-            font-size: 11px !important;
+            min-width: 0 !important; /* Esnek küçülme için sıfırlandı */
+            font-size: 11px !important; /* Yazı boyutu küçültüldü */
             font-weight: 600 !important;
             border-radius: 4px !important;          
             cursor: pointer;
@@ -332,51 +335,15 @@
             height: 32px !important; 
             line-height: 1 !important;
             white-space: nowrap !important;
-            transition: all 0.2s ease;
         }
 
+        /* Tam Ekran Buton Özel Rengi */
         #fullscreenBtn { 
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
             border: 1px solid rgba(255,255,255,0.15) !important; 
             padding: 0 4px !important;
             min-width: 0 !important;
             box-shadow: 0 2px 4px rgba(0,0,0,0.4) !important;
-        }
-
-        /* --- TAM EKRAN (FULLSCREEN) MODUNDA BUTONLARIN DAVRANIŞI --- */
-        /* Tarayıcı tam ekrana geçtiğinde video alanının içine mutlak (absolute) olarak sol alta yerleşir */
-        #videoContainerPlayer:fullscreen #videoControlsBar,
-        #videoContainerPlayer:-webkit-full-screen #videoControlsBar {
-            position: absolute !important;
-            bottom: 20px !important;    /* Alt sınırdan biraz yukarıda */
-            left: 20px !important;      /* Sol sınırdan biraz içeride */
-            width: 240px !important;    /* Sabit küçük mini genişlik */
-            height: 34px !important;
-            background: rgba(15, 15, 15, 0.5) !important; /* Şeffaf arka plan */
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-            border-radius: 6px !important;
-            z-index: 2147483647 !important; /* En üstte görünmesi için en yüksek z-index */
-            opacity: 0.4 !important;    /* Varsayılan olarak yüksek şeffaflık */
-            backdrop-filter: blur(4px); /* Arka planı hafif buğular */
-        }
-
-        /* Fare üzerine geldiğinde netleşir */
-        #videoContainerPlayer:fullscreen #videoControlsBar:hover,
-        #videoContainerPlayer:-webkit-full-screen #videoControlsBar:hover {
-            opacity: 0.95 !important;
-        }
-
-        /* Tam ekrandayken içindeki butonların küçülmesi */
-        #videoContainerPlayer:fullscreen #videoControlsBar .player-nav-btn,
-        #videoContainerPlayer:-webkit-full-screen #videoControlsBar .player-nav-btn {
-            height: 26px !important;
-            font-size: 9px !important;
-            background: rgba(42, 42, 42, 0.7) !important;
-        }
-
-        #videoContainerPlayer:fullscreen #videoControlsBar #fullscreenBtn,
-        #videoContainerPlayer:-webkit-full-screen #videoControlsBar #fullscreenBtn {
-            background: linear-gradient(135deg, rgba(0,123,255,0.7) 0%, rgba(0,86,179,0.7) 100%) !important;
         }
 
         .player-content-wrapper {
@@ -398,8 +365,6 @@
 <body>
     <div class="player-page">
         <div class="player-content-wrapper">
-            
-            <!-- Sol Kenar Çubuğu (Sidebar) -->
             <aside class="player-sidebar">
                 <div class="sidebar-header">
                     <button class="back-btn" id="backBtn" title="Ana Sayfaya Dön">
@@ -421,12 +386,24 @@
                     <button class="tab-btn" data-tab="favorites">⭐ Favoriler</button>
                 </div>
                 
-                <!-- Kanal Listesi -->
                 <div class="channels-sidebar-list" id="channelsSidebarList">
+                </div>
+
+                <div id="videoControlsBar">
+                    <button class="player-nav-btn" onclick="changeChannel(-1)">
+                        <span>I&#x23EE;</span> Geri
+                    </button>
+                    
+                    <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
+                        <span>&#x26F6;</span> Tam Ekran
+                    </button>
+                    
+                    <button class="player-nav-btn" onclick="changeChannel(1)">
+                        İleri <span>&#x23ED;I</span>
+                    </button>
                 </div>
             </aside>
 
-            <!-- Sağ Video Alanı (Kontrol barı tam ekranda bunun içine taşınacak şekilde script güncellendi) -->
             <main class="player-main">
                 <section class="player-categories-section">
                     <div class="player-categories-container">
@@ -454,25 +431,11 @@
                         </div>
                         
                         <video id="videoPlayer" class="video-player" autoplay playsinline title="PlusTV"></video>
+                        
                         <iframe id="iframePlayer" class="iframe-player" frameborder="0" style="display: none; pointer-events: none; opacity: 0;"></iframe>
+                        
                         <div id="ytActualPlayer" style="display: none;"></div>
                     </div>
-
-                    <!-- Kontrol Barı videoContainerPlayer'ın içinde duruyor -->
-                    <div id="videoControlsBar">
-                        <button class="player-nav-btn" onclick="changeChannel(-1)">
-                            <span>I&#x23EE;</span> Geri
-                        </button>
-                        
-                        <button class="player-nav-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
-                            <span>&#x26F6;</span> Tam Ekran
-                        </button>
-                        
-                        <button class="player-nav-btn" onclick="changeChannel(1)">
-                            İleri <span>&#x23ED;I</span>
-                        </button>
-                    </div>
-
                 </div>
             </main>
         </div>
@@ -515,7 +478,9 @@
 
         bridgeObserver.observe(fakeIframe, { attributes: true });
 
-        function onYouTubeIframeAPIReady() {}
+        function onYouTubeIframeAPIReady() {
+            // API global hazırlığı
+        }
 
         function playWithYouTubeAPI(videoId) {
             if (ytPlayerInstance && typeof ytPlayerInstance.loadVideoById === 'function') {
